@@ -1,49 +1,42 @@
 # NextFrame
 
-A curated collection of AI-generated video series from Douyin. Episodes are
-played through Douyin's official embedded player.
+![CI](https://github.com/yeoyujie/NextFrame/actions/workflows/ci.yml/badge.svg?branch=main)
+
+NextFrame is a curated catalogue of AI-generated video series from Douyin. Browse a series, watch it episode by episode in Douyin's official embedded player, and continue with the next episode.
 
 ## Features
 
-- Curated AI video series from Douyin
-- Episode-based watch experience
-- Hover video previews
-- Responsive desktop/mobile layout
-- Static content catalogue
+- Series-first catalogue with deliberate fallback artwork
+- Shareable, episode-specific watch URLs
+- Official Douyin iframe playback
+- Previous and next episode navigation
+- Responsive episode list that highlights the current episode
+- Static TypeScript content; no database or account system
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Getting started
 
-## Getting Started
-
-First, run the development server:
+Use Node.js 24 and pnpm 12.10.1. The pnpm version is pinned in `package.json`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install --frozen-lockfile
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The catalogue lives in [`data/series.ts`](data/series.ts). Add a series there, including its slug, title, description, and ordered episodes. Each episode uses a public Douyin video ID. Series artwork is optional; cards show a designed fallback when no thumbnail is configured.
 
-## Learn More
+## Checks and deployments
 
-To learn more about Next.js, take a look at the following resources:
+GitHub Actions runs ESLint and a production build for pull requests targeting `main` and pushes to `main`. It also scans dependencies for high and critical vulnerabilities and scans Git history for exposed secrets. The security checks run weekly, and Dependabot checks for dependency and workflow updates weekly.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Vercel handles deployments through its Git integration: feature branches and pull requests get Preview deployments, while `main` deploys to Production. The GitHub workflow validates changes; it does not deploy them.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run the same main checks locally with:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm lint
+pnpm build
+```
