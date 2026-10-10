@@ -28,7 +28,7 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
 
     const updateScale = () => {
       const { width, height } = stage.getBoundingClientRect();
-      setScale(Math.min(1, width / videoWidth, height / iframeHeight));
+      setScale(Math.min(width / videoWidth, height / iframeHeight));
     };
 
     const observer = new ResizeObserver(updateScale);

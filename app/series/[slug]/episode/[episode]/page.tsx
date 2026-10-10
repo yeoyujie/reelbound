@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { Suspense } from "react";
 import { seriesCatalog } from "@/data/series";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
 
@@ -14,9 +15,19 @@ export function generateStaticParams() {
 
 type EpisodeRouteProps = PageProps<"/series/[slug]/episode/[episode]">;
 
-export default async function EpisodePage({
+export default function EpisodePage({ params }: EpisodeRouteProps) {
+  return (
+    <Suspense fallback={null}>
+      <EpisodePageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function EpisodePageContent({
   params,
-}: EpisodeRouteProps) {
+}: {
+  params: EpisodeRouteProps["params"];
+}) {
   const { slug, episode: episodeParam } = await params;
   const series = seriesCatalog.find((item) => item.slug === slug);
   const episodeNumber = /^\d+$/.test(episodeParam)
