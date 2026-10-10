@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
-import { seriesCatalog } from "@/data/series";
+import {
+  seriesCatalog,
+  type Episode,
+  type EpisodeVideoSource,
+} from "@/data/series";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
 
 export function generateStaticParams() {
@@ -42,7 +46,7 @@ async function EpisodePageContent({
   );
   const previousEpisode = series.episodes[currentIndex - 1];
   const nextEpisode = series.episodes[currentIndex + 1];
-  const videoSource = await addDouyinDimensions(episode.source);
+  const videoSource = await addDouyinDimensions(episode);
 
   return (
     <>
@@ -86,8 +90,8 @@ async function EpisodePageContent({
 }
 
 async function addDouyinDimensions(
-  source: Extract<(typeof seriesCatalog)[number]["episodes"][number]["source"], { provider: "douyin" }>,
-) {
+  source: Pick<Episode, "videoId" | "videoWidth" | "videoHeight">,
+): Promise<EpisodeVideoSource> {
   try {
     const endpoint = new URL(
       "https://open.douyin.com/api/douyin/v1/video/get_iframe_by_video",

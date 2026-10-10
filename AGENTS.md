@@ -164,7 +164,7 @@ The URL should uniquely identify the series and currently selected episode.
 
 Content is stored as static TypeScript data.
 
-Treat `data/series.ts` as the canonical schema. Episodes currently store a public Douyin video ID and optional player dimensions; series and episode artwork are optional. `previewUrl` is reserved but currently unused. Keep the model small and add fields when a real UI feature needs them.
+Treat `data/series.ts` as the canonical schema. Episodes currently store a public Douyin video ID and optional player dimensions directly on the episode; series and episode artwork are optional. `previewUrl` is reserved but currently unused. Keep the model small and add fields when a real UI feature needs them.
 
 Avoid introducing a database, CMS, or backend unless there is a clear future requirement.
 
