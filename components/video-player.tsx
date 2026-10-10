@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import type { EpisodeVideoSource } from "@/data/series";
 
@@ -14,8 +14,6 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
   const videoHeight = source.videoHeight ?? 1280;
   const iframeHeight = videoHeight + 48;
   const frameRef = useRef<HTMLDivElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const restoreAfterHideRef = useRef(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   const playerUrl = new URL("https://open.douyin.com/player/video");
@@ -23,24 +21,7 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
   playerUrl.searchParams.set("autoplay", "1");
   const playerSrc = playerUrl.toString();
 
-  // Next keeps recently visited routes mounted but hidden; unload this embed
-  // while its episode is hidden and reload it if the user returns.
   useLayoutEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-
-    if (restoreAfterHideRef.current) {
-      iframe.src = playerSrc;
-      restoreAfterHideRef.current = false;
-    }
-
-    return () => {
-      restoreAfterHideRef.current = true;
-      iframe.src = "about:blank";
-    };
-  }, [playerSrc]);
-
-  useEffect(() => {
     const frame = frameRef.current;
     const stage = stageRef.current;
     if (!frame || !stage) return;
@@ -73,7 +54,6 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
         style={{ width: videoWidth * scale, height: iframeHeight * scale }}
       >
         <iframe
-          ref={iframeRef}
           className="douyin-player"
           src={playerSrc}
           title={`Douyin video: ${title}`}

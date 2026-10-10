@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { VideoPlayer } from "@/components/video-player";
 import { seriesCatalog } from "@/data/series";
+import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
 
 export function generateStaticParams() {
   return seriesCatalog.flatMap((series) =>
@@ -34,12 +34,11 @@ export default async function EpisodePage({
   const videoSource = await addDouyinDimensions(episode.source);
 
   return (
-    <section className="watch-main" aria-labelledby="episode-title">
-      <VideoPlayer
+    <>
+      <EpisodePlayerSourceSync
         source={videoSource}
         title={`${series.title} — ${episode.title}`}
       />
-
       <div className="episode-details">
         <Link className="series-context" href="/">
           <span aria-hidden="true">←</span> {series.title}
@@ -71,7 +70,7 @@ export default async function EpisodePage({
           </Link>
         ) : <span />}
       </nav>
-    </section>
+    </>
   );
 }
 
