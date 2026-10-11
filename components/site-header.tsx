@@ -2,7 +2,29 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLayoutEffect, useSyncExternalStore } from "react";
 import type { Dictionary, Locale } from "@/lib/i18n";
+
+function getThemeSnapshot() {
+  const explicitTheme = document.documentElement.dataset.theme;
+  return explicitTheme
+    ? explicitTheme === "dark"
+    : window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+function subscribeToTheme(onChange: () => void) {
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  const syncSystemTheme = () => {
+    if (!document.documentElement.dataset.theme) onChange();
+  };
+
+  systemTheme.addEventListener("change", syncSystemTheme);
+  window.addEventListener("nextframe-theme-change", onChange);
+  return () => {
+    systemTheme.removeEventListener("change", syncSystemTheme);
+    window.removeEventListener("nextframe-theme-change", onChange);
+  };
+}
 
 export function SiteHeader({
   locale,
@@ -16,6 +38,33 @@ export function SiteHeader({
   const alternatePath = pathname
     ? pathname.replace(/^\/(?:en|zh-CN)(?=\/|$)/, `/${alternateLocale}`)
     : `/${alternateLocale}`;
+  const isDark = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => false);
+
+  useLayoutEffect(() => {
+    try {
+      const savedTheme = window.localStorage.getItem("nextframe-theme");
+      if (
+        (savedTheme === "light" || savedTheme === "dark") &&
+        document.documentElement.dataset.theme !== savedTheme
+      ) {
+        document.documentElement.dataset.theme = savedTheme;
+        window.dispatchEvent(new Event("nextframe-theme-change"));
+      }
+    } catch {
+      // The system preference remains active when browser storage is unavailable.
+    }
+  }, [pathname]);
+
+  function toggleTheme() {
+    const nextTheme = isDark ? "light" : "dark";
+    document.documentElement.dataset.theme = nextTheme;
+    try {
+      window.localStorage.setItem("nextframe-theme", nextTheme);
+    } catch {
+      // The current page still changes theme when browser storage is unavailable.
+    }
+    window.dispatchEvent(new Event("nextframe-theme-change"));
+  }
 
   return (
     <header className="site-header">
@@ -29,6 +78,24 @@ export function SiteHeader({
 
         <div className="header-actions">
           <p className="header-descriptor">{dictionary.headerDescriptor}</p>
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={isDark ? dictionary.switchToLightMode : dictionary.switchToDarkMode}
+            title={isDark ? dictionary.switchToLightMode : dictionary.switchToDarkMode}
+          >
+            {isDark ? (
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="3.5" />
+                <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+              </svg>
+            ) : (
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                <path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z" />
+              </svg>
+            )}
+          </button>
           <nav className="language-toggle" aria-label="Language">
             <Link
               className={`language-toggle-option${locale === "en" ? " is-active" : ""}`}

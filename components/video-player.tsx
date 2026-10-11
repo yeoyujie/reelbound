@@ -13,7 +13,9 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
   const videoWidth = source.videoWidth ?? 720;
   const videoHeight = source.videoHeight ?? 1280;
   const iframeHeight = videoHeight + 48;
-  const frameRef = useRef<HTMLDivElement>(null);
+  // Douyin leaves a 12 px theme-colored inset below the player controls.
+  const iframeBottomInset = 12;
+  const visibleIframeHeight = iframeHeight - iframeBottomInset;
   const stageRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   const playerUrl = new URL("https://open.douyin.com/player/video");
@@ -22,13 +24,12 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
   const playerSrc = playerUrl.toString();
 
   useLayoutEffect(() => {
-    const frame = frameRef.current;
     const stage = stageRef.current;
-    if (!frame || !stage) return;
+    if (!stage) return;
 
     const updateScale = () => {
       const { width, height } = stage.getBoundingClientRect();
-      setScale(Math.min(width / videoWidth, height / iframeHeight));
+      setScale(Math.min(width / videoWidth, height / visibleIframeHeight));
     };
 
     const observer = new ResizeObserver(updateScale);
@@ -40,18 +41,17 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
       observer.disconnect();
       window.removeEventListener("resize", updateScale);
     };
-  }, [iframeHeight, videoWidth]);
+  }, [videoWidth, visibleIframeHeight]);
 
   return (
     <div
       ref={stageRef}
       className="douyin-player-stage"
-      style={{ "--iframe-ratio": videoWidth / iframeHeight } as CSSProperties}
+      style={{ "--iframe-ratio": videoWidth / visibleIframeHeight } as CSSProperties}
     >
       <div
-        ref={frameRef}
         className="douyin-frame"
-        style={{ width: videoWidth * scale, height: iframeHeight * scale }}
+        style={{ width: videoWidth * scale, height: visibleIframeHeight * scale }}
       >
         <iframe
           className="douyin-player"

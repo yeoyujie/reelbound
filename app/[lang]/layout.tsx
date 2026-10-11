@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SiteHeader } from "@/components/site-header";
+import { InlineScript } from "@/components/inline-script";
 import type { Metadata } from "next";
 import { getDictionary, isLocale, locales } from "@/lib/i18n";
 import { notFound } from "next/navigation";
@@ -40,7 +41,12 @@ export default async function RootLayout({
   if (!isLocale(lang)) notFound();
 
   return (
-    <html lang={lang}>
+    <html lang={lang} suppressHydrationWarning>
+      <head>
+        <InlineScript
+          html={`(function(){try{var t=localStorage.getItem("nextframe-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`}
+        />
+      </head>
       <body>
         <SiteHeader locale={lang} dictionary={getDictionary(lang)} />
         {children}
