@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="The Cut">
+  <g transform="translate(-7.5 -7.5) scale(1.15)">
+    <path d="M 18 34
+           Q 18 20 34 18
+           L 75 18
+           L 36 75
+           Q 29 84 18 80
+           Q 18 75 18 65
+           Z"
+        fill="#181a20" />
+    <path d="M 53 85
+           Q 49 89 54 89
+           L 78 89
+           Q 84 89 84 80
+           L 84 46
+           Q 84 42 80 45
+           Z"
+        fill="#181a20" />
+  </g>
+</svg>

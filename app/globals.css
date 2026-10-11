@@ -163,19 +163,9 @@ a:focus-visible {
 }
 
 .wordmark-icon {
-  display: grid;
   width: 23px;
   height: 23px;
-  place-items: center;
-  border: 1.5px solid var(--accent-primary);
-  border-radius: 6px;
-}
-
-.wordmark-icon span {
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--accent-primary);
+  flex: 0 0 auto;
 }
 
 .header-descriptor,

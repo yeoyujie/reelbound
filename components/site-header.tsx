@@ -70,9 +70,14 @@ export function SiteHeader({
     <header className="site-header">
       <div className="site-header-inner">
         <Link className="wordmark" href={`/${locale}`} aria-label={dictionary.home}>
-          <span className="wordmark-icon" aria-hidden="true">
-            <span />
-          </span>
+          <svg className="wordmark-icon" aria-hidden="true" viewBox="0 0 100 100">
+            <g transform="translate(-7.5 -7.5) scale(1.15)" fill="var(--accent-primary)">
+              <path
+                d="M18 34 Q18 20 34 18 L75 18 L36 75 Q29 84 18 80 Q18 75 18 65 Z"
+              />
+              <path d="M53 85 Q49 89 54 89 L78 89 Q84 89 84 80 L84 46 Q84 42 80 45 Z" />
+            </g>
+          </svg>
           <span>nextframe</span>
         </Link>
 
