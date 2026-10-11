@@ -3,17 +3,22 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import type { Episode } from "@/data/series";
+import type { Dictionary, Locale } from "@/lib/i18n";
 
 type EpisodeListProps = {
   episodes: Episode[];
   seriesSlug: string;
   currentEpisodeNumber: number;
+  locale: Locale;
+  dictionary: Dictionary;
 };
 
 export function EpisodeList({
   episodes,
   seriesSlug,
   currentEpisodeNumber,
+  locale,
+  dictionary,
 }: EpisodeListProps) {
   const listRef = useRef<HTMLOListElement>(null);
   const currentEpisodeRef = useRef<HTMLAnchorElement>(null);
@@ -57,16 +62,22 @@ export function EpisodeList({
             <Link
               ref={isCurrent ? currentEpisodeRef : undefined}
               className={`episode-list-item${isCurrent ? " is-current" : ""}`}
-              href={`/series/${seriesSlug}/episode/${episode.number}`}
+              href={`/${locale}/series/${seriesSlug}/episode/${episode.number}`}
               aria-current={isCurrent ? "page" : undefined}
             >
               <span className="episode-number">
                 {String(episode.number).padStart(2, "0")}
               </span>
               <span className="episode-list-copy">
-                <strong>{episode.title}</strong>
+                <strong>
+                  {locale === "zh-CN" ? `第 ${episode.number} 集` : episode.title}
+                </strong>
                 <span>
-                  {isCurrent ? "Now playing" : `Episode ${episode.number}`}
+                  {isCurrent
+                    ? dictionary.nowPlaying
+                    : locale === "zh-CN"
+                      ? `第 ${episode.number} 集`
+                      : `Episode ${episode.number}`}
                 </span>
               </span>
               {isCurrent && (

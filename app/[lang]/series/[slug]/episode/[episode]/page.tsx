@@ -7,17 +7,21 @@ import {
   type EpisodeVideoSource,
 } from "@/data/series";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
+import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 
 export function generateStaticParams() {
-  return seriesCatalog.flatMap((series) =>
-    series.episodes.map((episode) => ({
-      slug: series.slug,
-      episode: String(episode.number),
-    })),
+  return ["en", "zh-CN"].flatMap((lang) =>
+    seriesCatalog.flatMap((series) =>
+      series.episodes.map((episode) => ({
+        lang,
+        slug: series.slug,
+        episode: String(episode.number),
+      })),
+    ),
   );
 }
 
-type EpisodeRouteProps = PageProps<"/series/[slug]/episode/[episode]">;
+type EpisodeRouteProps = PageProps<"/[lang]/series/[slug]/episode/[episode]">;
 
 export default function EpisodePage({ params }: EpisodeRouteProps) {
   return (
@@ -32,7 +36,10 @@ async function EpisodePageContent({
 }: {
   params: EpisodeRouteProps["params"];
 }) {
-  const { slug, episode: episodeParam } = await params;
+  const { lang, slug, episode: episodeParam } = await params;
+  if (!isLocale(lang)) notFound();
+  const locale: Locale = lang;
+  const dictionary = getDictionary(locale);
   const series = seriesCatalog.find((item) => item.slug === slug);
   const episodeNumber = /^\d+$/.test(episodeParam)
     ? Number(episodeParam)
@@ -52,36 +59,54 @@ async function EpisodePageContent({
     <>
       <EpisodePlayerSourceSync
         source={videoSource}
-        title={`${series.title} — ${episode.title}`}
+        title={`${series.title[locale === "zh-CN" ? "zh" : "en"]} — ${episode.title}`}
       />
       <div className="episode-details">
-        <Link className="series-context" href="/">
-          <span aria-hidden="true">←</span> {series.title}
+        <Link className="series-context" href={`/${locale}`}>
+          <span aria-hidden="true">←</span> {dictionary.backToSeries}:{" "}
+          {series.title[locale === "zh-CN" ? "zh" : "en"]}
         </Link>
         <div className="episode-heading">
-          <p className="episode-kicker">Episode {episode.number}</p>
-          <h1 id="episode-title">{episode.title}</h1>
+          <p className="episode-kicker">
+            {locale === "zh-CN"
+              ? `第 ${episode.number} 集`
+              : `Episode ${episode.number}`}
+          </p>
+          <h1 id="episode-title">
+            {locale === "zh-CN" ? `第 ${episode.number} 集` : episode.title}
+          </h1>
         </div>
-        <p className="episode-description">{series.description}</p>
+        <p className="episode-description">
+          {series.description[locale === "zh-CN" ? "zh" : "en"]}
+        </p>
       </div>
 
-      <nav className="episode-navigation" aria-label="Episode navigation">
+      <nav className="episode-navigation" aria-label={dictionary.episode}>
         {previousEpisode ? (
           <Link
-            href={`/series/${series.slug}/episode/${previousEpisode.number}`}
+            href={`/${locale}/series/${series.slug}/episode/${previousEpisode.number}`}
             rel="prev"
           >
-            <span>Previous episode</span>
-            <strong>Episode {previousEpisode.number}</strong>
+            <span>{dictionary.previousEpisode}</span>
+            <strong>
+              {locale === "zh-CN"
+                ? `第 ${previousEpisode.number} 集`
+                : `Episode ${previousEpisode.number}`}
+            </strong>
           </Link>
         ) : <span />}
         {nextEpisode ? (
           <Link
-            href={`/series/${series.slug}/episode/${nextEpisode.number}`}
+            href={`/${locale}/series/${series.slug}/episode/${nextEpisode.number}`}
             rel="next"
           >
-            <span>Next episode</span>
-            <strong>Episode {nextEpisode.number} <span aria-hidden="true">→</span></strong>
+            <span>{dictionary.nextEpisode}</span>
+            <strong>
+              {locale === "zh-CN"
+                ? `第 ${nextEpisode.number} 集`
+                : `Episode ${nextEpisode.number}`}{" "}
+              <span aria-hidden="true">→</span>
+            </strong>
           </Link>
         ) : <span />}
       </nav>

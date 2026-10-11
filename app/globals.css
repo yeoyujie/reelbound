@@ -108,6 +108,64 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.language-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.language-toggle-option {
+  display: inline-flex;
+  min-height: 27px;
+  align-items: center;
+  justify-content: center;
+  min-width: 43px;
+  padding: 0 9px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.language-toggle-option:hover,
+.language-toggle-option:focus-visible,
+.language-toggle-option.is-active {
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+.language-toggle-option.is-active {
+  box-shadow: 0 1px 3px rgb(32 35 33 / 8%);
+}
+
+.language-toggle-option:focus-visible {
+  outline-offset: 2px;
+}
+
+.language-toggle-option + .language-toggle-option {
+  margin-left: 2px;
+}
+
+.language-toggle-option[aria-current="page"] {
+  cursor: default;
+}
+
+.language-toggle-option:not([aria-current="page"]) {
+  color: var(--muted);
+}
+
 .home-shell {
   width: min(calc(100% - var(--content-gutter)), var(--content-width));
   margin-inline: auto;

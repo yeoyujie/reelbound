@@ -27,6 +27,7 @@
 .DS_Store
 *.pem
 /goals.md
+/docs
 
 # debug
 npm-debug.log*

@@ -16,11 +16,16 @@ export type Episode = {
   previewUrl?: string;
 };
 
+export type LocalizedText = {
+  en: string;
+  zh: string;
+};
+
 export type Series = {
   /** Stable URL segment, for example "the-last-human". */
   slug: string;
-  title: string;
-  description: string;
+  title: LocalizedText;
+  description: LocalizedText;
   thumbnail?: string;
   episodes: Episode[];
 };
@@ -32,8 +37,11 @@ export type Series = {
 export const seriesCatalog: Series[] = [
   {
     slug: "suddenly-rich-family",
-    title: "暴富一家人",
-    description: "Rich overnight, broke on common sense! An everyday family gets a magical 'rich system' and spends their way through one hilarious disaster after another. Money can't buy brains — but it sure buys laughs.",
+    title: { en: "Suddenly Rich Family", zh: "暴富一家人" },
+    description: {
+      en: "Rich overnight, broke on common sense! An everyday family gets a magical 'rich system' and spends their way through one hilarious disaster after another. Money can't buy brains — but it sure buys laughs.",
+      zh: "一夜暴富，却偏偏缺点常识！一个普通家庭意外获得神奇的“暴富系统”，在一次次爆笑灾难中挥霍人生。钱可以买来一切，却买不来脑子——但一定能买来笑声。",
+    },
     episodes: [
       { number: 1, title: "Episode 1", videoId: "7649219887503559963" },
       { number: 2, title: "Episode 2", videoId: "7649711555487071161" },
@@ -84,8 +92,11 @@ export const seriesCatalog: Series[] = [
   },
   {
     slug: "back-to-200-lbs-i-debut-as-center",
-    title: "重回200斤我C位出道",
-    description: "7 years of training in Korea. 3 minutes of center-stage glory. One ridiculous death. Then — a second chance. Follow a Chongqing girl reborn as her 200-jin teenage self, clawing her way back to the top with nothing but talent, attitude, and unfinished business. The comeback nobody saw coming — except her.",
+    title: { en: "Back to 200 Jin: I Debut in the Center", zh: "重回200斤我C位出道" },
+    description: {
+      en: "7 years of training in Korea. 3 minutes of center-stage glory. One ridiculous death. Then — a second chance. Follow a Chongqing girl reborn as her 200-jin teenage self, clawing her way back to the top with nothing but talent, attitude, and unfinished business. The comeback nobody saw coming — except her.",
+      zh: "在韩国训练了7年，享受了3分钟的C位高光，却以一场荒唐的死亡收场。重生后，重庆女孩回到了200斤的少女时代，凭借天赋、个性和未竟的心愿，一步步杀回顶峰。这场无人预料的逆袭，唯独她早已看见。",
+    },
     episodes: [
       { number: 1, title: "Episode 1", videoId: "7682364617943568870" },
       { number: 2, title: "Episode 2", videoId: "7686077962215938981" },
@@ -96,8 +107,11 @@ export const seriesCatalog: Series[] = [
   },
   {
     slug: "the-laid-off-girl",
-    title: "被裁掉的女孩",
-    description: "She was the first one cropped out of the photo — so she decided to become impossible to crop out. A small-town girl with a modeling dream hits the big city and learns the hard way: being pretty gets you seen, but it won't get you respected. Refusing shortcuts, refusing to 'be owned', she fights from the edge of every frame to the very center. Realistic, sharp, and quietly savage.",
+    title: { en: "The Laid-Off Girl", zh: "被裁掉的女孩" },
+    description: {
+      en: "She was the first one cropped out of the photo — so she decided to become impossible to crop out. A small-town girl with a modeling dream hits the big city and learns the hard way: being pretty gets you seen, but it won't get you respected. Refusing shortcuts, refusing to 'be owned', she fights from the edge of every frame to the very center. Realistic, sharp, and quietly savage.",
+      zh: "她是照片里第一个被裁掉的人，于是决定让自己再也无法被裁掉。怀揣模特梦的小镇女孩闯入大城市，终于明白：漂亮只能让你被看见，却不一定赢得尊重。她拒绝走捷径，也拒绝被任何人占有，从每个画面的边缘一路拼到中心。真实、尖锐，又安静得锋利。",
+    },
     episodes: [
       { number: 1, title: "Episode 1", videoId: "7650427585301630208" },
       { number: 2, title: "Episode 2", videoId: "7650912327528746250" },

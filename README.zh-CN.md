@@ -14,7 +14,7 @@
   <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-12-F69220?logo=pnpm&logoColor=white" alt="pnpm 12"></a>
 </p>
 
-**找到一个故事，留在下一帧。**
+**故事，从这一帧开始。精彩，未完待续。**
 
 NextFrame 是一个小而精致的 AI 生成视频系列精选平台。它采用“系列优先”
 而不是无尽信息流的浏览方式：发现一个系列，打开第一集，然后通过抖音官方
