@@ -102,8 +102,15 @@ pnpm start
 
 ## Add or update catalogue content
 
-The canonical content model and catalogue are in
-[`data/series.ts`](data/series.ts).
+The canonical content model is in
+[`data/series/types.ts`](data/series/types.ts). Each series has its own file in
+[`data/series/`](data/series/), and [`data/series.ts`](data/series.ts) is the
+ordered catalogue manifest.
+
+To add a series, create a typed file in `data/series/` and add its import and
+entry to `data/series.ts`. Move entries in `data/series.ts` to change the
+homepage order; the first entry is displayed first. Keep episode arrays ordered
+by episode number because they also control previous/next navigation.
 
 Each series contains:
 
@@ -133,7 +140,8 @@ details out of the rest of the UI.
 ```text
 app/                         App Router pages, layout, and global styles
 components/                  Header, cards, episode list, and video player
-data/series.ts               Canonical static catalogue and TypeScript types
+data/series.ts               Ordered catalogue manifest
+data/series/                  One typed content file per series
 .github/workflows/ci.yml     Lint, build, security, and dependency checks
 ```
 

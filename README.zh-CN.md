@@ -97,8 +97,15 @@ pnpm start
 
 ## 添加或更新内容
 
-规范的数据模型和视频目录位于
-[`data/series.ts`](data/series.ts)。
+规范的数据模型位于
+[`data/series/types.ts`](data/series/types.ts)。每个剧集都有独立的内容文件，
+存放在 [`data/series/`](data/series/) 中；[`data/series.ts`](data/series.ts)
+是控制展示顺序的目录清单。
+
+添加剧集时，在 `data/series/` 中创建一个类型安全的文件，然后在
+`data/series.ts` 中添加对应的导入和条目。移动 `data/series.ts` 中的条目即可
+调整首页顺序，第一项会最先显示。请保持每个剧集中的分集按集数排列，因为它们
+也会控制上一集和下一集的导航。
 
 每个系列包含：
 
@@ -126,7 +133,8 @@ pnpm start
 ```text
 app/                         App Router 页面、布局和全局样式
 components/                  Header、卡片、剧集列表和播放器
-data/series.ts               静态目录和 TypeScript 类型的唯一来源
+data/series.ts               有序的视频目录清单
+data/series/                  每个剧集一个 TypeScript 内容文件
 .github/workflows/ci.yml     代码检查、构建、安全和依赖检查
 ```
 
