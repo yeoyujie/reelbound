@@ -7,7 +7,13 @@ import {
   type EpisodeVideoSource,
 } from "@/data/series";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
-import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import {
+  getDictionary,
+  isLocale,
+  localizedText,
+  type Locale,
+} from "@/lib/i18n";
+import type { Metadata } from "next";
 
 export function generateStaticParams() {
   return ["en", "zh-CN"].flatMap((lang) =>
@@ -22,6 +28,39 @@ export function generateStaticParams() {
 }
 
 type EpisodeRouteProps = PageProps<"/[lang]/series/[slug]/episode/[episode]">;
+
+export async function generateMetadata({
+  params,
+}: EpisodeRouteProps): Promise<Metadata> {
+  const { lang, slug, episode: episodeParam } = await params;
+  if (!isLocale(lang)) notFound();
+
+  const series = seriesCatalog.find((item) => item.slug === slug);
+  const episodeNumber = /^\d+$/.test(episodeParam)
+    ? Number(episodeParam)
+    : NaN;
+  const episode = series?.episodes.find((item) => item.number === episodeNumber);
+
+  if (!series || !episode) notFound();
+
+  const seriesTitle = localizedText(series.title, lang);
+  const episodeTitle =
+    lang === "zh-CN" ? `第${episode.number}集` : episode.title;
+  const title =
+    lang === "zh-CN"
+      ? `${seriesTitle} · ${episodeTitle}｜NextFrame`
+      : `${seriesTitle} — ${episodeTitle} | NextFrame`;
+
+  return {
+    title: { absolute: title },
+    description: localizedText(series.description, lang),
+    openGraph: {
+      title,
+      description: localizedText(series.description, lang),
+      type: "video.episode",
+    },
+  };
+}
 
 export default function EpisodePage({ params }: EpisodeRouteProps) {
   return (
@@ -59,12 +98,12 @@ async function EpisodePageContent({
     <>
       <EpisodePlayerSourceSync
         source={videoSource}
-        title={`${series.title[locale === "zh-CN" ? "zh" : "en"]} — ${episode.title}`}
+        title={`${localizedText(series.title, locale)} — ${episode.title}`}
       />
       <div className="episode-details">
         <Link className="series-context" href={`/${locale}`}>
           <span aria-hidden="true">←</span> {dictionary.backToSeries}:{" "}
-          {series.title[locale === "zh-CN" ? "zh" : "en"]}
+          {localizedText(series.title, locale)}
         </Link>
         <div className="episode-heading">
           <p className="episode-kicker">

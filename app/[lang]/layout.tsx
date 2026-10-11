@@ -20,9 +20,13 @@ export async function generateMetadata({
 
   return {
     title:
-      lang === "zh-CN"
-        ? "NextFrame — 从一部好剧开始"
-        : "NextFrame — Start with one story",
+      {
+        default:
+          lang === "zh-CN"
+            ? "NextFrame — 从一部好剧开始"
+            : "NextFrame — Start with one story",
+        template: "%s — NextFrame",
+      },
     description: dictionary.introCopy,
     alternates: {
       languages: {
