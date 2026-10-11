@@ -95,22 +95,28 @@ pnpm build
 pnpm start
 ```
 
-## 添加或更新内容
+## 内容目录
 
 规范的数据模型位于
 [`data/series/types.ts`](data/series/types.ts)。每个剧集都有独立的内容文件，
 存放在 [`data/series/`](data/series/) 中；[`data/series.ts`](data/series.ts)
 是控制展示顺序的目录清单。
 
+### 添加或更新剧集
+
 添加剧集时，在 `data/series/` 中创建一个类型安全的文件，然后在
 `data/series.ts` 中添加对应的导入和条目。移动 `data/series.ts` 中的条目即可
 调整首页顺序，第一项会最先显示。请保持每个剧集中的分集按集数排列，因为它们
 也会控制上一集和下一集的导航。
 
+### 本地化标题和简介
+
 由于 NextFrame 面向英文观众呈现中文抖音系列，原始中文标题是内容的规范来源。
 `title.en` 是可独立调整的英文本地化标题，不应决定剧集的技术身份。对于新的
 中文剧集，请使用稳定的汉语拼音作为 slug 和内容文件名，例如 `归墟` 使用
 `gui-xu`；像 `NOVA` 这样的品牌名则保留原本的拉丁字母写法。
+
+### 内容字段
 
 每个系列包含：
 
@@ -123,11 +129,26 @@ pnpm start
 `videoWidth` 和 `videoHeight`；如果没有填写，应用会使用竖屏播放器默认值，并
 可能通过抖音 iframe API 查询尺寸。`previewUrl` 为未来功能预留，目前不会被使用。
 
+### 剧集路由和页面标题
+
 剧集页面会根据目录在构建时生成，路由格式为：
 
 ```text
 /series/[slug]/episode/[episode]
 ```
+
+剧集页面的浏览器标题在两种语言中都采用“系列名称优先”的结构，同时保留各自
+自然的标点和空格规范：
+
+```text
+The Laid-Off Girl — Episode 4 | NextFrame
+被裁掉的女孩 · 第4集｜NextFrame
+```
+
+英文使用长破折号分隔系列名称和剧集信息；中文使用间隔号作为紧凑的内容分隔符，
+并在平台名称前使用全角竖线。
+
+### 播放器集成
 
 播放器 URL 的构造和 iframe 行为集中在
 [`components/video-player.tsx`](components/video-player.tsx) 中，避免将平台

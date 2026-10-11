@@ -100,17 +100,21 @@ pnpm build
 pnpm start
 ```
 
-## Add or update catalogue content
+## Catalogue content
 
 The canonical content model is in
 [`data/series/types.ts`](data/series/types.ts). Each series has its own file in
 [`data/series/`](data/series/), and [`data/series.ts`](data/series.ts) is the
 ordered catalogue manifest.
 
+### Add or update a series
+
 To add a series, create a typed file in `data/series/` and add its import and
 entry to `data/series.ts`. Move entries in `data/series.ts` to change the
 homepage order; the first entry is displayed first. Keep episode arrays ordered
 by episode number because they also control previous/next navigation.
+
+### Localize titles and descriptions
 
 Because NextFrame presents Chinese Douyin series for an English-speaking
 audience, the original Chinese title is the canonical source title. Treat
@@ -118,6 +122,8 @@ audience, the original Chinese title is the canonical source title. Treat
 use a stable Hanyu Pinyin identifier for new slugs and content filenames when
 the source title is Chinese (for example, `归墟` → `gui-xu`). Branded names such
 as `NOVA` can keep their original Latin spelling.
+
+### Content fields
 
 Each series contains:
 
@@ -132,11 +138,27 @@ otherwise the app uses the player’s portrait defaults and may look up
 dimensions from Douyin’s iframe API. `previewUrl` is reserved for a future
 feature and is not currently used.
 
+### Episode routes and document titles
+
 Episode pages are generated from the catalogue at build time. The route is:
 
 ```text
 /series/[slug]/episode/[episode]
 ```
+
+Episode document titles use the same series-first hierarchy in both locales,
+while preserving native punctuation and spacing:
+
+```text
+The Laid-Off Girl — Episode 4 | NextFrame
+被裁掉的女孩 · 第4集｜NextFrame
+```
+
+The English em dash separates the series from its episode context. Chinese uses
+a middle dot for the compact content separator and a full-width divider before
+the platform name.
+
+### Playback integration
 
 Player URL construction and iframe behavior live in
 [`components/video-player.tsx`](components/video-player.tsx), keeping provider
