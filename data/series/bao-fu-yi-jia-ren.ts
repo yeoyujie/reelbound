@@ -1,7 +1,7 @@
 import type { Series } from "./types";
 
 export const SuddenlyRichFamily: Series = {
-    slug: "suddenly-rich-family",
+    slug: "bao-fu-yi-jia-ren",
     title: { en: "Suddenly Rich Family", zh: "暴富一家人" },
     description: {
       en: "Rich overnight, broke on common sense! An everyday family gets a magical 'rich system' and spends their way through one hilarious disaster after another. Money can't buy brains — but it sure buys laughs.",

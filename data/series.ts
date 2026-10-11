@@ -1,8 +1,10 @@
 import type { Episode, EpisodeVideoSource, LocalizedText, Series } from "./series/types";
 
-import { SuddenlyRichFamily } from "./series/suddenly-rich-family";
-import { BackTo200LbsIDebutAsCenter } from "./series/back-to-200-lbs-i-debut-as-center";
-import { TheLaidOffGirl } from "./series/the-laid-off-girl";
+import { SuddenlyRichFamily } from "./series/bao-fu-yi-jia-ren";
+import { BackTo200LbsIDebutAsCenter } from "./series/chong-hui-200-jin-wo-c-wei-chu-dao";
+import { TheLaidOffGirl } from "./series/bei-cai-diao-de-nv-hai";
+import { Guixu } from "./series/gui-xu";
+import { Nova } from "./series/nova";
 
 /**
  * Ordered series catalogue. Move entries here to change their homepage order.
@@ -10,6 +12,8 @@ import { TheLaidOffGirl } from "./series/the-laid-off-girl";
  */
 export const seriesCatalog: Series[] = [
   TheLaidOffGirl,
+  Guixu,
+  Nova,
   SuddenlyRichFamily,
   BackTo200LbsIDebutAsCenter,
 ];

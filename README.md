@@ -112,6 +112,13 @@ entry to `data/series.ts`. Move entries in `data/series.ts` to change the
 homepage order; the first entry is displayed first. Keep episode arrays ordered
 by episode number because they also control previous/next navigation.
 
+Because NextFrame presents Chinese Douyin series for an English-speaking
+audience, the original Chinese title is the canonical source title. Treat
+`title.en` as an editorial localization that can be refined independently, and
+use a stable Hanyu Pinyin identifier for new slugs and content filenames when
+the source title is Chinese (for example, `归墟` → `gui-xu`). Branded names such
+as `NOVA` can keep their original Latin spelling.
+
 Each series contains:
 
 - `slug`: stable URL segment

@@ -1,7 +1,7 @@
 import type { Series } from "./types";
 
 export const BackTo200LbsIDebutAsCenter: Series = {
-  slug: "back-to-200-lbs-i-debut-as-center",
+  slug: "chong-hui-200-jin-wo-c-wei-chu-dao",
   title: { en: "Back to 200 Jin: I Debut in the Center", zh: "重回200斤我C位出道" },
   description: {
     en: "7 years of training in Korea. 3 minutes of center-stage glory. One ridiculous death. Then — a second chance. Follow a Chongqing girl reborn as her 200-jin teenage self, clawing her way back to the top with nothing but talent, attitude, and unfinished business. The comeback nobody saw coming — except her.",
