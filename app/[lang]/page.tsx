@@ -19,6 +19,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           {dictionary.introTitle[1]}
         </h1>
         <p className="intro-copy">{dictionary.introCopy}</p>
+        <a className="intro-link" href="#series">
+          {dictionary.exploreCollection} <span aria-hidden="true">↓</span>
+        </a>
       </section>
 
       <section className="series-section" id="series" aria-labelledby="series-heading">

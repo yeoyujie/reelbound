@@ -21,8 +21,8 @@ export async function generateMetadata({
   return {
     title:
       lang === "zh-CN"
-        ? "NextFrame — 故事正在发生"
-        : "NextFrame — Stories in motion",
+        ? "NextFrame — 从一部好剧开始"
+        : "NextFrame — Start with one story",
     description: dictionary.introCopy,
     alternates: {
       languages: {

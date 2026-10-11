@@ -324,6 +324,23 @@ a:focus-visible {
   line-height: 1.65;
 }
 
+.intro-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 27px;
+  color: var(--accent-primary);
+  font-size: 13px;
+  font-weight: 620;
+  text-decoration: none;
+  transition: gap 160ms ease, color 160ms ease;
+}
+
+.intro-link:hover {
+  gap: 13px;
+  color: var(--foreground);
+}
+
 .series-section {
   padding-bottom: 62px;
 }
