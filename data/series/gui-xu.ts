@@ -3,6 +3,7 @@ import type { Series } from "./types";
 export const Guixu: Series = {
   slug: "gui-xu",
   title: { en: "The Age of New Species", zh: "归墟" },
+  thumbnail: "/images/series/gui-xu.png",
   description: {
     en: "When nature mutates, survival becomes an entirely new species of war.",
     zh: "一场失踪案，撞上一只巨型蚂蚁，城市直接进入“人类不再是主场”的时代。黑雨落下，异兽上线，幸存者们只能在废墟里边逃命、边找真相——这次的末日，可能不是结束，而是地球换了玩家。",

@@ -3,6 +3,7 @@ import type { Series } from "./types";
 export const SuddenlyRichFamily: Series = {
     slug: "bao-fu-yi-jia-ren",
     title: { en: "Suddenly Rich Family", zh: "暴富一家人" },
+    thumbnail: "/images/series/bao-fu-yi-jia-ren.png",
     description: {
       en: "Rich overnight, broke on common sense! An everyday family gets a magical 'rich system' and spends their way through one hilarious disaster after another. Money can't buy brains — but it sure buys laughs.",
       zh: "一夜暴富，却偏偏缺点常识！一个普通家庭意外获得神奇的“暴富系统”，在一次次爆笑灾难中挥霍人生。钱可以买来一切，却买不来脑子——但一定能买来笑声。",

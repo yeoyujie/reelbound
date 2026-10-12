@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Series } from "@/data/series";
 import { localizedText, type Dictionary, type Locale } from "@/lib/i18n";
@@ -23,8 +24,12 @@ export function SeriesCard({ series, locale, dictionary }: SeriesCardProps) {
     >
       <div className="series-artwork" aria-hidden="true">
         {series.thumbnail ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={series.thumbnail} alt="" />
+          <Image
+            src={series.thumbnail}
+            alt=""
+            fill
+            sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 1000px) 30vw, 370px"
+          />
         ) : (
           <div className="series-artwork-fallback">
             <span className="artwork-kicker">{dictionary.seriesLabel}</span>

@@ -8,7 +8,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dictionary = getDictionary(locale);
-
   return (
     <main className="home-shell">
       <section className="intro" aria-labelledby="intro-title">

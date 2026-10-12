@@ -362,7 +362,7 @@ a:focus-visible {
 
 .series-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 370px));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 }
 
@@ -375,7 +375,7 @@ a:focus-visible {
 .series-artwork {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 5;
   background: var(--artwork-background);
 }
 
@@ -759,6 +759,12 @@ a:focus-visible {
   font-size: 9px;
 }
 
+@media (max-width: 1000px) {
+  .series-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 600px) {
   .site-header-inner,
   .home-shell {
@@ -782,6 +788,11 @@ a:focus-visible {
 
   .intro h1 {
     letter-spacing: -0.07em;
+  }
+
+  .series-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 14px;
   }
 
   .section-heading {
@@ -1007,4 +1018,5 @@ a:focus-visible {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+
 }

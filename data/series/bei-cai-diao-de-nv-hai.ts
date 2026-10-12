@@ -3,6 +3,7 @@ import type { Series } from "./types";
 export const TheLaidOffGirl: Series = {
     slug: "bei-cai-diao-de-nv-hai",
     title: { en: "The Laid-Off Girl", zh: "被裁掉的女孩" },
+    thumbnail: "/images/series/bei-cai-diao-de-nv-hai.png",
     description: {
       en: "She was the first one cropped out of the photo — so she decided to become impossible to crop out. A small-town girl with a modeling dream hits the big city and learns the hard way: being pretty gets you seen, but it won't get you respected. Refusing shortcuts, refusing to 'be owned', she fights from the edge of every frame to the very center. Realistic, sharp, and quietly savage.",
       zh: "她是照片里第一个被裁掉的人，于是决定让自己再也无法被裁掉。怀揣模特梦的小镇女孩闯入大城市，终于明白：漂亮只能让你被看见，却不一定赢得尊重。她拒绝走捷径，也拒绝被任何人占有，从每个画面的边缘一路拼到中心。真实、尖锐，又安静得锋利。",
