@@ -1087,12 +1087,25 @@ a:focus-visible {
     font-size: 13px;
   }
 
+  .episode-navigation {
+    align-items: center;
+    margin-top: 16px;
+    padding: 12px 0;
+  }
+
+  .episode-navigation a {
+    min-height: 48px;
+    align-content: center;
+    gap: 6px;
+  }
+
   .episode-sidebar {
     display: block;
     height: auto;
     max-height: none;
     overflow: visible;
-    padding: 24px 20px 0;
+    margin-inline: 20px;
+    padding: 20px 0 0;
     border-top: 1px solid var(--line);
     border-left: 0;
   }
