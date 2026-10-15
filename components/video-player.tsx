@@ -10,8 +10,12 @@ type VideoPlayerProps = {
 };
 
 export function VideoPlayer({ source, title }: VideoPlayerProps) {
-  const videoWidth = source.videoWidth ?? 720;
-  const videoHeight = source.videoHeight ?? 1280;
+  const reportedWidth = source.videoWidth ?? 720;
+  const reportedHeight = source.videoHeight ?? 1280;
+  // Constrain ratios above 2:1 to a standard 16:9 player viewport.
+  const useStandardWideViewport = reportedWidth / reportedHeight > 2;
+  const videoWidth = useStandardWideViewport ? 1920 : reportedWidth;
+  const videoHeight = useStandardWideViewport ? 1080 : reportedHeight;
   const iframeHeight = videoHeight + 48;
   // Douyin leaves a 12 px theme-colored inset below the player controls.
   const iframeBottomInset = 12;
