@@ -149,11 +149,13 @@ a:focus-visible {
   min-height: 76px;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   margin-inline: auto;
 }
 
 .wordmark {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 11px;
   font-size: 19px;
@@ -178,6 +180,18 @@ a:focus-visible {
   font-weight: 550;
   letter-spacing: 0.11em;
   text-transform: uppercase;
+}
+
+.header-descriptor {
+  display: none;
+  max-width: 110px;
+  text-align: right;
+}
+
+@media (min-width: 701px) {
+  .header-descriptor {
+    display: block;
+  }
 }
 
 .header-actions {
@@ -999,13 +1013,6 @@ a:focus-visible {
 
   .site-header-inner {
     min-height: 66px;
-  }
-
-  .header-descriptor {
-    max-width: 110px;
-    font-size: 9px;
-    line-height: 1.5;
-    text-align: right;
   }
 
   .home-hero {
