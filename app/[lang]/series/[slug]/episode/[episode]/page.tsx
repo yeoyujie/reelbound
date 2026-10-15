@@ -101,10 +101,6 @@ async function EpisodePageContent({
         title={`${localizedText(series.title, locale)} — ${episode.title}`}
       />
       <div className="episode-details">
-        <Link className="series-context" href={`/${locale}`}>
-          <span aria-hidden="true">←</span> {dictionary.backToSeries}:{" "}
-          {localizedText(series.title, locale)}
-        </Link>
         <div className="episode-heading">
           <p className="episode-kicker">
             {locale === "zh-CN"
