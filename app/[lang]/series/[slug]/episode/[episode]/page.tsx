@@ -48,8 +48,8 @@ export async function generateMetadata({
     lang === "zh-CN" ? `第${episode.number}集` : episode.title;
   const title =
     lang === "zh-CN"
-      ? `${seriesTitle} · ${episodeTitle}｜NextFrame`
-      : `${seriesTitle} — ${episodeTitle} | NextFrame`;
+      ? `${seriesTitle} · ${episodeTitle}｜Reelbound`
+      : `${seriesTitle} — ${episodeTitle} | Reelbound`;
 
   return {
     title: { absolute: title },

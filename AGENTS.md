@@ -8,11 +8,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# NextFrame
+# Reelbound
 
 ## Project Overview
 
-NextFrame is a small, curated streaming site for AI-generated video series.
+Reelbound is a small, curated streaming site for AI-generated video series.
 
 The product combines:
 
@@ -49,7 +49,7 @@ There are no user accounts or per-user state.
 
 ## Experience and Visual Direction
 
-Design NextFrame as a modern, polished video product: cinematic and distinctive, but restrained. Let the catalogue, artwork, and playback carry the experience. Use strong typography, deliberate spacing, and a limited palette to create hierarchy; avoid generic “AI” decoration such as glowing gradients, glass effects, animated blobs, and oversized ornamental type.
+Design Reelbound as a modern, polished video product: cinematic and distinctive, but restrained. Let the catalogue, artwork, and playback carry the experience. Use strong typography, deliberate spacing, and a limited palette to create hierarchy; avoid generic “AI” decoration such as glowing gradients, glass effects, animated blobs, and oversized ornamental type.
 
 Every visible element should help users discover a series, understand what they are watching, or continue to another episode. Keep screens focused, with one clear primary action. Do not add controls, navigation, or feature placeholders without a real product need.
 

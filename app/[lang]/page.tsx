@@ -60,7 +60,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       </section>
 
       <footer className="home-footer">
-        <span>NextFrame</span>
+        <span>Reelbound</span>
         <span>{dictionary.footer}</span>
       </footer>
     </main>

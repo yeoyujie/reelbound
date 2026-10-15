@@ -1,12 +1,11 @@
-# NextFrame
+# Reelbound
 
 <p align="right">
   <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a>
 </p>
 
 <p align="center">
-  <a href="https://nextframe-ivory.vercel.app/"><img src="https://img.shields.io/badge/Live%20demo-nextframe--ivory.vercel.app-black?logo=vercel&logoColor=white" alt="Live demo"></a>
-  <a href="https://github.com/yeoyujie/NextFrame/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/yeoyujie/NextFrame/ci.yml?branch=main&label=CI" alt="CI status"></a>
+  <a href="https://github.com/yeoyujie/reelbound/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/yeoyujie/reelbound/ci.yml?branch=main&label=CI" alt="CI status"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
   <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white" alt="Next.js 16"></a>
   <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" alt="React 19"></a>
@@ -14,12 +13,20 @@
   <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-12-F69220?logo=pnpm&logoColor=white" alt="pnpm 12"></a>
 </p>
 
-**Find a story. Stay for the next frame.**
+**Stories selected to stay with you.**
 
-NextFrame is a small, curated streaming experience for AI-generated video
+Reelbound is a small, curated streaming experience for AI-generated video
 series. It brings a series-first browsing model to short-form video: discover a
 series, open its first episode, and keep watching in sequence through the
 official Douyin player.
+
+## A look inside
+
+| Discover a series | Watch an episode |
+| --- | --- |
+| ![Reelbound homepage showing the featured series and catalogue](docs/screenshots/homepage.png) | ![Reelbound episode page showing the player, episode details, and episode list](docs/screenshots/episode-page.png) |
+
+Desktop captures of the homepage and episode view.
 
 > This is a personal, non-commercial project. It currently has no accounts,
 > payments, advertising, or user tracking.
@@ -60,7 +67,7 @@ understand and makes the curated catalogue reproducible from source control.
 
 ## Current scope
 
-NextFrame is currently a curated viewing platform, not a social network. There
+Reelbound is currently a curated viewing platform, not a social network. There
 are no user accounts, social sign-in, profiles, comments, likes, follows,
 personalized recommendations, or save-for-later lists. The catalogue is
 intentionally selected and maintained as static TypeScript content.
@@ -116,7 +123,7 @@ by episode number because they also control previous/next navigation.
 
 ### Localize titles and descriptions
 
-Because NextFrame presents Chinese Douyin series for an English-speaking
+Because Reelbound presents Chinese Douyin series for an English-speaking
 audience, the original Chinese title is the canonical source title. Treat
 `title.en` as an editorial localization that can be refined independently, and
 use a stable Hanyu Pinyin identifier for new slugs and content filenames when
@@ -150,8 +157,8 @@ Episode document titles use the same series-first hierarchy in both locales,
 while preserving native punctuation and spacing:
 
 ```text
-The Laid-Off Girl — Episode 4 | NextFrame
-被裁掉的女孩 · 第4集｜NextFrame
+The Laid-Off Girl — Episode 4 | Reelbound
+被裁掉的女孩 · 第4集｜Reelbound
 ```
 
 The English em dash separates the series from its episode context. Chinese uses
@@ -194,13 +201,13 @@ validates the app; it does not perform the deployment.
 
 ## Content, copyright, and licensing
 
-The original NextFrame source code is available under the
+The original Reelbound source code is available under the
 [MIT License](LICENSE). You may use, modify, redistribute, and commercialize
 that code, provided the copyright notice and license text are preserved as
 required by the license.
 
 The video IDs and embedded videos come from Douyin and remain subject to the
-rights of their respective creators, publishers, and platform terms. NextFrame
+rights of their respective creators, publishers, and platform terms. Reelbound
 does not claim ownership of those videos, does not download or re-host them,
 and uses Douyin’s official embed rather than scraping video files. The MIT
 License does not grant permission to copy, redistribute, monetize, or otherwise
@@ -221,7 +228,7 @@ before opening a pull request.
 
 ## License
 
-Original NextFrame source code: [MIT License](LICENSE).
+Original Reelbound source code: [MIT License](LICENSE).
 
 Third-party content is not covered by the MIT License. See [`NOTICE`](NOTICE)
 for details.

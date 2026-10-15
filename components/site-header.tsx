@@ -19,10 +19,10 @@ function subscribeToTheme(onChange: () => void) {
   };
 
   systemTheme.addEventListener("change", syncSystemTheme);
-  window.addEventListener("nextframe-theme-change", onChange);
+  window.addEventListener("reelbound-theme-change", onChange);
   return () => {
     systemTheme.removeEventListener("change", syncSystemTheme);
-    window.removeEventListener("nextframe-theme-change", onChange);
+    window.removeEventListener("reelbound-theme-change", onChange);
   };
 }
 
@@ -42,13 +42,16 @@ export function SiteHeader({
 
   useLayoutEffect(() => {
     try {
-      const savedTheme = window.localStorage.getItem("nextframe-theme");
+      const savedTheme =
+        window.localStorage.getItem("reelbound-theme") ??
+        window.localStorage.getItem("nextframe-theme");
       if (
         (savedTheme === "light" || savedTheme === "dark") &&
         document.documentElement.dataset.theme !== savedTheme
       ) {
         document.documentElement.dataset.theme = savedTheme;
-        window.dispatchEvent(new Event("nextframe-theme-change"));
+        window.localStorage.setItem("reelbound-theme", savedTheme);
+        window.dispatchEvent(new Event("reelbound-theme-change"));
       }
     } catch {
       // The system preference remains active when browser storage is unavailable.
@@ -59,11 +62,11 @@ export function SiteHeader({
     const nextTheme = isDark ? "light" : "dark";
     document.documentElement.dataset.theme = nextTheme;
     try {
-      window.localStorage.setItem("nextframe-theme", nextTheme);
+      window.localStorage.setItem("reelbound-theme", nextTheme);
     } catch {
       // The current page still changes theme when browser storage is unavailable.
     }
-    window.dispatchEvent(new Event("nextframe-theme-change"));
+    window.dispatchEvent(new Event("reelbound-theme-change"));
   }
 
   return (
@@ -78,7 +81,7 @@ export function SiteHeader({
               <path d="M53 85 Q49 89 54 89 L78 89 Q84 89 84 80 L84 46 Q84 42 80 45 Z" />
             </g>
           </svg>
-          <span>nextframe</span>
+          <span>reelbound</span>
         </Link>
 
         <div className="header-actions">

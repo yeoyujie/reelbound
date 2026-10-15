@@ -23,9 +23,9 @@ export async function generateMetadata({
       {
         default:
           lang === "zh-CN"
-            ? "NextFrame — 从一部好剧开始"
-            : "NextFrame — Start with one story",
-        template: "%s — NextFrame",
+            ? "Reelbound — 好故事，值得一看"
+            : "Reelbound — Stories worth your time",
+        template: "%s — Reelbound",
       },
     description: dictionary.introCopy,
     alternates: {
@@ -48,7 +48,7 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <head>
         <InlineScript
-          html={`(function(){try{var t=localStorage.getItem("nextframe-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`}
+          html={`(function(){try{var t=localStorage.getItem("reelbound-theme")||localStorage.getItem("nextframe-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`}
         />
       </head>
       <body>

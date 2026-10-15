@@ -1,12 +1,11 @@
-# NextFrame
+# Reelbound
 
 <p align="right">
   <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a>
 </p>
 
 <p align="center">
-  <a href="https://nextframe-ivory.vercel.app/"><img src="https://img.shields.io/badge/在线演示-nextframe--ivory.vercel.app-black?logo=vercel&logoColor=white" alt="在线演示"></a>
-  <a href="https://github.com/yeoyujie/NextFrame/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/yeoyujie/NextFrame/ci.yml?branch=main&label=CI" alt="CI 状态"></a>
+  <a href="https://github.com/yeoyujie/reelbound/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/yeoyujie/reelbound/ci.yml?branch=main&label=CI" alt="CI 状态"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
   <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white" alt="Next.js 16"></a>
   <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" alt="React 19"></a>
@@ -16,9 +15,17 @@
 
 **故事，从这一帧开始。精彩，未完待续。**
 
-NextFrame 是一个小而精致的 AI 生成视频系列精选平台。它采用“系列优先”
+Reelbound 是一个小而精致的 AI 生成视频系列精选平台。它采用“系列优先”
 而不是无尽信息流的浏览方式：发现一个系列，打开第一集，然后通过抖音官方
 播放器按顺序继续观看。
+
+## 界面一览
+
+| 发现系列 | 观看剧集 |
+| --- | --- |
+| ![Reelbound 深色模式中文版首页，展示精选系列和内容目录](docs/screenshots/homepage.zh-CN.dark.png) | ![Reelbound 深色模式中文版剧集页面，展示播放器、剧集信息和分集列表](docs/screenshots/episode-page.zh-CN.dark.png) |
+
+首页和剧集页面的桌面版深色模式截图。
 
 > 这是一个个人非商业项目。目前不提供账号、付费、广告或用户追踪功能。
 
@@ -57,7 +64,7 @@ NextFrame 是一个小而精致的 AI 生成视频系列精选平台。它采用
 
 ## 当前范围
 
-NextFrame 目前是一个精选观看平台，而不是社交网络。当前没有用户账号、社交
+Reelbound 目前是一个精选观看平台，而不是社交网络。当前没有用户账号、社交
 登录、个人主页、评论、点赞、关注、个性化推荐或“稍后观看”列表。视频目录
 有意采用静态 TypeScript 内容进行精选和维护。
 
@@ -111,7 +118,7 @@ pnpm start
 
 ### 本地化标题和简介
 
-由于 NextFrame 面向英文观众呈现中文抖音系列，原始中文标题是内容的规范来源。
+由于 Reelbound 面向英文观众呈现中文抖音系列，原始中文标题是内容的规范来源。
 `title.en` 是可独立调整的英文本地化标题，不应决定剧集的技术身份。对于新的
 中文剧集，请使用稳定的汉语拼音作为 slug 和内容文件名，例如 `归墟` 使用
 `gui-xu`；像 `NOVA` 这样的品牌名则保留原本的拉丁字母写法。
@@ -141,8 +148,8 @@ pnpm start
 自然的标点和空格规范：
 
 ```text
-The Laid-Off Girl — Episode 4 | NextFrame
-被裁掉的女孩 · 第4集｜NextFrame
+The Laid-Off Girl — Episode 4 | Reelbound
+被裁掉的女孩 · 第4集｜Reelbound
 ```
 
 英文使用长破折号分隔系列名称和剧集信息；中文使用间隔号作为紧凑的内容分隔符，
@@ -182,12 +189,12 @@ Vercel 通过 Git 集成处理部署：Pull Request 和功能分支会获得 Pre
 
 ## 内容、版权与许可
 
-NextFrame 的原创源代码采用
+Reelbound 的原创源代码采用
 [MIT License](LICENSE) 授权。你可以使用、修改、分发和商业化这些源代码，但
 必须按照许可证要求保留版权声明和许可证文本。
 
 目录中的视频 ID 和嵌入视频来自抖音，相关内容仍受视频创作者、发布者及平台条款
-约束。NextFrame 不主张拥有这些视频的版权，不下载或重新托管视频文件，而是使用
+约束。Reelbound 不主张拥有这些视频的版权，不下载或重新托管视频文件，而是使用
 抖音官方嵌入播放器。MIT License 不会授予复制、分发、商业化或以其他方式使用
 这些第三方内容的权利。关于署名请求和第三方内容边界，请参阅
 [`NOTICE`](NOTICE)。
@@ -204,6 +211,6 @@ NextFrame 的原创源代码采用
 
 ## 许可证
 
-NextFrame 原创源代码：[MIT License](LICENSE)。
+Reelbound 原创源代码：[MIT License](LICENSE)。
 
 第三方内容不在 MIT License 的授权范围内，详情请参阅 [`NOTICE`](NOTICE)。
