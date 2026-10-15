@@ -1,10 +1,13 @@
 import type { Episode, EpisodeVideoSource, LocalizedText, Series } from "./series/types";
 
-import { SuddenlyRichFamily } from "./series/bao-fu-yi-jia-ren";
-import { BackTo200LbsIDebutAsCenter } from "./series/chong-hui-200-jin-wo-c-wei-chu-dao";
-import { TheLaidOffGirl } from "./series/bei-cai-diao-de-nv-hai";
-import { Guixu } from "./series/gui-xu";
+import { ANameOfHerOwn } from "./series/wo-jiao-xu-ai-li";
+import { BackAt100KilosIDebutAsTheCenter } from "./series/chong-hui-200-jin-wo-c-wei-chu-dao";
+import { HowToBeYourOwnLittleSister } from "./series/lin-man-bu-man";
 import { Nova } from "./series/nova";
+import { SuddenlyRichFamily } from "./series/bao-fu-yi-jia-ren";
+import { TheAgeOfNewSpecies } from "./series/gui-xu";
+import { TheLaidOffGirl } from "./series/bei-cai-diao-de-nv-hai";
+import { TheLongLifeInitiative } from "./series/mi-shou-ji-hua";
 
 /**
  * Ordered series catalogue. Move entries here to change their homepage order.
@@ -12,10 +15,13 @@ import { Nova } from "./series/nova";
  */
 export const seriesCatalog: Series[] = [
   TheLaidOffGirl,
-  Guixu,
+  TheAgeOfNewSpecies,
   Nova,
   SuddenlyRichFamily,
-  BackTo200LbsIDebutAsCenter,
+  ANameOfHerOwn,
+  HowToBeYourOwnLittleSister,
+  BackAt100KilosIDebutAsTheCenter,
+  TheLongLifeInitiative,
 ];
 
 export type { Episode, EpisodeVideoSource, LocalizedText, Series };

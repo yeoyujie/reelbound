@@ -36,5 +36,6 @@ export const TheLaidOffGirl: Series = {
       { number: 25, title: "Episode 25", videoId: "7679008022307409193" },
       { number: 26, title: "Episode 26", videoId: "7680541532486782223" },
       { number: 27, title: "Episode 27", videoId: "7691756458265824563" },
+      { number: 28, title: "Episode 28", videoId: "7695100465503079723" },
     ],
   };

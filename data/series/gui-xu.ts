@@ -1,6 +1,6 @@
 import type { Series } from "./types";
 
-export const Guixu: Series = {
+export const TheAgeOfNewSpecies: Series = {
   slug: "gui-xu",
   title: { en: "The Age of New Species", zh: "归墟" },
   thumbnail: "/images/series/gui-xu.png",

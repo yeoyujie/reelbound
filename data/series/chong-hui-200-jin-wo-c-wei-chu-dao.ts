@@ -1,6 +1,6 @@
 import type { Series } from "./types";
 
-export const BackTo200LbsIDebutAsCenter: Series = {
+export const BackAt100KilosIDebutAsTheCenter: Series = {
   slug: "chong-hui-200-jin-wo-c-wei-chu-dao",
   title: { en: "Back at 100 Kilos: I Debut as the Center", zh: "重回200斤我C位出道" },
   thumbnail: "/images/series/chong-hui-200-jin-wo-c-wei-chu-dao.png",
