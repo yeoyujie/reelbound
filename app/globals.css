@@ -276,12 +276,236 @@ a:focus-visible {
 }
 
 .home-shell {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.home-hero,
+.series-section,
+.home-footer {
   width: min(calc(100% - var(--content-gutter)), var(--content-width));
   margin-inline: auto;
 }
 
-.intro {
-  padding-block: clamp(90px, 14vw, 174px) clamp(78px, 11vw, 132px);
+.home-hero {
+  position: relative;
+  min-height: min(720px, calc(100svh - 76px));
+  margin-top: 20px;
+  isolation: isolate;
+  overflow: visible;
+  background: var(--background);
+  color: #f5f4f2;
+}
+
+.home-hero-media,
+.home-hero-vignette {
+  position: absolute;
+  inset: 0;
+}
+
+.home-hero-media {
+  overflow: hidden;
+  z-index: -1;
+}
+
+.home-hero-poster,
+.home-hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-hero-poster {
+  opacity: 1;
+}
+
+.home-hero-video {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  filter: saturate(0.78) contrast(0.95);
+}
+
+.home-hero-vignette {
+  background:
+    linear-gradient(
+      90deg,
+      var(--background) 0%,
+      color-mix(in srgb, var(--background) 72%, transparent) 14%,
+      transparent 31%,
+      transparent 69%,
+      color-mix(in srgb, var(--background) 72%, transparent) 86%,
+      var(--background) 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 34%,
+      color-mix(in srgb, var(--background) 45%, transparent) 65%,
+      var(--background) 100%
+    );
+}
+
+.home-hero::after {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: -110px;
+  left: 0;
+  height: 220px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--background) 60%, transparent) 28%,
+    var(--background) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.home-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: inherit;
+  max-width: 590px;
+  flex-direction: column;
+  justify-content: end;
+  padding: clamp(56px, 8vw, 118px);
+  padding-bottom: clamp(92px, 12vw, 150px);
+}
+
+.home-hero .eyebrow {
+  color: rgb(245 244 242 / 68%);
+}
+
+.home-hero .eyebrow::before {
+  background: #d7b47f;
+}
+
+.home-hero h1 {
+  max-width: 570px;
+  margin: 24px 0 18px;
+  font-size: clamp(48px, 7vw, 90px);
+  font-weight: 450;
+  letter-spacing: -0.08em;
+  line-height: 0.98;
+}
+
+.home-hero-copy {
+  max-width: 480px;
+  margin: 0;
+  color: rgb(245 244 242 / 76%);
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.6;
+}
+
+.home-hero-action {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 13px 17px;
+  border: 1px solid rgb(245 244 242 / 36%);
+  border-radius: 999px;
+  background: rgb(245 244 242 / 10%);
+  color: #f5f4f2;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, gap 160ms ease;
+}
+
+.home-hero-action:hover {
+  gap: 14px;
+  border-color: rgb(245 244 242 / 70%);
+  background: rgb(245 244 242 / 20%);
+}
+
+.home-hero-scroll {
+  position: absolute;
+  right: clamp(24px, 5vw, 72px);
+  bottom: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: rgb(245 244 242 / 68%);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.home-hero-scroll:hover {
+  color: #f5f4f2;
+}
+
+/* Keep the hero artwork present in light mode while retaining text contrast. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .home-hero .home-hero-vignette {
+    background:
+      linear-gradient(90deg, rgb(19 21 27 / 62%) 0%, rgb(19 21 27 / 32%) 30%, transparent 62%),
+      linear-gradient(
+        90deg,
+        var(--background) 0%,
+        transparent 3%,
+        transparent 97%,
+        var(--background) 100%
+      ),
+      linear-gradient(
+        180deg,
+        transparent 0%,
+        transparent 55%,
+        rgb(19 21 27 / 34%) 80%,
+        rgb(19 21 27 / 54%) 100%
+      );
+  }
+}
+
+:root[data-theme="light"] .home-hero .home-hero-vignette {
+  background:
+    linear-gradient(90deg, rgb(19 21 27 / 62%) 0%, rgb(19 21 27 / 32%) 30%, transparent 62%),
+    linear-gradient(
+      90deg,
+      var(--background) 0%,
+      transparent 3%,
+      transparent 97%,
+      var(--background) 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 55%,
+      rgb(19 21 27 / 34%) 80%,
+      rgb(19 21 27 / 54%) 100%
+    );
+}
+
+:root[data-theme="light"] .home-hero::after {
+  bottom: -40px;
+  height: 40px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--background) 30%, transparent) 38%,
+    var(--background) 100%
+  );
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .home-hero::after {
+    bottom: -40px;
+    height: 40px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--background) 30%, transparent) 38%,
+      var(--background) 100%
+    );
+  }
 }
 
 .eyebrow {
@@ -332,6 +556,9 @@ a:focus-visible {
 }
 
 .series-section {
+  position: relative;
+  z-index: 1;
+  padding-top: clamp(28px, 4vw, 52px);
   padding-bottom: 62px;
 }
 
@@ -766,8 +993,7 @@ a:focus-visible {
 }
 
 @media (max-width: 600px) {
-  .site-header-inner,
-  .home-shell {
+  .site-header-inner {
     width: calc(100% - 40px);
   }
 
@@ -782,8 +1008,32 @@ a:focus-visible {
     text-align: right;
   }
 
-  .intro {
-    padding-top: 96px;
+  .home-hero {
+    width: calc(100% - 40px);
+    min-height: 600px;
+    margin-top: 14px;
+  }
+
+  .home-hero-content {
+    padding: 36px 24px 88px;
+  }
+
+  .home-hero h1 {
+    margin-top: 20px;
+    font-size: clamp(45px, 15vw, 68px);
+  }
+
+  .home-hero-copy {
+    font-size: 15px;
+  }
+
+  .home-hero-scroll {
+    right: 24px;
+    bottom: 28px;
+  }
+
+  .series-section {
+    padding-top: 28px;
   }
 
   .intro h1 {

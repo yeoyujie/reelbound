@@ -1,6 +1,7 @@
+import { HomeHero } from "@/components/home-hero";
 import { SeriesCard } from "@/components/series-card";
 import { seriesCatalog } from "@/data/series";
-import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localizedText, type Locale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
@@ -8,20 +9,28 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dictionary = getDictionary(locale);
+  const featuredSeries = seriesCatalog[0];
+  const featuredEpisode = featuredSeries?.episodes[0];
+
+  if (!featuredSeries || !featuredEpisode) notFound();
+
+  const featuredDescription = localizedText(featuredSeries.description, locale).replace(
+    /([.!?。！？])[\s\S]*$/,
+    "$1",
+  );
+
   return (
     <main className="home-shell">
-      <section className="intro" aria-labelledby="intro-title">
-        <p className="eyebrow">{dictionary.introEyebrow}</p>
-        <h1 id="intro-title">
-          {dictionary.introTitle[0]}
-          <br />
-          {dictionary.introTitle[1]}
-        </h1>
-        <p className="intro-copy">{dictionary.introCopy}</p>
-        <a className="intro-link" href="#series">
-          {dictionary.exploreCollection} <span aria-hidden="true">↓</span>
-        </a>
-      </section>
+      <HomeHero
+        actionHref={`/${locale}/series/${featuredSeries.slug}/episode/${featuredEpisode.number}`}
+        actionLabel={dictionary.heroAction}
+        description={featuredDescription}
+        eyebrow={dictionary.heroEyebrow}
+        poster={featuredSeries.thumbnail ?? "/images/hero/story-01.jpg"}
+        scrollLabel={dictionary.exploreCollection}
+        title={localizedText(featuredSeries.title, locale)}
+        videoLabel={dictionary.heroVideoLabel}
+      />
 
       <section className="series-section" id="series" aria-labelledby="series-heading">
         <div className="section-heading">
