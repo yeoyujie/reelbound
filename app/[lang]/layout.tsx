@@ -45,7 +45,7 @@ export default async function RootLayout({
   if (!isLocale(lang)) notFound();
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={lang} data-theme="dark" suppressHydrationWarning>
       <head>
         <InlineScript
           html={`(function(){try{var t=localStorage.getItem("reelbound-theme")||localStorage.getItem("nextframe-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`}
