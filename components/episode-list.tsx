@@ -84,7 +84,10 @@ export function EpisodeList({
               ].filter(Boolean);
 
               return (
-                <li key={item.slug}>
+                <li
+                  key={item.slug}
+                  className={item.number === undefined ? "is-extra" : undefined}
+                >
                   <Link
                     ref={isCurrent ? currentEpisodeRef : undefined}
                     className={`episode-list-item${isCurrent ? " is-current" : ""}`}
@@ -92,18 +95,21 @@ export function EpisodeList({
                     aria-current={isCurrent ? "page" : undefined}
                   >
                     <span className="episode-number" aria-hidden="true">
-                      {isCurrent ? (
+                      <span className="episode-number-label">
+                        {item.number !== undefined
+                          ? `${String(item.number).padStart(2, "0")}${
+                              item.part ? `-${item.part}` : ""
+                            }`
+                          : episode.kind === "special"
+                            ? "SP"
+                            : "—"}
+                      </span>
+                      {isCurrent && (
                         <span className="playing-bars">
                           <span />
                           <span />
                           <span />
                         </span>
-                      ) : item.number !== undefined ? (
-                        String(item.number).padStart(2, "0")
-                      ) : episode.kind === "special" ? (
-                        "SP"
-                      ) : (
-                        "—"
                       )}
                     </span>
                     <span className="episode-list-copy">

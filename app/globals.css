@@ -773,6 +773,7 @@ a:focus-visible {
   min-height: 0;
   min-width: 0;
   grid-template-rows: auto auto auto;
+  align-content: start;
 }
 
 .player-stage {
@@ -824,7 +825,7 @@ a:focus-visible {
 }
 
 .episode-kicker {
-  margin: 0 0 3px;
+  margin: 0 0 6px;
   color: var(--muted);
   font-size: 11px;
   font-weight: 560;
@@ -832,19 +833,12 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.episode-details h1 {
-  margin: 0;
-  font-size: clamp(26px, 3.2vw, 38px);
-  font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 1.2;
-}
-
 .episode-heading h1 {
   margin: 0;
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: clamp(20px, 1.1vw, 28px);
   font-weight: 500;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
 
 .episode-recap {
@@ -856,7 +850,7 @@ a:focus-visible {
 
 .episode-description {
   max-width: 700px;
-  margin: 7px 0 0;
+  margin: 10px 0 0;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.65;
@@ -1001,6 +995,11 @@ a:focus-visible {
   color: var(--muted);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
+}
+
+/* The sidebar list swaps the current episode's number for the equaliser. */
+.is-current .episode-number-label {
+  display: none;
 }
 
 .episode-list-copy {
@@ -1364,6 +1363,90 @@ a:focus-visible {
   .episode-list {
     overflow-y: auto;
     scrollbar-gutter: stable;
+  }
+}
+
+/* Stacked watch layouts: a compact numbered grid replaces the long list, so
+   every episode stays one tap away without a nested scroll area. */
+@media (max-width: 600px), (max-width: 900px) and (min-height: 501px) {
+  .episode-season-heading {
+    padding: 0;
+  }
+
+  .episode-season-list {
+    grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+    gap: 8px;
+  }
+
+  .episode-list-item {
+    position: relative;
+    display: grid;
+    min-height: 48px;
+    grid-template-columns: none;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+  }
+
+  .episode-list-item:active {
+    background: var(--episode-current);
+  }
+
+  .episode-list-item.is-current {
+    border-color: var(--accent-primary);
+    box-shadow: inset 0 0 0 1px var(--accent-primary);
+  }
+
+  .episode-number {
+    display: grid;
+    justify-items: center;
+    gap: 3px;
+    color: var(--foreground);
+    font-size: 14px;
+  }
+
+  .is-current .episode-number-label {
+    display: inline;
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  .is-current .playing-bars {
+    height: 8px;
+  }
+
+  .is-current .playing-bars span {
+    width: 2px;
+  }
+
+  /* Specials and compilations have no number to identify them, so they keep
+     a full-width row with their title. */
+  .episode-season-list > .is-extra {
+    grid-column: 1 / -1;
+  }
+
+  .is-extra .episode-list-item {
+    grid-template-columns: 36px minmax(0, 1fr);
+    place-items: center start;
+    gap: 10px;
+    padding: 8px 12px;
+  }
+
+  .is-extra .episode-number {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* Titles stay available to assistive tech; the episode details above
+     already show the current title visually. */
+  li:not(.is-extra) .episode-list-copy {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 
