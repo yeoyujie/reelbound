@@ -21,11 +21,23 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
   const iframeBottomInset = 12;
   const visibleIframeHeight = iframeHeight - iframeBottomInset;
   const stageRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [scale, setScale] = useState(0);
   const playerUrl = new URL("https://open.douyin.com/player/video");
   playerUrl.searchParams.set("vid", source.videoId);
   playerUrl.searchParams.set("autoplay", "1");
   const playerSrc = playerUrl.toString();
+
+  useLayoutEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+    if (iframe.src !== playerSrc) iframe.src = playerSrc;
+
+    // Hidden routes stay mounted, unload the player to stop playback.
+    return () => {
+      iframe.src = "about:blank";
+    };
+  }, [playerSrc]);
 
   useLayoutEffect(() => {
     const stage = stageRef.current;
@@ -59,6 +71,7 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
       >
         <iframe
           className="douyin-player"
+          ref={iframeRef}
           src={playerSrc}
           title={`Douyin video: ${title}`}
           width={videoWidth}

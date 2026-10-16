@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 type HomeHeroProps = {
   eyebrow: string;
@@ -39,7 +39,7 @@ export function HomeHero({
     return () => motionQuery.removeEventListener("change", updateMotionPreference);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const hero = heroRef.current;
     const video = videoRef.current;
     if (!hero || !video || !motionAllowed) return;
@@ -56,7 +56,12 @@ export function HomeHero({
     );
 
     visibilityObserver.observe(hero);
-    return () => visibilityObserver.disconnect();
+    return () => {
+      visibilityObserver.disconnect();
+      // Cache Components hides left routes with `display: none`, which does not
+      // stop media playback.
+      video.pause();
+    };
   }, [motionAllowed]);
 
   return (
