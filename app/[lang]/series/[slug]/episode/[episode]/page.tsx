@@ -8,6 +8,14 @@ import {
 } from "@/data/series";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
 import {
+  episodeLabel,
+  episodeTitle,
+  findEpisode,
+  getAdjacentEpisodes,
+  recapNote,
+  resolveEpisodes,
+} from "@/lib/episodes";
+import {
   getDictionary,
   isLocale,
   localizedText,
@@ -18,10 +26,10 @@ import type { Metadata } from "next";
 export function generateStaticParams() {
   return ["en", "zh-CN"].flatMap((lang) =>
     seriesCatalog.flatMap((series) =>
-      series.episodes.map((episode) => ({
+      resolveEpisodes(series).map((item) => ({
         lang,
         slug: series.slug,
-        episode: String(episode.number),
+        episode: item.slug,
       })),
     ),
   );
@@ -36,27 +44,25 @@ export async function generateMetadata({
   if (!isLocale(lang)) notFound();
 
   const series = seriesCatalog.find((item) => item.slug === slug);
-  const episodeNumber = /^\d+$/.test(episodeParam)
-    ? Number(episodeParam)
-    : NaN;
-  const episode = series?.episodes.find((item) => item.number === episodeNumber);
+  const current = series && findEpisode(series, episodeParam);
 
-  if (!series || !episode) notFound();
+  if (!series || !current) notFound();
+  const { episode } = current;
 
   const seriesTitle = localizedText(series.title, lang);
-  const episodeTitle =
-    lang === "zh-CN" ? `第${episode.number}集` : episode.title;
+  const name = episodeTitle(series, current, lang);
   const title =
     lang === "zh-CN"
-      ? `${seriesTitle} · ${episodeTitle}｜Reelbound`
-      : `${seriesTitle} — ${episodeTitle} | Reelbound`;
+      ? `${seriesTitle} · ${name}｜Reelbound`
+      : `${seriesTitle} — ${name} | Reelbound`;
+  const description = localizedText(episode.description ?? series.description, lang);
 
   return {
     title: { absolute: title },
-    description: localizedText(series.description, lang),
+    description,
     openGraph: {
       title,
-      description: localizedText(series.description, lang),
+      description,
       type: "video.episode",
     },
   };
@@ -80,66 +86,61 @@ async function EpisodePageContent({
   const locale: Locale = lang;
   const dictionary = getDictionary(locale);
   const series = seriesCatalog.find((item) => item.slug === slug);
-  const episodeNumber = /^\d+$/.test(episodeParam)
-    ? Number(episodeParam)
-    : NaN;
-  const episode = series?.episodes.find((item) => item.number === episodeNumber);
+  const current = series && findEpisode(series, episodeParam);
 
-  if (!series || !episode) notFound();
+  if (!series || !current) notFound();
+  const { episode } = current;
 
-  const currentIndex = series.episodes.findIndex(
-    (item) => item.number === episode.number,
+  const { previous: previousEpisode, next: nextEpisode } = getAdjacentEpisodes(
+    series,
+    current,
   );
-  const previousEpisode = series.episodes[currentIndex - 1];
-  const nextEpisode = series.episodes[currentIndex + 1];
+  const seriesTitle = localizedText(series.title, locale);
+  const title = episodeTitle(series, current, locale);
+  const recap = recapNote(current, locale);
   const videoSource = await addDouyinDimensions(episode);
 
   return (
     <>
       <EpisodePlayerSourceSync
         source={videoSource}
-        title={`${localizedText(series.title, locale)} — ${episode.title}`}
+        title={`${seriesTitle} — ${title}`}
       />
       <div className="episode-details">
         <div className="episode-heading">
           <p className="episode-kicker">
-            {locale === "zh-CN"
-              ? `第 ${episode.number} 集`
-              : `Episode ${episode.number}`}
+            {episode.title
+              ? `${seriesTitle} · ${episodeLabel(series, current, locale)}`
+              : seriesTitle}
           </p>
-          <h1 id="episode-title">
-            {locale === "zh-CN" ? `第 ${episode.number} 集` : episode.title}
-          </h1>
+          <h1 id="episode-title">{title}</h1>
         </div>
+        {recap && <p className="episode-recap">{recap}</p>}
         <p className="episode-description">
-          {series.description[locale === "zh-CN" ? "zh" : "en"]}
+          {localizedText(episode.description ?? series.description, locale)}
         </p>
       </div>
 
       <nav className="episode-navigation" aria-label={dictionary.episode}>
         {previousEpisode ? (
           <Link
-            href={`/${locale}/series/${series.slug}/episode/${previousEpisode.number}`}
+            href={`/${locale}/series/${series.slug}/episode/${previousEpisode.slug}`}
             rel="prev"
           >
             <span>{dictionary.previousEpisode}</span>
             <strong>
-              {locale === "zh-CN"
-                ? `第 ${previousEpisode.number} 集`
-                : `Episode ${previousEpisode.number}`}
+              {episodeLabel(series, previousEpisode, locale)}
             </strong>
           </Link>
         ) : <span />}
         {nextEpisode ? (
           <Link
-            href={`/${locale}/series/${series.slug}/episode/${nextEpisode.number}`}
+            href={`/${locale}/series/${series.slug}/episode/${nextEpisode.slug}`}
             rel="next"
           >
             <span>{dictionary.nextEpisode}</span>
             <strong>
-              {locale === "zh-CN"
-                ? `第 ${nextEpisode.number} 集`
-                : `Episode ${nextEpisode.number}`}{" "}
+              {episodeLabel(series, nextEpisode, locale)}{" "}
               <span aria-hidden="true">→</span>
             </strong>
           </Link>

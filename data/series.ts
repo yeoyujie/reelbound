@@ -1,4 +1,12 @@
-import type { Episode, EpisodeVideoSource, LocalizedText, Series } from "./series/types";
+import type {
+  Episode,
+  EpisodeRange,
+  EpisodeVideoSource,
+  LocalizedText,
+  Season,
+  Series,
+  SeriesTag,
+} from "./series/types";
 
 import { ANameOfHerOwn } from "./series/wo-jiao-xu-ai-li";
 import { BackAt100KilosIDebutAsTheCenter } from "./series/chong-hui-200-jin-wo-c-wei-chu-dao";
@@ -24,4 +32,12 @@ export const seriesCatalog: Series[] = [
   TheLongLifeInitiative,
 ];
 
-export type { Episode, EpisodeVideoSource, LocalizedText, Series };
+export type {
+  Episode,
+  EpisodeRange,
+  EpisodeVideoSource,
+  LocalizedText,
+  Season,
+  Series,
+  SeriesTag,
+};

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Series } from "@/data/series";
-import { localizedText, type Dictionary, type Locale } from "@/lib/i18n";
+import { getEntryEpisode } from "@/lib/episodes";
+import { localizedText, tagList, type Dictionary, type Locale } from "@/lib/i18n";
 
 type SeriesCardProps = {
   series: Series;
@@ -10,16 +11,17 @@ type SeriesCardProps = {
 };
 
 export function SeriesCard({ series, locale, dictionary }: SeriesCardProps) {
-  const firstEpisode = series.episodes[0];
+  const firstEpisode = getEntryEpisode(series);
   const title = localizedText(series.title, locale);
   const description = localizedText(series.description, locale);
+  const tags = tagList(series.tags, locale);
 
   if (!firstEpisode) return null;
 
   return (
     <Link
       className="series-card"
-      href={`/${locale}/series/${series.slug}/episode/${firstEpisode.number}`}
+      href={`/${locale}/series/${series.slug}/episode/${firstEpisode.slug}`}
       aria-label={`${dictionary.watchSeries}: ${title}`}
     >
       <div className="series-artwork" aria-hidden="true">
@@ -44,6 +46,7 @@ export function SeriesCard({ series, locale, dictionary }: SeriesCardProps) {
       <div className="series-card-copy">
         <div>
           <h3>{title}</h3>
+          {tags.length > 0 && <p className="series-card-tags">{tags.join(" · ")}</p>}
           <p>{description}</p>
         </div>
         <span className="series-card-action">

@@ -1,4 +1,4 @@
-import type { LocalizedText } from "@/data/series";
+import type { LocalizedText, SeriesTag } from "@/data/series";
 
 export const locales = ["en", "zh-CN"] as const;
 export type Locale = (typeof locales)[number];
@@ -37,6 +37,7 @@ export const dictionaries = {
     footer: "A considered selection of stories, chosen to stay with you.",
     episode: "Episode",
     nowPlaying: "Now playing",
+    recapBadge: "Recap",
     previousEpisode: "Previous episode",
     nextEpisode: "Next episode",
     series: "Series",
@@ -66,12 +67,33 @@ export const dictionaries = {
     footer: "认真挑选好故事，留住每一次观看。",
     episode: "第",
     nowPlaying: "正在播放",
+    recapBadge: "含回顾",
     previousEpisode: "上一集",
     nextEpisode: "下一集",
     series: "系列",
     backToSeries: "返回系列",
   },
 } satisfies Record<Locale, Record<string, string | string[]>>;
+
+export const tagLabels: Record<SeriesTag, LocalizedText> = {
+  action: { en: "Action", zh: "动作" },
+  apocalypse: { en: "Apocalypse", zh: "末日" },
+  "body-swap": { en: "Body swap", zh: "换身" },
+  comedy: { en: "Comedy", zh: "喜剧" },
+  "coming-of-age": { en: "Coming of age", zh: "成长" },
+  drama: { en: "Drama", zh: "剧情" },
+  fantasy: { en: "Fantasy", zh: "奇幻" },
+  idol: { en: "Idol", zh: "偶像" },
+  music: { en: "Music", zh: "音乐" },
+  rebirth: { en: "Rebirth", zh: "重生" },
+  revenge: { en: "Revenge", zh: "复仇" },
+  "sci-fi": { en: "Sci-fi", zh: "科幻" },
+  workplace: { en: "Workplace", zh: "职场" },
+};
+
+export function tagList(tags: SeriesTag[] | undefined, locale: Locale) {
+  return (tags ?? []).map((tag) => localizedText(tagLabels[tag], locale));
+}
 
 export type Dictionary = (typeof dictionaries)[Locale];
 

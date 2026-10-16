@@ -2,25 +2,31 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import type { Episode } from "@/data/series";
-import type { Dictionary, Locale } from "@/lib/i18n";
+import type { Series } from "@/data/series";
+import {
+  episodeLabel,
+  episodeTitle,
+  groupBySeason,
+  hasMultipleSeasons,
+  recapNote,
+  seasonLabel,
+} from "@/lib/episodes";
+import { localizedText, type Dictionary, type Locale } from "@/lib/i18n";
 
 type EpisodeListProps = {
-  episodes: Episode[];
-  seriesSlug: string;
-  currentEpisodeNumber: number;
+  series: Series;
+  currentEpisodeSlug: string;
   locale: Locale;
   dictionary: Dictionary;
 };
 
 export function EpisodeList({
-  episodes,
-  seriesSlug,
-  currentEpisodeNumber,
+  series,
+  currentEpisodeSlug,
   locale,
   dictionary,
 }: EpisodeListProps) {
-  const listRef = useRef<HTMLOListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const currentEpisodeRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
@@ -50,45 +56,72 @@ export function EpisodeList({
     resizeObserver.observe(list);
 
     return () => resizeObserver.disconnect();
-  }, [currentEpisodeNumber]);
+  }, [currentEpisodeSlug]);
+
+  const multipleSeasons = hasMultipleSeasons(series);
 
   return (
-    <ol className="episode-list" ref={listRef}>
-      {episodes.map((episode) => {
-        const isCurrent = episode.number === currentEpisodeNumber;
+    <div className="episode-list" ref={listRef}>
+      {groupBySeason(series).map((season) => (
+        <section
+          key={season.number}
+          className="episode-season"
+          aria-label={multipleSeasons ? seasonLabel(season.number, locale) : undefined}
+        >
+          {multipleSeasons && (
+            <h3 className="episode-season-heading">
+              {seasonLabel(season.number, locale)}
+              {season.title && <span> · {localizedText(season.title, locale)}</span>}
+            </h3>
+          )}
+          <ol className="episode-season-list">
+            {season.episodes.map((item) => {
+              const { episode } = item;
+              const isCurrent = item.slug === currentEpisodeSlug;
+              const meta = [
+                isCurrent && dictionary.nowPlaying,
+                episode.title && episodeLabel(series, item, locale, { withinSeason: true }),
+                recapNote(item, locale) && dictionary.recapBadge,
+              ].filter(Boolean);
 
-        return (
-          <li key={episode.number}>
-            <Link
-              ref={isCurrent ? currentEpisodeRef : undefined}
-              className={`episode-list-item${isCurrent ? " is-current" : ""}`}
-              href={`/${locale}/series/${seriesSlug}/episode/${episode.number}`}
-              aria-current={isCurrent ? "page" : undefined}
-            >
-              <span className="episode-number">
-                {String(episode.number).padStart(2, "0")}
-              </span>
-              <span className="episode-list-copy">
-                <strong>
-                  {locale === "zh-CN" ? `第 ${episode.number} 集` : episode.title}
-                </strong>
-                <span>
-                  {isCurrent
-                    ? dictionary.nowPlaying
-                    : locale === "zh-CN"
-                      ? `第 ${episode.number} 集`
-                      : `Episode ${episode.number}`}
-                </span>
-              </span>
-              {isCurrent && (
-                <span className="playing-indicator" aria-hidden="true">
-                  ●
-                </span>
-              )}
-            </Link>
-          </li>
-        );
-      })}
-    </ol>
+              return (
+                <li key={item.slug}>
+                  <Link
+                    ref={isCurrent ? currentEpisodeRef : undefined}
+                    className={`episode-list-item${isCurrent ? " is-current" : ""}`}
+                    href={`/${locale}/series/${series.slug}/episode/${item.slug}`}
+                    aria-current={isCurrent ? "page" : undefined}
+                  >
+                    <span className="episode-number" aria-hidden="true">
+                      {item.number !== undefined
+                        ? String(item.number).padStart(2, "0")
+                        : episode.kind === "special"
+                          ? "SP"
+                          : "—"}
+                    </span>
+                    <span className="episode-list-copy">
+                      <strong>
+                        {episodeTitle(series, item, locale, { withinSeason: true })}
+                      </strong>
+                      {meta.length > 0 && <span>{meta.join(" · ")}</span>}
+                      {episode.description && (
+                        <span className="episode-list-description">
+                          {localizedText(episode.description, locale)}
+                        </span>
+                      )}
+                    </span>
+                    {isCurrent && (
+                      <span className="playing-indicator" aria-hidden="true">
+                        ●
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))}
+    </div>
   );
 }

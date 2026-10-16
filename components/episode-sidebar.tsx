@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { seriesCatalog } from "@/data/series";
 import { EpisodeList } from "@/components/episode-list";
+import { findEpisode, getStoryEpisodes } from "@/lib/episodes";
 import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
 
 export function EpisodeSidebar() {
@@ -15,11 +16,8 @@ export function EpisodeSidebar() {
   const locale: Locale = lang;
   const dictionary = getDictionary(locale);
   const series = seriesCatalog.find((item) => item.slug === slug);
-  const episodeNumber = /^\d+$/.test(episodeParam)
-    ? Number(episodeParam)
-    : NaN;
 
-  if (!series || !series.episodes.some((item) => item.number === episodeNumber)) {
+  if (!series || !findEpisode(series, episodeParam)) {
     return null;
   }
 
@@ -30,13 +28,12 @@ export function EpisodeSidebar() {
           <p className="eyebrow">{dictionary.series}</p>
           <h2 id="episode-list-title">{dictionary.episodes}</h2>
         </div>
-        <span>{series.episodes.length}</span>
+        <span>{getStoryEpisodes(series).length || series.episodes.length}</span>
       </div>
 
       <EpisodeList
-        episodes={series.episodes}
-        seriesSlug={series.slug}
-        currentEpisodeNumber={episodeNumber}
+        series={series}
+        currentEpisodeSlug={episodeParam}
         locale={locale}
         dictionary={dictionary}
       />

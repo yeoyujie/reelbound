@@ -1,6 +1,7 @@
 import { HomeHero } from "@/components/home-hero";
 import { SeriesCard } from "@/components/series-card";
 import { seriesCatalog } from "@/data/series";
+import { getEntryEpisode } from "@/lib/episodes";
 import { getDictionary, isLocale, localizedText, type Locale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
@@ -10,7 +11,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const locale: Locale = lang;
   const dictionary = getDictionary(locale);
   const featuredSeries = seriesCatalog[0];
-  const featuredEpisode = featuredSeries?.episodes[0];
+  const featuredEpisode = featuredSeries && getEntryEpisode(featuredSeries);
 
   if (!featuredSeries || !featuredEpisode) notFound();
 
@@ -22,7 +23,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   return (
     <main className="home-shell">
       <HomeHero
-        actionHref={`/${locale}/series/${featuredSeries.slug}/episode/${featuredEpisode.number}`}
+        actionHref={`/${locale}/series/${featuredSeries.slug}/episode/${featuredEpisode.slug}`}
         actionLabel={dictionary.heroAction}
         description={featuredDescription}
         eyebrow={dictionary.heroEyebrow}

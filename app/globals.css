@@ -711,6 +711,13 @@ a:focus-visible {
   line-height: 1.5;
 }
 
+.series-card-copy .series-card-tags {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 560;
+  letter-spacing: 0.02em;
+}
+
 .series-card-action {
   display: block;
   width: fit-content;
@@ -839,6 +846,13 @@ a:focus-visible {
   letter-spacing: -0.05em;
 }
 
+.episode-recap {
+  margin: 6px 0 0;
+  color: var(--accent-secondary);
+  font-size: 12px;
+  font-weight: 560;
+}
+
 .episode-description {
   max-width: 700px;
   margin: 7px 0 0;
@@ -920,6 +934,28 @@ a:focus-visible {
   list-style: none;
 }
 
+.episode-season + .episode-season {
+  margin-top: 18px;
+}
+
+.episode-season-heading {
+  margin: 0 0 6px;
+  padding: 0 12px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 560;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.episode-season-list {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .episode-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -973,16 +1009,29 @@ a:focus-visible {
 }
 
 .episode-list-copy strong {
+  display: -webkit-box;
   overflow: hidden;
   font-size: 13px;
   font-weight: 560;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .episode-list-copy > span {
   color: var(--muted);
   font-size: 11px;
+}
+
+.episode-list-copy > .episode-list-description {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .playing-indicator {
@@ -1224,7 +1273,9 @@ a:focus-visible {
     font-size: 16px;
   }
 
-  .episode-description {
+  .episode-description,
+  .episode-recap,
+  .episode-list-description {
     display: none;
   }
 
