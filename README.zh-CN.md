@@ -1,7 +1,12 @@
-# Reelbound
+<h1 align="center">Reelbound</h1>
 
-<p align="right">
-  <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a>
+<p align="center">
+  <strong>故事，从这一帧开始。精彩，未完待续。</strong><br>
+  一个精心策展、富有电影感的 AI 生成短剧系列观看平台。
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a>
 </p>
 
 <p align="center">
@@ -13,39 +18,98 @@
   <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-12-F69220?logo=pnpm&logoColor=white" alt="pnpm 12"></a>
 </p>
 
-**故事，从这一帧开始。精彩，未完待续。**
+<p align="center">
+  <img src="docs/screenshots/home-desktop-zh-CN.webp" alt="Reelbound 深色模式中文版首页，展示精选系列和“观看第 1 集”按钮" width="900">
+</p>
 
-Reelbound 是一个小而精致的 AI 生成视频系列精选平台。它采用“系列优先”
-而不是无尽信息流的浏览方式：发现一个系列，打开第一集，然后通过抖音官方
-播放器按顺序继续观看。
+Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里没有无尽的信息流：
+**发现一个系列，从第一集开始，按顺序一直看下去**，视频通过抖音官方播放器播放。
 
-## 界面一览
-
-| 发现系列 | 观看剧集 |
-| --- | --- |
-| ![Reelbound 深色模式中文版首页，展示精选系列和内容目录](docs/screenshots/homepage.zh-CN.dark.png) | ![Reelbound 深色模式中文版剧集页面，展示播放器、剧集信息和分集列表](docs/screenshots/episode-page.zh-CN.dark.png) |
-
-首页和剧集页面的桌面版深色模式截图。
+```text
+发现系列  →  打开剧集  →  观看  →  继续下一集
+```
 
 > 这是一个个人非商业项目。目前不提供账号、付费、广告或用户追踪功能。
 
+## 界面一览
+
+### 发现
+
+精心挑选的系列目录，而不是零散的视频。每张卡片展示封面、标题、类型和简短
+简介，点击即可从第一集开始观看。
+
+<p align="center">
+  <img src="docs/screenshots/catalogue-desktop-zh-CN.webp" alt="系列目录，展示海报封面、类型和简介" width="900">
+</p>
+
+### 观看
+
+播放器是页面的主角，旁边是完整的分集列表，当前集数一目了然。醒目的
+**上一集 / 下一集**按钮会直接显示目标集数和标题，接下来看什么始终清清楚楚。
+
+<p align="center">
+  <img src="docs/screenshots/episode-desktop-zh-CN.webp" alt="剧集页面，展示抖音播放器、剧集标题和简介、上一集和下一集按钮以及分集列表" width="900">
+</p>
+
+### 为手机而设计
+
+移动端经过专门设计，而不是把桌面版缩小：播放器在最前，接着是剧集信息、
+通栏的**下一集**按钮和数字分集网格。
+
+<table>
+  <tr>
+    <td align="center" width="50%"><img src="docs/screenshots/home-mobile-zh-CN.webp" alt="移动端首页，展示精选系列" width="300"></td>
+    <td align="center" width="50%"><img src="docs/screenshots/episode-mobile-zh-CN.webp" alt="移动端剧集页面，展示播放器、剧集信息、上一集和下一集按钮以及分集网格" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>精选系列</sub></td>
+    <td align="center"><sub>先看视频，再选下一集</sub></td>
+  </tr>
+</table>
+
+### 简体中文与 English
+
+所有页面都提供简体中文和英文版本。系列标题、简介和集数标签都会针对不同观众
+分别本地化，而不只是翻译界面文字。
+
+<table>
+  <tr>
+    <th width="50%">简体中文</th>
+    <th width="50%">English</th>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/episode-desktop-zh-CN.webp" alt="中文剧集页面"></td>
+    <td><img src="docs/screenshots/episode-desktop-en.webp" alt="英文剧集页面"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/episode-mobile-zh-CN.webp" alt="中文移动端剧集页面" width="260"></td>
+    <td align="center"><img src="docs/screenshots/episode-mobile-en.webp" alt="英文移动端剧集页面" width="260"></td>
+  </tr>
+</table>
+
+<details>
+<summary>更多英文界面截图</summary>
+<br>
+
+| 首页 | 系列目录 | 移动端 |
+| --- | --- | --- |
+| ![英文首页](docs/screenshots/home-desktop-en.webp) | ![英文系列目录](docs/screenshots/catalogue-desktop-en.webp) | ![英文移动端首页](docs/screenshots/home-mobile-en.webp) |
+
+</details>
+
+<sub>所有截图均为默认的深色模式；只需点击一次即可切换到浅色主题。</sub>
+
 ## 功能特点
 
-- 以**系列**而不是零散视频作为主要内容单位
-- 未配置缩略图时，使用专门设计的备用封面
-- 支持分享、精确到集数的观看链接，例如
-  `/series/the-last-human/episode/4`
+- 以**系列**为单位的精选目录；未配置缩略图时使用专门设计的备用封面
+- 支持多季、番外、分段剧集和合集，并自动编号
+- 支持分享、精确到集数的观看链接，例如 `/zh-CN/series/gui-xu/episode/2`
 - 使用抖音官方 iframe 播放器，并为竖屏视频响应式调整尺寸
-- 支持上一集和下一集导航
-- 响应式剧集列表，始终清晰标识当前播放集数
+- 上一集 / 下一集按钮直接显示目标剧集
+- 分集列表始终清晰标识当前播放集数
+- 支持简体中文和英文，以及深色和浅色主题
 - 使用静态 TypeScript 内容，无需数据库、后端 API 或用户账号系统
 - GitHub Actions 自动执行代码检查、生产构建、依赖审计和密钥扫描
-
-核心体验保持简单：
-
-```text
-发现系列 → 打开剧集 → 观看 → 继续下一集
-```
 
 ## 技术栈
 
@@ -128,11 +192,13 @@ pnpm start
 每个系列包含：
 
 - `slug`：稳定的 URL 路径片段
-- `title` 和 `description`
-- 可选的 `thumbnail`
+- `title` 和 `description`，各自包含 `en` 和 `zh` 文本
+- 可选的 `tags`、`thumbnail` 和季标题
 - 按顺序排列的 `episodes` 数组
 
-每一集包含公开的抖音 `videoId`、集数和标题。已知视频尺寸时，可以填写可选的
+每一集只需要提供公开的抖音 `videoId`。集数和 URL 片段会根据每一季中的列表
+顺序自动生成，因此 `title`、`label`、`season`、`kind`（`special` 或
+`compilation`）等字段都是可选的。已知视频尺寸时，可以填写可选的
 `videoWidth` 和 `videoHeight`；如果没有填写，应用会使用竖屏播放器默认值，并
 可能通过抖音 iframe API 查询尺寸。`previewUrl` 为未来功能预留，目前不会被使用。
 
@@ -141,8 +207,11 @@ pnpm start
 剧集页面会根据目录在构建时生成，路由格式为：
 
 ```text
-/series/[slug]/episode/[episode]
+/[lang]/series/[slug]/episode/[episode]
 ```
+
+`lang` 为 `en` 或 `zh-CN`。集数片段形如 `4`、`9-part-1`、`s2-e1` 或
+`special-1`。
 
 剧集页面的浏览器标题在两种语言中都采用“系列名称优先”的结构，同时保留各自
 自然的标点和空格规范：
@@ -164,10 +233,13 @@ The Laid-Off Girl — Episode 4 | Reelbound
 ## 项目结构
 
 ```text
-app/                         App Router 页面、布局和全局样式
-components/                  Header、卡片、剧集列表和播放器
+app/[lang]/                  多语言 App Router 页面和布局
+app/globals.css              全局样式和设计变量
+components/                  Header、卡片、剧集列表、导航和播放器
+lib/                         集数编号和本地化工具
 data/series.ts               有序的视频目录清单
-data/series/                  每个剧集一个 TypeScript 内容文件
+data/series/                 每个系列一个 TypeScript 内容文件
+docs/screenshots/            README 截图
 .github/workflows/ci.yml     代码检查、构建、安全和依赖检查
 ```
 
@@ -200,8 +272,7 @@ Reelbound 的原创源代码采用
 [`NOTICE`](NOTICE)。
 
 如果你是目录中内容的版权所有者或代理人，并希望移除相关内容，请提交 Issue，
-并提供足以定位系列或剧集的信息。本说明仅供参考，不构成法律意见；在发布网站
-或加入任何商业化功能前，请确认适用的抖音条款和当地法律。
+并提供足以定位系列或剧集的信息。
 
 ## 参与贡献
 

@@ -1,7 +1,12 @@
-# Reelbound
+<h1 align="center">Reelbound</h1>
 
-<p align="right">
-  <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a>
+<p align="center">
+  <strong>Stories selected to stay with you.</strong><br>
+  A curated, cinematic home for AI-generated short-form series.
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a>
 </p>
 
 <p align="center">
@@ -13,42 +18,105 @@
   <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-12-F69220?logo=pnpm&logoColor=white" alt="pnpm 12"></a>
 </p>
 
-**Stories selected to stay with you.**
+<p align="center">
+  <img src="docs/screenshots/home-desktop-en.webp" alt="Reelbound homepage in dark mode, with a featured series hero and a Watch episode 1 button" width="900">
+</p>
 
-Reelbound is a small, curated streaming experience for AI-generated video
-series. It brings a series-first browsing model to short-form video: discover a
-series, open its first episode, and keep watching in sequence through the
-official Douyin player.
+Reelbound brings a series-first, Netflix-style model to short-form video.
+Instead of an endless feed, you **discover a series, open it at episode one, and
+keep watching in order** through the official Douyin player.
 
-## A look inside
-
-| Discover a series | Watch an episode |
-| --- | --- |
-| ![Reelbound homepage showing the featured series and catalogue](docs/screenshots/homepage.png) | ![Reelbound episode page showing the player, episode details, and episode list](docs/screenshots/episode-page.png) |
-
-Desktop captures of the homepage and episode view.
+```text
+Discover a series  →  Open an episode  →  Watch  →  Continue to the next episode
+```
 
 > This is a personal, non-commercial project. It currently has no accounts,
 > payments, advertising, or user tracking.
 
+## A look inside
+
+### Discover
+
+A hand-picked catalogue of series rather than unrelated videos. Each card shows
+its artwork, title, genres and a short synopsis, and opens the series at its
+first episode.
+
+<p align="center">
+  <img src="docs/screenshots/catalogue-desktop-en.webp" alt="Catalogue grid of series cards with poster artwork, genres and synopses" width="900">
+</p>
+
+### Watch
+
+The player leads, with the full episode list beside it and the current episode
+clearly marked. Large **previous / next** buttons name the episode they lead to,
+so it is always obvious where you go next.
+
+<p align="center">
+  <img src="docs/screenshots/episode-desktop-en.webp" alt="Episode page with the Douyin player, episode title and description, previous and next episode buttons, and the episode list sidebar" width="900">
+</p>
+
+### Made for your phone
+
+Mobile is designed rather than shrunk: the player comes first, then the episode
+details, a full-width **Next episode** button, and a numbered episode grid.
+
+<table>
+  <tr>
+    <td align="center" width="50%"><img src="docs/screenshots/home-mobile-en.webp" alt="Mobile homepage with the featured series hero" width="300"></td>
+    <td align="center" width="50%"><img src="docs/screenshots/episode-mobile-en.webp" alt="Mobile episode page with player, details, next and previous buttons, and numbered episode grid" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Featured series</sub></td>
+    <td align="center"><sub>Player first, then what comes next</sub></td>
+  </tr>
+</table>
+
+### English and 简体中文
+
+Every page is available in English and Simplified Chinese, with titles,
+descriptions and episode labels localized for each audience, not just
+translated UI chrome.
+
+<table>
+  <tr>
+    <th width="50%">English</th>
+    <th width="50%">简体中文</th>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/episode-desktop-en.webp" alt="English episode page"></td>
+    <td><img src="docs/screenshots/episode-desktop-zh-CN.webp" alt="Chinese episode page"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/episode-mobile-en.webp" alt="English mobile episode page" width="260"></td>
+    <td align="center"><img src="docs/screenshots/episode-mobile-zh-CN.webp" alt="Chinese mobile episode page" width="260"></td>
+  </tr>
+</table>
+
+<details>
+<summary>More Chinese screenshots</summary>
+<br>
+
+| Homepage | Catalogue | Mobile |
+| --- | --- | --- |
+| ![Chinese homepage](docs/screenshots/home-desktop-zh-CN.webp) | ![Chinese catalogue](docs/screenshots/catalogue-desktop-zh-CN.webp) | ![Chinese mobile homepage](docs/screenshots/home-mobile-zh-CN.webp) |
+
+</details>
+
+<sub>All screenshots are taken in dark mode, which is the default; a light theme is one click away.</sub>
+
 ## What it includes
 
-- A curated catalogue of **series**, rather than a feed of unrelated videos
-- Designed fallback artwork when a series has no configured thumbnail
-- Shareable, episode-specific URLs such as
-  `/series/the-last-human/episode/4`
-- Official Douyin iframe playback, with responsive sizing for portrait video
-- Previous/next episode navigation
-- A responsive episode list that keeps the current episode visible and clear
+- A curated catalogue of **series**, with designed fallback artwork when a
+  series has no configured thumbnail
+- Seasons, specials, split episodes and compilations, numbered automatically
+- Shareable, episode-specific URLs such as `/en/series/gui-xu/episode/2`
+- Official Douyin iframe playback, sized responsively for portrait video
+- Previous / next episode buttons that name their destination
+- An episode list that keeps the current episode visible and clear
+- English and Simplified Chinese, plus dark and light themes
 - Static TypeScript content with no database, backend API, or account system
 - Automated linting, production builds, dependency auditing, and secret
   scanning in GitHub Actions
-
-The core loop is intentionally simple:
-
-```text
-Discover a series → Open an episode → Watch → Continue to the next episode
-```
 
 ## Tech stack
 
@@ -135,11 +203,13 @@ as `NOVA` can keep their original Latin spelling.
 Each series contains:
 
 - `slug`: stable URL segment
-- `title` and `description`
-- optional `thumbnail`
+- `title` and `description`, each with `en` and `zh` text
+- optional `tags`, `thumbnail` and season titles
 - an ordered `episodes` array
 
-Each episode contains a public Douyin `videoId`, a number, and a title.
+Each episode needs only a public Douyin `videoId`. Episode numbers and URL
+segments are derived from list order within each season, so `title`, `label`,
+`season`, `kind` (`special` or `compilation`) and the other fields are optional.
 Optional `videoWidth` and `videoHeight` values can be provided when known;
 otherwise the app uses the player’s portrait defaults and may look up
 dimensions from Douyin’s iframe API. `previewUrl` is reserved for a future
@@ -150,8 +220,11 @@ feature and is not currently used.
 Episode pages are generated from the catalogue at build time. The route is:
 
 ```text
-/series/[slug]/episode/[episode]
+/[lang]/series/[slug]/episode/[episode]
 ```
+
+`lang` is `en` or `zh-CN`. Episode segments look like `4`, `9-part-1`, `s2-e1`
+or `special-1`.
 
 Episode document titles use the same series-first hierarchy in both locales,
 while preserving native punctuation and spacing:
@@ -174,10 +247,13 @@ details out of the rest of the UI.
 ## Project structure
 
 ```text
-app/                         App Router pages, layout, and global styles
-components/                  Header, cards, episode list, and video player
+app/[lang]/                  Localized App Router pages and layout
+app/globals.css              Global styles and design tokens
+components/                  Header, cards, episode list, navigation, player
+lib/                         Episode numbering and localization helpers
 data/series.ts               Ordered catalogue manifest
-data/series/                  One typed content file per series
+data/series/                 One typed content file per series
+docs/screenshots/            README screenshots
 .github/workflows/ci.yml     Lint, build, security, and dependency checks
 ```
 
@@ -216,8 +292,7 @@ request and the third-party content boundary.
 
 If you own or represent content shown in the catalogue and want it removed,
 please open an issue with enough information to identify the relevant series or
-episode. This README is informational, not legal advice; review the applicable
-Douyin terms and local law before publishing the site or adding monetization.
+episode.
 
 ## Contributing
 
