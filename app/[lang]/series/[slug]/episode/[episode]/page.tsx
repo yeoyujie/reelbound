@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Suspense } from "react";
 import {
   seriesCatalog,
   type Episode,
   type EpisodeVideoSource,
 } from "@/data/series";
+import { EpisodeNavigation } from "@/components/episode-navigation";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
 import {
   episodeLabel,
@@ -14,6 +14,7 @@ import {
   getAdjacentEpisodes,
   recapNote,
   resolveEpisodes,
+  type ResolvedEpisode,
 } from "@/lib/episodes";
 import {
   getDictionary,
@@ -99,6 +100,11 @@ async function EpisodePageContent({
   const title = episodeTitle(series, current, locale);
   const recap = recapNote(current, locale);
   const videoSource = await addDouyinDimensions(episode);
+  const navTarget = (item: ResolvedEpisode) => ({
+    href: `/${locale}/series/${series.slug}/episode/${item.slug}`,
+    label: episodeLabel(series, item, locale),
+    title: item.episode.title && localizedText(item.episode.title, locale),
+  });
 
   return (
     <>
@@ -121,31 +127,21 @@ async function EpisodePageContent({
         </p>
       </div>
 
-      <nav className="episode-navigation" aria-label={dictionary.episode}>
-        {previousEpisode ? (
-          <Link
-            href={`/${locale}/series/${series.slug}/episode/${previousEpisode.slug}`}
-            rel="prev"
-          >
-            <span>{dictionary.previousEpisode}</span>
-            <strong>
-              {episodeLabel(series, previousEpisode, locale)}
-            </strong>
-          </Link>
-        ) : <span />}
-        {nextEpisode ? (
-          <Link
-            href={`/${locale}/series/${series.slug}/episode/${nextEpisode.slug}`}
-            rel="next"
-          >
-            <span>{dictionary.nextEpisode}</span>
-            <strong>
-              {episodeLabel(series, nextEpisode, locale)}{" "}
-              <span aria-hidden="true">→</span>
-            </strong>
-          </Link>
-        ) : <span />}
-      </nav>
+      <EpisodeNavigation
+        ariaLabel={dictionary.episode}
+        previous={
+          previousEpisode && {
+            ...navTarget(previousEpisode),
+            direction: dictionary.previousEpisode,
+          }
+        }
+        next={
+          nextEpisode && {
+            ...navTarget(nextEpisode),
+            direction: dictionary.nextEpisode,
+          }
+        }
+      />
     </>
   );
 }
