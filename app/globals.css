@@ -440,6 +440,7 @@ a:focus-visible {
 
 .home-hero-scroll {
   position: absolute;
+  z-index: 2;
   right: clamp(24px, 5vw, 72px);
   bottom: 34px;
   display: inline-flex;
