@@ -1025,16 +1025,6 @@ a:focus-visible {
   font-size: 11px;
 }
 
-.episode-list-copy > .episode-list-description {
-  display: -webkit-box;
-  overflow: hidden;
-  font-size: 12px;
-  line-height: 1.5;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-}
-
 .playing-indicator {
   color: var(--accent-secondary);
   font-size: 9px;
@@ -1275,8 +1265,7 @@ a:focus-visible {
   }
 
   .episode-description,
-  .episode-recap,
-  .episode-list-description {
+  .episode-recap {
     display: none;
   }
 

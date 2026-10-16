@@ -104,11 +104,6 @@ export function EpisodeList({
                         {episodeTitle(series, item, locale, { withinSeason: true })}
                       </strong>
                       {meta.length > 0 && <span>{meta.join(" · ")}</span>}
-                      {episode.description && (
-                        <span className="episode-list-description">
-                          {localizedText(episode.description, locale)}
-                        </span>
-                      )}
                     </span>
                     {isCurrent && (
                       <span className="playing-indicator" aria-hidden="true">
