@@ -79,7 +79,6 @@ export function EpisodeList({
               const { episode } = item;
               const isCurrent = item.slug === currentEpisodeSlug;
               const meta = [
-                isCurrent && dictionary.nowPlaying,
                 episode.title && episodeLabel(series, item, locale, { withinSeason: true }),
                 recapNote(item, locale) && dictionary.recapBadge,
               ].filter(Boolean);
@@ -93,23 +92,29 @@ export function EpisodeList({
                     aria-current={isCurrent ? "page" : undefined}
                   >
                     <span className="episode-number" aria-hidden="true">
-                      {item.number !== undefined
-                        ? String(item.number).padStart(2, "0")
-                        : episode.kind === "special"
-                          ? "SP"
-                          : "—"}
+                      {isCurrent ? (
+                        <span className="playing-bars">
+                          <span />
+                          <span />
+                          <span />
+                        </span>
+                      ) : item.number !== undefined ? (
+                        String(item.number).padStart(2, "0")
+                      ) : episode.kind === "special" ? (
+                        "SP"
+                      ) : (
+                        "—"
+                      )}
                     </span>
                     <span className="episode-list-copy">
                       <strong>
                         {episodeTitle(series, item, locale, { withinSeason: true })}
                       </strong>
                       {meta.length > 0 && <span>{meta.join(" · ")}</span>}
+                      {isCurrent && (
+                        <span className="visually-hidden">{dictionary.nowPlaying}</span>
+                      )}
                     </span>
-                    {isCurrent && (
-                      <span className="playing-indicator" aria-hidden="true">
-                        ●
-                      </span>
-                    )}
                   </Link>
                 </li>
               );
