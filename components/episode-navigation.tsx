@@ -16,8 +16,7 @@ type EpisodeNavigationProps = {
   next?: EpisodeNavTarget & { direction: string };
 };
 
-/** Keeps the spotlight under the pointer without re-rendering. */
-function trackSpotlight(event: PointerEvent<HTMLAnchorElement>) {
+export function trackSpotlight(event: PointerEvent<HTMLAnchorElement>) {
   if (event.pointerType !== "mouse") return;
   const target = event.currentTarget;
   const rect = target.getBoundingClientRect();
