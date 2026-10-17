@@ -92,6 +92,7 @@ export function EpisodeList({
                     ref={isCurrent ? currentEpisodeRef : undefined}
                     className={`episode-list-item${isCurrent ? " is-current" : ""}`}
                     href={`/${locale}/series/${series.slug}/episode/${item.slug}`}
+                    prefetch
                     aria-current={isCurrent ? "page" : undefined}
                   >
                     <span className="episode-number" aria-hidden="true">

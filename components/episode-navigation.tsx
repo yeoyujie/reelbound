@@ -48,6 +48,7 @@ function EpisodeNavLink({
     <Link
       className={`episode-nav-link is-${rel}`}
       href={href}
+      prefetch
       rel={rel}
       onPointerEnter={trackSpotlight}
       onPointerMove={trackSpotlight}

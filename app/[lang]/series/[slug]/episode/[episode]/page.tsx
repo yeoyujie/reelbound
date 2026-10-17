@@ -1,5 +1,5 @@
+import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import {
   seriesCatalog,
   type Episode,
@@ -69,19 +69,7 @@ export async function generateMetadata({
   };
 }
 
-export default function EpisodePage({ params }: EpisodeRouteProps) {
-  return (
-    <Suspense fallback={null}>
-      <EpisodePageContent params={params} />
-    </Suspense>
-  );
-}
-
-async function EpisodePageContent({
-  params,
-}: {
-  params: EpisodeRouteProps["params"];
-}) {
+export default async function EpisodePage({ params }: EpisodeRouteProps) {
   const { lang, slug, episode: episodeParam } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
@@ -149,13 +137,18 @@ async function EpisodePageContent({
 async function addDouyinDimensions(
   source: Pick<Episode, "videoId" | "videoWidth" | "videoHeight">,
 ): Promise<EpisodeVideoSource> {
+  // Cached so the whole episode page prerenders and episode links can prefetch
+  // it complete, rather than flashing the Suspense fallback on navigation.
+  "use cache";
+  cacheLife("days");
+
   try {
     const endpoint = new URL(
       "https://open.douyin.com/api/douyin/v1/video/get_iframe_by_video",
     );
     endpoint.searchParams.set("video_id", source.videoId);
 
-    const response = await fetch(endpoint, { next: { revalidate: 86400 } });
+    const response = await fetch(endpoint);
     if (!response.ok) return source;
 
     const result: {

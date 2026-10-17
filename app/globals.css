@@ -833,7 +833,8 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.episode-heading h1 {
+.episode-heading h1,
+.episode-title-skeleton {
   margin: 0;
   font-size: clamp(20px, 1.1vw, 28px);
   font-weight: 500;
@@ -994,6 +995,27 @@ a:focus-visible {
 
 .episode-nav-link:active {
   transform: scale(0.985);
+}
+
+/* Loading placeholders: text-shaped bars that hold each line's height. They
+   fade in after a beat so fast navigations swap content without a flicker. */
+.skeleton-text {
+  display: inline-block;
+  max-width: 100%;
+  height: 0.8em;
+  border-radius: 4px;
+  background: var(--line);
+  vertical-align: middle;
+  animation: skeleton-in 200ms ease 150ms both, skeleton-pulse 1.6s ease-in-out 350ms infinite;
+}
+
+.episode-nav-link.is-skeleton {
+  pointer-events: none;
+}
+
+.episode-nav-link.is-skeleton .episode-nav-arrow {
+  border-color: var(--line);
+  background: transparent;
 }
 
 .episode-nav-link:focus-visible {
@@ -1173,6 +1195,27 @@ a:focus-visible {
 
 .playing-bars span:nth-child(3) {
   animation-delay: -0.2s;
+}
+
+@keyframes skeleton-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
 }
 
 @keyframes playing-bar {
@@ -1441,7 +1484,8 @@ a:focus-visible {
     margin: 0;
   }
 
-  .episode-heading h1 {
+  .episode-heading h1,
+  .episode-title-skeleton {
     font-size: 16px;
   }
 
@@ -1596,6 +1640,10 @@ a:focus-visible {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .skeleton-text {
+    animation: none;
   }
 
   /* Hold the equaliser at a static, uneven shape. */
