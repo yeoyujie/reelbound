@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { PointerEvent } from "react";
+import { LinkPendingIndicator } from "@/components/link-pending-indicator";
 
 type EpisodeNavTarget = {
   href: string;
@@ -57,6 +58,7 @@ function EpisodeNavLink({
         <svg viewBox="0 0 16 16">
           <path d={rel === "next" ? "M3 8h10M9 4l4 4-4 4" : "M13 8H3M7 4 3 8l4 4"} />
         </svg>
+        <LinkPendingIndicator />
       </span>
       <span className="episode-nav-copy">
         <span className="episode-nav-direction">{direction}</span>

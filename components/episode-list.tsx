@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import type { Series } from "@/data/series";
+import { LinkPendingIndicator } from "@/components/link-pending-indicator";
 import {
   episodeLabel,
   episodeTitle,
@@ -105,6 +106,7 @@ export function EpisodeList({
                             ? "SP"
                             : "—"}
                       </span>
+                      <LinkPendingIndicator />
                       {isCurrent && (
                         <span className="playing-bars">
                           <span />

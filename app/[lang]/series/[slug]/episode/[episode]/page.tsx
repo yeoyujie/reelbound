@@ -69,6 +69,12 @@ export async function generateMetadata({
   };
 }
 
+// Switching episodes intentionally waits for the next episode so the current
+// one stays on screen (see the Suspense boundary in the episode layout) rather
+// than flashing a fallback. In production, episode pages are fully static and
+// episode links prefetch them, so the wait is effectively instant.
+export const instant = false;
+
 export default async function EpisodePage({ params }: EpisodeRouteProps) {
   const { lang, slug, episode: episodeParam } = await params;
   if (!isLocale(lang)) notFound();
