@@ -4,8 +4,8 @@ import { useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import type { EpisodeVideoSource } from "@/data/series";
 
-const COMPACT_LAYOUT_WIDTH = 800;
-const COMPACT_COLUMN_WIDTH = 1000;
+const MIN_LAYOUT_WIDTH = 800;
+const MAX_LAYOUT_WIDTH = 1920;
 
 type VideoPlayerProps = {
   source: EpisodeVideoSource;
@@ -22,20 +22,21 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
     : reportedWidth / reportedHeight;
   const stageRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [compact, setCompact] = useState(true);
+  const [columnWidth, setColumnWidth] = useState(0);
   const [scale, setScale] = useState(0);
-  // The iframe is laid out large and scaled down because Douyin's player falls
-  // back to a cramped mobile layout in frames narrower than ~730 px. Keep that
-  // layout size small on narrow screens and at most 1080p on wide ones: a 4K
-  // frame scaled into a phone-sized stage exhausts memory on iOS.
-  const videoWidth = compact
-    ? COMPACT_LAYOUT_WIDTH
-    : Math.min(Math.max(reportedWidth, COMPACT_LAYOUT_WIDTH), 1920);
-  const videoHeight = Math.round(videoWidth / aspectRatio);
-  const iframeHeight = videoHeight + 48;
-  // Douyin leaves a 12 px theme-colored inset below the player controls.
-  const iframeBottomInset = 12;
-  const visibleIframeHeight = iframeHeight - iframeBottomInset;
+  // Lay the iframe out at the column's width so Douyin's controls render near
+  // their native size. Narrow frames are laid out wider and scaled down because
+  // Douyin's player falls back to a cramped mobile layout below ~730 px. The
+  // upper bound keeps large frames from exhausting memory on iOS.
+  const videoWidth = Math.min(
+    Math.max(columnWidth, MIN_LAYOUT_WIDTH),
+    MAX_LAYOUT_WIDTH,
+  );
+  const videoHeight = videoWidth / aspectRatio;
+  const iframeHeight = Math.ceil(videoHeight) + 48;
+  // Douyin draws nothing below its 35 px controls, so the frame's white
+  // background shows there. Round the crop down so no sliver of it is visible.
+  const visibleIframeHeight = Math.floor(videoHeight + 35);
   const playerUrl = new URL("https://open.douyin.com/player/video");
   playerUrl.searchParams.set("vid", source.videoId);
   playerUrl.searchParams.set("autoplay", "1");
@@ -59,9 +60,8 @@ export function VideoPlayer({ source, title }: VideoPlayerProps) {
     const updateScale = () => {
       const { width, height } = stage.getBoundingClientRect();
       setScale(Math.min(width / videoWidth, height / visibleIframeHeight));
-      // The column width does not depend on the player, unlike the stage's.
-      const columnWidth = stage.parentElement?.clientWidth ?? width;
-      setCompact(columnWidth < COMPACT_COLUMN_WIDTH);
+      // Column width does not depend on the player, unlike the stage's.
+      setColumnWidth(Math.round(stage.parentElement?.clientWidth ?? width));
     };
 
     const observer = new ResizeObserver(updateScale);
