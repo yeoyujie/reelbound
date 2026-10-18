@@ -33,7 +33,7 @@ export function SeriesCard({ series, locale, dictionary }: SeriesCardProps) {
                 src={series.thumbnail}
                 alt=""
                 fill
-                sizes="(max-width: 600px) 50vw, (max-width: 1000px) 33vw, 440px"
+                sizes="(max-width: 600px) 50vw, (max-width: 1000px) 33vw, 460px"
               />
             ) : (
               <div className="series-artwork-fallback">
