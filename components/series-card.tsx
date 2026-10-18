@@ -15,6 +15,7 @@ export function SeriesCard({ series, locale, dictionary }: SeriesCardProps) {
   const title = localizedText(series.title, locale);
   const description = localizedText(series.description, locale);
   const tags = tagList(series.tags, locale);
+  const episodeCount = `${series.episodes.length}\u00a0${dictionary.episodes}`;
 
   if (!firstEpisode) return null;
 
@@ -24,34 +25,43 @@ export function SeriesCard({ series, locale, dictionary }: SeriesCardProps) {
       href={`/${locale}/series/${series.slug}/episode/${firstEpisode.slug}`}
       aria-label={`${dictionary.watchSeries}: ${title}`}
     >
-      <div className="series-artwork" aria-hidden="true">
-        {series.thumbnail ? (
-          <Image
-            src={series.thumbnail}
-            alt=""
-            fill
-            sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 1000px) 30vw, 370px"
-          />
-        ) : (
-          <div className="series-artwork-fallback">
-            <span className="artwork-kicker">{dictionary.seriesLabel}</span>
-            <span className="artwork-title">{title}</span>
-            <span className="artwork-count">
-              {series.episodes.length} {dictionary.episodes}
-            </span>
+      <div className="series-card-surface">
+        <div className="series-artwork" aria-hidden="true">
+          <div className="series-artwork-frame">
+            {series.thumbnail ? (
+              <Image
+                src={series.thumbnail}
+                alt=""
+                fill
+                sizes="(max-width: 600px) 50vw, (max-width: 1000px) 33vw, 440px"
+              />
+            ) : (
+              <div className="series-artwork-fallback">
+                <span className="artwork-kicker">{dictionary.seriesLabel}</span>
+                <span className="artwork-title">{title}</span>
+                <span className="artwork-count">{episodeCount}</span>
+              </div>
+            )}
+            {series.thumbnail && <span className="series-artwork-count">{episodeCount}</span>}
           </div>
-        )}
-        <span className="card-play" aria-hidden="true">▶</span>
-      </div>
-      <div className="series-card-copy">
-        <div>
+          <div className="series-card-details">
+            <span className="series-card-play">
+              <span className="series-card-play-icon">
+                <svg viewBox="0 0 16 16">
+                  <path d="M5 3.5v9l7.5-4.5z" />
+                </svg>
+              </span>
+              {dictionary.watchSeries}
+            </span>
+            <strong className="series-card-details-title">{title}</strong>
+            {tags.length > 0 && <span className="series-card-tags">{tags.join(" · ")}</span>}
+            <span className="series-card-synopsis">{description}</span>
+          </div>
+        </div>
+        <div className="series-card-copy">
           <h3>{title}</h3>
           {tags.length > 0 && <p className="series-card-tags">{tags.join(" · ")}</p>}
-          <p>{description}</p>
         </div>
-        <span className="series-card-action">
-          {dictionary.watchSeries} <span aria-hidden="true">↗</span>
-        </span>
       </div>
     </Link>
   );
