@@ -605,27 +605,63 @@ a:focus-visible {
 .series-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
+  gap: 36px 24px;
 }
 
 .series-card {
+  position: relative;
   display: block;
   min-width: 0;
+  color: inherit;
   text-decoration: none;
+  transition: z-index 0s linear 300ms;
+}
+
+.series-card:focus-visible {
+  outline: none;
+}
+
+.series-card-surface {
+  transform-origin: 50% 25%;
+  transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .series-artwork {
   position: relative;
-  overflow: hidden;
   aspect-ratio: 4 / 5;
-  background: var(--artwork-background);
 }
 
-.series-artwork > img {
+.series-artwork-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 9px;
+  background: var(--artwork-background);
+  transition:
+    border-radius 260ms ease,
+    box-shadow 260ms ease,
+    filter 300ms ease;
+}
+
+.series-card:focus-visible .series-artwork-frame {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+
+.series-artwork-frame > img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.series-artwork-frame:has(> img)::before {
+  position: absolute;
+  z-index: 1;
+  inset: 55% 0 0;
+  background: linear-gradient(to top, rgb(9 10 14 / 62%), transparent);
+  content: "";
+  pointer-events: none;
 }
 
 .series-artwork-fallback {
@@ -667,34 +703,96 @@ a:focus-visible {
   line-height: 1.15;
 }
 
-.card-play {
+.series-artwork-count {
   position: absolute;
-  right: 16px;
+  z-index: 2;
   bottom: 16px;
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 1px solid var(--control-border);
-  border-radius: 50%;
-  background: var(--control-background);
-  color: var(--foreground);
+  left: 16px;
+  color: rgb(255 255 255 / 90%);
   font-size: 11px;
-  transition: background-color 160ms ease, color 160ms ease;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.series-card:hover .card-play {
+/* Hidden until hover or focus; overlays the row below instead of reflowing it. */
+.series-card-details {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px 18px;
+  border-radius: 0 0 9px 9px;
+  background: var(--surface);
+  box-shadow: 0 28px 44px -18px rgb(0 0 0 / 55%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 0s linear 160ms;
+}
+
+.series-card-play {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 620;
+}
+
+.series-card-play-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
   background: var(--foreground);
   color: var(--background);
 }
 
-.series-card:active .card-play {
-  transform: scale(0.96);
+.series-card-play-icon svg {
+  width: 12px;
+  height: 12px;
+  margin-left: 2px;
+  fill: currentColor;
+}
+
+.series-card-details-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.series-card-tags {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 560;
+  letter-spacing: 0.02em;
+}
+
+.series-card-synopsis {
+  display: -webkit-box;
+  margin-top: 6px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .series-card-copy {
   display: block;
   padding-top: 14px;
+  transition: opacity 160ms ease;
 }
 
 .series-card-copy h3 {
@@ -702,31 +800,144 @@ a:focus-visible {
   font-size: 17px;
   font-weight: 560;
   letter-spacing: -0.03em;
-  line-height: 1.45;
-}
-
-.series-card-copy p {
-  margin: 5px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .series-card-copy .series-card-tags {
-  margin-top: 2px;
-  font-size: 11px;
-  font-weight: 560;
-  letter-spacing: 0.02em;
+  margin: 3px 0 0;
 }
 
-.series-card-action {
-  display: block;
-  width: fit-content;
-  margin-top: 10px;
-  color: var(--accent-primary);
-  font-size: 11px;
-  font-weight: 570;
-  white-space: nowrap;
+.series-card:active .series-artwork-frame {
+  filter: brightness(0.88);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* A short intent delay so sweeping across the shelf doesn't pop every card open. */
+  .series-card:hover,
+  .series-card:focus-visible {
+    z-index: 2;
+    transition-delay: 0s;
+  }
+
+  .series-card:hover .series-card-surface {
+    transition-delay: 220ms;
+  }
+
+  .series-card:hover .series-artwork-frame,
+  .series-card:focus-visible .series-artwork-frame {
+    border-radius: 9px 9px 0 0;
+    box-shadow: 0 -12px 40px -16px rgb(0 0 0 / 50%);
+    transition-delay: 220ms;
+  }
+
+  .series-card:hover .series-card-details,
+  .series-card:focus-visible .series-card-details {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity 220ms ease 300ms,
+      transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1) 300ms,
+      visibility 0s linear 300ms;
+  }
+
+  .series-card:hover .series-card-copy,
+  .series-card:focus-visible .series-card-copy {
+    opacity: 0;
+    transition-delay: 220ms;
+  }
+
+  .series-card:focus-visible .series-card-surface,
+  .series-card:focus-visible .series-artwork-frame,
+  .series-card:focus-visible .series-card-copy {
+    transition-delay: 0s;
+  }
+
+  .series-card:focus-visible .series-card-details {
+    transition-delay: 80ms;
+  }
+
+  .series-card:focus-visible .series-artwork-frame {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-primary);
+  }
+
+  .series-card:focus-visible .series-card-details {
+    box-shadow:
+      0 0 0 2px var(--accent-primary),
+      0 28px 44px -18px rgb(0 0 0 / 55%);
+    clip-path: inset(0 -80px -80px);
+  }
+
+  /* Shelf focus: dim the rest of the shelf once a title is chosen. */
+  .series-grid:has(.series-card:hover) .series-card:not(:hover) .series-artwork-frame,
+  .series-grid:has(.series-card:focus-visible) .series-card:not(:focus-visible) .series-artwork-frame {
+    filter: brightness(0.45) saturate(0.7);
+    transition-delay: 220ms;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .series-card:hover .series-card-surface,
+  .series-card:focus-visible .series-card-surface {
+    transform: scale(1.2);
+    transition-duration: 360ms;
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .series-card-details {
+    transform: translateY(-8px);
+  }
+
+  /* Edge columns grow inward so the expanded card stays inside the page. */
+  .series-card:nth-child(4n + 1) .series-card-surface {
+    transform-origin: 0 25%;
+  }
+
+  .series-card:nth-child(4n) .series-card-surface {
+    transform-origin: 100% 25%;
+  }
+
+  @media (max-width: 1000px) {
+    .series-card:nth-child(n) .series-card-surface {
+      transform-origin: 50% 25%;
+    }
+
+    .series-card:nth-child(3n + 1) .series-card-surface {
+      transform-origin: 0 25%;
+    }
+
+    .series-card:nth-child(3n) .series-card-surface {
+      transform-origin: 100% 25%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .series-card:nth-child(odd) .series-card-surface {
+      transform-origin: 0 25%;
+    }
+
+    .series-card:nth-child(even) .series-card-surface {
+      transform-origin: 100% 25%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .series-card {
+      animation: series-card-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes series-card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
 }
 
 .empty-catalogue {
@@ -1802,7 +2013,13 @@ a:focus-visible {
 
   .series-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 14px;
+    gap: 28px 14px;
+  }
+
+  .series-artwork-count {
+    bottom: 12px;
+    left: 12px;
+    font-size: 10px;
   }
 
   .section-heading {
