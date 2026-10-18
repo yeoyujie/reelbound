@@ -28,8 +28,15 @@
   --scrollbar-thumb-hover: #8a909e;
   --shadow-color: rgb(26 30 40 / 8%);
   --player-background: #090a0e;
-  --content-width: 1600px;
+  --content-width: 1760px;
   --content-gutter: 48px;
+}
+
+/* Desktop leaves room at the page edge for an edge card to grow on hover. */
+@media (min-width: 1001px) {
+  :root {
+    --content-gutter: 80px;
+  }
 }
 
 :root[data-theme="dark"] {
@@ -605,11 +612,13 @@ a:focus-visible {
 .series-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 36px 24px;
+  gap: 36px 32px;
 }
 
 .series-card {
   position: relative;
+  /* Numeric, not auto, so the delayed z-index transition keeps a closing card on top. */
+  z-index: 0;
   display: block;
   min-width: 0;
   color: inherit;
@@ -880,45 +889,52 @@ a:focus-visible {
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .series-card:hover .series-card-surface,
   .series-card:focus-visible .series-card-surface {
-    transform: scale(1.2);
+    /* Grows from the centre within the column gap, so it never covers its neighbours. */
+    transform: scale(1.1);
     transition-duration: 360ms;
     transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
+  /* Unfold as an opaque drawer once the card has grown, so it never shows the row beneath. */
   .series-card-details {
-    transform: translateY(-8px);
+    opacity: 1;
+    clip-path: inset(0 0 100%);
+    transition:
+      clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0s linear 200ms;
   }
 
-  /* Edge columns grow inward so the expanded card stays inside the page. */
-  .series-card:nth-child(4n + 1) .series-card-surface {
-    transform-origin: 0 25%;
+  /* Exit in reverse: fold the details away before the card shrinks, staying on top until done. */
+  .series-card {
+    transition-delay: 460ms;
   }
 
-  .series-card:nth-child(4n) .series-card-surface {
-    transform-origin: 100% 25%;
+  .series-card-surface,
+  .series-card-copy {
+    transition-delay: 180ms;
   }
 
-  @media (max-width: 1000px) {
-    .series-card:nth-child(n) .series-card-surface {
-      transform-origin: 50% 25%;
-    }
-
-    .series-card:nth-child(3n + 1) .series-card-surface {
-      transform-origin: 0 25%;
-    }
-
-    .series-card:nth-child(3n) .series-card-surface {
-      transform-origin: 100% 25%;
-    }
+  .series-artwork-frame {
+    transition-delay: 180ms, 180ms, 0s;
   }
 
+  .series-card:hover .series-card-details,
+  .series-card:focus-visible .series-card-details {
+    clip-path: inset(0 -80px -80px);
+    transition:
+      clip-path 260ms cubic-bezier(0.2, 0.8, 0.2, 1) 400ms,
+      visibility 0s linear 400ms;
+  }
+
+  .series-card:focus-visible .series-card-details {
+    transition-delay: 180ms;
+  }
+
+  /* The narrower two-column gap leaves less room to grow. */
   @media (max-width: 600px) {
-    .series-card:nth-child(odd) .series-card-surface {
-      transform-origin: 0 25%;
-    }
-
-    .series-card:nth-child(even) .series-card-surface {
-      transform-origin: 100% 25%;
+    .series-card:hover .series-card-surface,
+    .series-card:focus-visible .series-card-surface {
+      transform: scale(1.04);
     }
   }
 }
