@@ -11,7 +11,10 @@ import type {
 import { ANameOfHerOwn } from "./series/wo-jiao-xu-ai-li";
 import { BackAt100KilosIDebutAsTheCenter } from "./series/chong-hui-200-jin-wo-c-wei-chu-dao";
 import { HowToBeYourOwnLittleSister } from "./series/lin-man-bu-man";
+import { ArenaEarth } from "./series/kun-shou-zhi-zhan";
+import { FileZero } from "./series/ling-hao-dang-an";
 import { Nova } from "./series/nova";
+import { OvernightStar } from "./series/yi-zhao-cheng-ming";
 import { SuddenlyRichFamily } from "./series/bao-fu-yi-jia-ren";
 import { TheAgeOfNewSpecies } from "./series/gui-xu";
 import { TheLaidOffGirl } from "./series/bei-cai-diao-de-nv-hai";
@@ -27,9 +30,12 @@ export const seriesCatalog: Series[] = [
   Nova,
   SuddenlyRichFamily,
   ANameOfHerOwn,
+  FileZero,
   HowToBeYourOwnLittleSister,
-  BackAt100KilosIDebutAsTheCenter,
   TheLongLifeInitiative,
+  OvernightStar,
+  ArenaEarth,
+  BackAt100KilosIDebutAsTheCenter,
 ];
 
 export type {
