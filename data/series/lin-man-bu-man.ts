@@ -3,7 +3,7 @@ import type { Series } from "./types";
 export const HowToBeYourOwnLittleSister: Series = {
   slug: "lin-man-bu-man",
   title: { en: "How to Be Your Own Little Sister", zh: "林满不满" },
-  tags: ["comedy", "body-swap", "workplace"],
+  tags: ["comedy"],
   thumbnail: "/images/series/lin-man-bu-man.png",
   description: {
     en: "Lin Man wakes up as a woman—and heads straight back to work as his own little sister. Same job, new face: now he has to pull off the strangest sibling double life in the office.",

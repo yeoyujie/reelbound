@@ -3,7 +3,7 @@ import type { Series } from "./types";
 export const TheAgeOfNewSpecies: Series = {
   slug: "gui-xu",
   title: { en: "The Age of New Species", zh: "归墟" },
-  tags: ["sci-fi", "apocalypse"],
+  tags: ["sci-fi", "action", "apocalypse"],
   thumbnail: "/images/series/gui-xu.png",
   description: {
     en: "It begins with a missing-person case. Then the first giant ant appears, the city falls, order collapses, and humanity starts paying the price to survive. An original saga of escape, wasteland and a new age of species.",
