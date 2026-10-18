@@ -37,12 +37,13 @@ Discover a series  →  Open an episode  →  Watch  →  Continue to the next e
 
 ### Discover
 
-A hand-picked catalogue of series rather than unrelated videos. Each card shows
-its artwork, title, genres and a short synopsis, and opens the series at its
-first episode.
+A hand-picked catalogue of series rather than unrelated videos. Cards stay
+lean, with poster, episode count, title and genres. Hover or keyboard focus
+expands a card over the shelf to reveal its synopsis and a play action while
+the rest of the shelf dims. Every card opens its series at the first episode.
 
 <p align="center">
-  <img src="docs/screenshots/catalogue-desktop-en.webp" alt="Catalogue grid of series cards with poster artwork, genres and synopses" width="900">
+  <img src="docs/screenshots/catalogue-desktop-en.webp" alt="Catalogue grid of series posters, with one card expanded to show its genres, synopsis and a Watch series action while the other posters dim" width="900">
 </p>
 
 ### Watch
@@ -57,16 +58,19 @@ so it is always obvious where you go next.
 
 ### Made for your phone
 
-Mobile is designed rather than shrunk: the player comes first, then the episode
+Mobile is designed rather than shrunk: the catalogue becomes a two-column
+poster grid, and on the watch page the player comes first, then the episode
 details, a full-width **Next episode** button, and a numbered episode grid.
 
 <table>
   <tr>
-    <td align="center" width="50%"><img src="docs/screenshots/home-mobile-en.webp" alt="Mobile homepage with the featured series hero" width="300"></td>
-    <td align="center" width="50%"><img src="docs/screenshots/episode-mobile-en.webp" alt="Mobile episode page with player, details, next and previous buttons, and numbered episode grid" width="300"></td>
+    <td align="center" width="33%"><img src="docs/screenshots/home-mobile-en.webp" alt="Mobile homepage with the featured series hero" width="260"></td>
+    <td align="center" width="33%"><img src="docs/screenshots/catalogue-mobile-en.webp" alt="Mobile catalogue with a two-column grid of series posters, episode counts, titles and genres" width="260"></td>
+    <td align="center" width="33%"><img src="docs/screenshots/episode-mobile-en.webp" alt="Mobile episode page with player, details, next and previous buttons, and numbered episode grid" width="260"></td>
   </tr>
   <tr>
     <td align="center"><sub>Featured series</sub></td>
+    <td align="center"><sub>Two-column poster grid</sub></td>
     <td align="center"><sub>Player first, then what comes next</sub></td>
   </tr>
 </table>
@@ -108,6 +112,8 @@ translated UI chrome.
 
 - A curated catalogue of **series**, with designed fallback artwork when a
   series has no configured thumbnail
+- Catalogue cards that expand on hover or keyboard focus to show details,
+  with reduced-motion support
 - Seasons, specials, split episodes and compilations, numbered automatically
 - Shareable, episode-specific URLs such as `/en/series/gui-xu/episode/2`
 - Official Douyin iframe playback, sized responsively for portrait video
