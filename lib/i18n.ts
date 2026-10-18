@@ -111,7 +111,6 @@ export const dictionaries = {
 export const tagLabels: Record<SeriesTag, LocalizedText> = {
   action: { en: "Action", zh: "动作" },
   apocalypse: { en: "Apocalypse", zh: "末日" },
-  "body-swap": { en: "Body swap", zh: "换身" },
   comedy: { en: "Comedy", zh: "喜剧" },
   "coming-of-age": { en: "Coming of age", zh: "成长" },
   drama: { en: "Drama", zh: "剧情" },
@@ -121,7 +120,6 @@ export const tagLabels: Record<SeriesTag, LocalizedText> = {
   rebirth: { en: "Rebirth", zh: "重生" },
   revenge: { en: "Revenge", zh: "复仇" },
   "sci-fi": { en: "Sci-fi", zh: "科幻" },
-  workplace: { en: "Workplace", zh: "职场" },
 };
 
 export function tagList(tags: SeriesTag[] | undefined, locale: Locale) {

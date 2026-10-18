@@ -3,7 +3,7 @@ import type { Series } from "./types";
 export const FileZero: Series = {
   slug: "ling-hao-dang-an",
   title: { en: "File Zero", zh: "零号档案" },
-  tags: ["sci-fi"],
+  tags: ["sci-fi", "action"],
   thumbnail: "/images/series/ling-hao-dang-an.png",
   description: {
     en: "Years ago, humanity found the first “door”: not a door at all, but a wound torn in reality where two worlds meet. Department Zero handled everything in the shadows — detecting, sealing, containing and closing the doors, then erasing the truth from public view. The doors all but vanished, until boundary-point reactions began erupting on a massive scale. The doors are opening again.",

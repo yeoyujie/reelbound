@@ -3,7 +3,7 @@ import type { Series } from "./types";
 export const Nova: Series = {
   slug: "nova",
   title: { en: "NOVA: The Idol I Made", zh: "NOVA" },
-  tags: ["rebirth", "idol", "revenge"],
+  tags: ["rebirth", "idol", "music", "revenge"],
   thumbnail: "/images/series/nova.png",
   description: {
     en: "She made her best friend a world-class idol, only to be betrayed and lose everything. Reborn in a remote village in southwest China, she must rebuild her future and reclaim the stage that was stolen from her.",

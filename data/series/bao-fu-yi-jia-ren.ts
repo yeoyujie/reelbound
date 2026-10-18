@@ -3,7 +3,7 @@ import type { Series } from "./types";
 export const SuddenlyRichFamily: Series = {
   slug: "bao-fu-yi-jia-ren",
   title: { en: "Suddenly Rich Family", zh: "暴富一家人" },
-  tags: ["comedy", "fantasy"],
+  tags: ["comedy"],
   thumbnail: "/images/series/bao-fu-yi-jia-ren.png",
   description: {
     en: "Rich overnight, broke on common sense! An everyday family suddenly has 30 billion yuan and no idea how to spend it. Their windfall turns into one hilarious misadventure after another — from a road trip through Chengdu, Litang and Yunnan to the kids' college military training.",

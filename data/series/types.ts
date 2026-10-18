@@ -64,7 +64,6 @@ export type Episode = EpisodeBase &
 export type SeriesTag =
   | "action"
   | "apocalypse"
-  | "body-swap"
   | "comedy"
   | "coming-of-age"
   | "drama"
@@ -73,8 +72,7 @@ export type SeriesTag =
   | "music"
   | "rebirth"
   | "revenge"
-  | "sci-fi"
-  | "workplace";
+  | "sci-fi";
 
 export type Season = {
   number: number;
