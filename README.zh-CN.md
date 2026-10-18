@@ -35,11 +35,12 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 
 ### 发现
 
-精心挑选的系列目录，而不是零散的视频。每张卡片展示封面、标题、类型和简短
-简介，点击即可从第一集开始观看。
+精心挑选的系列目录，而不是零散的视频。卡片保持简洁，只展示海报、集数、标题和
+类型；鼠标悬停或键盘聚焦时，卡片会在列表上方展开，显示简介和播放入口，其余海报
+随之变暗。点击任意卡片即可从第一集开始观看。
 
 <p align="center">
-  <img src="docs/screenshots/catalogue-desktop-zh-CN.webp" alt="系列目录，展示海报封面、类型和简介" width="900">
+  <img src="docs/screenshots/catalogue-desktop-zh-CN.webp" alt="系列目录海报网格，其中一张卡片展开显示类型、简介和“观看系列”入口，其余海报变暗" width="900">
 </p>
 
 ### 观看
@@ -53,16 +54,18 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 
 ### 为手机而设计
 
-移动端经过专门设计，而不是把桌面版缩小：播放器在最前，接着是剧集信息、
-通栏的**下一集**按钮和数字分集网格。
+移动端经过专门设计，而不是把桌面版缩小：系列目录变为双列海报网格；观看页面中
+播放器在最前，接着是剧集信息、通栏的**下一集**按钮和数字分集网格。
 
 <table>
   <tr>
-    <td align="center" width="50%"><img src="docs/screenshots/home-mobile-zh-CN.webp" alt="移动端首页，展示精选系列" width="300"></td>
-    <td align="center" width="50%"><img src="docs/screenshots/episode-mobile-zh-CN.webp" alt="移动端剧集页面，展示播放器、剧集信息、上一集和下一集按钮以及分集网格" width="300"></td>
+    <td align="center" width="33%"><img src="docs/screenshots/home-mobile-zh-CN.webp" alt="移动端首页，展示精选系列" width="260"></td>
+    <td align="center" width="33%"><img src="docs/screenshots/catalogue-mobile-zh-CN.webp" alt="移动端系列目录，双列展示海报、集数、标题和类型" width="260"></td>
+    <td align="center" width="33%"><img src="docs/screenshots/episode-mobile-zh-CN.webp" alt="移动端剧集页面，展示播放器、剧集信息、上一集和下一集按钮以及分集网格" width="260"></td>
   </tr>
   <tr>
     <td align="center"><sub>精选系列</sub></td>
+    <td align="center"><sub>双列海报网格</sub></td>
     <td align="center"><sub>先看视频，再选下一集</sub></td>
   </tr>
 </table>
@@ -102,6 +105,7 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 ## 功能特点
 
 - 以**系列**为单位的精选目录；未配置缩略图时使用专门设计的备用封面
+- 目录卡片在鼠标悬停或键盘聚焦时展开显示详情，并支持减少动态效果
 - 支持多季、番外、分段剧集和合集，并自动编号
 - 支持分享、精确到集数的观看链接，例如 `/zh-CN/series/gui-xu/episode/2`
 - 使用抖音官方 iframe 播放器，并为竖屏视频响应式调整尺寸
