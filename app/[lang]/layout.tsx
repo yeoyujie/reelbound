@@ -28,6 +28,7 @@ export async function generateMetadata({
         template: "%s — Reelbound",
       },
     description: dictionary.introCopy,
+    twitter: { card: "summary_large_image" },
     alternates: {
       languages: {
         en: "/en",
