@@ -11,6 +11,9 @@ export function EpisodeDetailsSkeleton() {
             <span className="skeleton-text" style={{ width: 280 }} />
           </p>
         </div>
+        <div className="episode-share">
+          <span className="share-button is-skeleton" />
+        </div>
         <p className="episode-description">
           <span className="skeleton-text" style={{ width: "100%" }} />
           <span className="skeleton-text" style={{ width: "100%" }} />

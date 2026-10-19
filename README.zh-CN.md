@@ -47,6 +47,7 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 
 播放器是页面的主角，旁边是完整的分集列表，当前集数一目了然。醒目的
 **上一集 / 下一集**按钮会直接显示目标集数和标题，接下来看什么始终清清楚楚。
+标题旁的**分享**按钮可以复制本集链接，或直接发送到 WhatsApp 和 Telegram。
 
 <p align="center">
   <img src="docs/screenshots/episode-desktop-zh-CN.webp" alt="剧集页面，展示抖音播放器、剧集标题和简介、上一集和下一集按钮以及分集列表" width="900">
@@ -108,6 +109,7 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 - 目录卡片在鼠标悬停或键盘聚焦时展开显示详情，并支持减少动态效果
 - 支持多季、番外、分段剧集和合集，并自动编号
 - 支持分享、精确到集数的观看链接，例如 `/zh-CN/series/gui-xu/episode/2`
+- 每一集都有分享按钮，可复制链接或发送到 WhatsApp 和 Telegram
 - 每一集和首页都有链接预览卡片，以页面语言显示系列海报、标题和集数。适用于
   Telegram、WhatsApp、Discord、Slack、iMessage、X、Facebook 和 LinkedIn。
   微信、抖音和小红书不读取标准的链接预览标签，在这些平台分享时不会显示卡片

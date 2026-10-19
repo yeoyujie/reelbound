@@ -50,7 +50,8 @@ the rest of the shelf dims. Every card opens its series at the first episode.
 
 The player leads, with the full episode list beside it and the current episode
 clearly marked. Large **previous / next** buttons name the episode they lead to,
-so it is always obvious where you go next.
+so it is always obvious where you go next. A **Share** button beside the title
+copies the episode link or sends it straight to WhatsApp or Telegram.
 
 <p align="center">
   <img src="docs/screenshots/episode-desktop-en.webp" alt="Episode page with the Douyin player, episode title and description, previous and next episode buttons, and the episode list sidebar" width="900">
@@ -116,6 +117,8 @@ translated UI chrome.
   with reduced-motion support
 - Seasons, specials, split episodes and compilations, numbered automatically
 - Shareable, episode-specific URLs such as `/en/series/gui-xu/episode/2`
+- A share button on every episode that copies the link or sends it to
+  WhatsApp or Telegram
 - Link preview cards for every episode and the homepage, showing the series
   poster, title and episode in the page's language. They appear in Telegram,
   WhatsApp, Discord, Slack, iMessage, X, Facebook and LinkedIn. WeChat, Douyin

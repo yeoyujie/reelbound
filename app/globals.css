@@ -1492,7 +1492,7 @@ a:focus-visible {
 }
 
 .episode-details {
-  padding-top: 6px;
+  padding-top: 18px;
 }
 
 .episode-kicker {
@@ -1526,6 +1526,209 @@ a:focus-visible {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.65;
+}
+
+/* Share sits beside the heading; recap and description run full width below. */
+.episode-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 24px;
+}
+
+.episode-details > :not(.episode-heading, .episode-share) {
+  grid-column: 1 / -1;
+}
+
+/* Lines the pill's top edge up with the top of the kicker's capitals. */
+.episode-share {
+  margin-top: 3px;
+}
+
+.share-button {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  anchor-name: --episode-share;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.share-button.is-skeleton {
+  width: 88px;
+  cursor: default;
+}
+
+.share-button:hover,
+.share-button:has(+ .share-panel:popover-open) {
+  border-color: var(--control-border);
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+.share-button:active {
+  transform: scale(0.96);
+}
+
+.share-button:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+
+.share-button svg,
+.share-copy-action svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.share-panel {
+  width: min(320px, calc(100vw - 32px));
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 18px 48px var(--shadow-color);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.97);
+  transform-origin: top right;
+  transition:
+    opacity 160ms ease,
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    overlay 220ms allow-discrete,
+    display 220ms allow-discrete;
+}
+
+/* Without anchor positioning the panel keeps the browser's centred popover. */
+@supports (position-area: block-end) {
+  .share-panel {
+    position-anchor: --episode-share;
+    position-area: block-end span-inline-start;
+    position-try-fallbacks: flip-block, flip-inline;
+    inset: auto;
+    margin: 8px 0;
+  }
+}
+
+.share-panel:popover-open {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .share-panel:popover-open {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+
+.share-copy {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--foreground);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.share-copy-url {
+  overflow: hidden;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.share-copy-action {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.share-copy-action[data-copied] {
+  color: var(--accent-primary);
+}
+
+.share-targets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.share-target {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 560;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.share-target svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: var(--muted);
+  transition: fill 160ms ease;
+}
+
+.share-copy:hover,
+.share-target:hover {
+  background: var(--episode-current);
+}
+
+.share-target.is-whatsapp:is(:hover, :focus-visible) svg {
+  fill: #25d366;
+}
+
+.share-target.is-telegram:is(:hover, :focus-visible) svg {
+  fill: #26a5e4;
+}
+
+.share-copy:focus-visible,
+.share-target:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: -2px;
+}
+
+.share-copy:active,
+.share-target:active {
+  transform: scale(0.98);
 }
 
 .episode-navigation {
@@ -1972,10 +2175,6 @@ a:focus-visible {
 }
 
 @media (min-width: 1001px) and (max-width: 1200px) {
-  .episode-details {
-    padding-top: 10px;
-  }
-
   .episode-description {
     margin-top: 9px;
   }
@@ -2072,7 +2271,22 @@ a:focus-visible {
   }
 
   .episode-details {
+    grid-template-columns: minmax(0, 1fr);
     padding-top: 16px;
+  }
+
+  .episode-share {
+    margin-top: 12px;
+  }
+
+  .share-button {
+    min-height: 40px;
+    padding-inline: 14px 16px;
+  }
+
+  .share-panel {
+    position-area: block-end span-inline-end;
+    transform-origin: top left;
   }
 
   .episode-description {
@@ -2406,6 +2620,14 @@ a:focus-visible {
 
   .episode-nav-link:active,
   .episode-nav-link:hover .episode-nav-arrow {
+    transform: none;
+  }
+
+  .share-button:active,
+  .share-copy:active,
+  .share-target:active,
+  .share-panel,
+  .share-panel:popover-open {
     transform: none;
   }
 

@@ -6,6 +6,7 @@ import {
   type EpisodeVideoSource,
 } from "@/data/series";
 import { EpisodeNavigation } from "@/components/episode-navigation";
+import { EpisodeShare } from "@/components/episode-share";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
 import {
   episodeLabel,
@@ -44,10 +45,7 @@ export async function generateMetadata({
 
   const seriesTitle = localizedText(series.title, lang);
   const name = episodeTitle(series, current, lang);
-  const title =
-    lang === "zh-CN"
-      ? `${seriesTitle} · ${name}｜Reelbound`
-      : `${seriesTitle} — ${name} | Reelbound`;
+  const title = episodePageTitle(seriesTitle, name, lang);
   const description = localizedText(episode.description ?? series.description, lang);
 
   return {
@@ -60,6 +58,12 @@ export async function generateMetadata({
     },
     twitter: { card: "summary_large_image" },
   };
+}
+
+function episodePageTitle(seriesTitle: string, episodeName: string, locale: Locale) {
+  return locale === "zh-CN"
+    ? `${seriesTitle} · ${episodeName}｜Reelbound`
+    : `${seriesTitle} — ${episodeName} | Reelbound`;
 }
 
 // Switching episodes intentionally waits for the next episode so the current
@@ -108,6 +112,15 @@ export default async function EpisodePage({ params }: EpisodeRouteProps) {
           </p>
           <h1 id="episode-title">{title}</h1>
         </div>
+        <EpisodeShare
+          text={episodePageTitle(seriesTitle, title, locale)}
+          dictionary={{
+            share: dictionary.share,
+            shareEpisode: dictionary.shareEpisode,
+            copyLink: dictionary.copyLink,
+            linkCopied: dictionary.linkCopied,
+          }}
+        />
         {recap && <p className="episode-recap">{recap}</p>}
         <p className="episode-description">
           {localizedText(episode.description ?? series.description, locale)}
