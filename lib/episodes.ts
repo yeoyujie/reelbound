@@ -1,5 +1,5 @@
 import type { Episode, EpisodeRange, Series } from "@/data/series";
-import { localizedText, type Locale } from "@/lib/i18n";
+import { locales, localizedText, type Locale } from "@/lib/i18n";
 
 /** An episode with its derived season, viewer-facing number and URL segment. */
 export type ResolvedEpisode = {
@@ -67,6 +67,19 @@ export function resolveEpisodes(series: Series): ResolvedEpisode[] {
 
   resolvedCache.set(series, resolved);
   return resolved;
+}
+
+/** Every episode URL in every locale, for prerendering episode routes. */
+export function episodeRouteParams(catalog: Series[]) {
+  return locales.flatMap((lang) =>
+    catalog.flatMap((series) =>
+      resolveEpisodes(series).map((item) => ({
+        lang,
+        slug: series.slug,
+        episode: item.slug,
+      })),
+    ),
+  );
 }
 
 export function findEpisode(series: Series, slug: string) {

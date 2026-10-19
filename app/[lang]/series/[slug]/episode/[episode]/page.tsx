@@ -9,11 +9,11 @@ import { EpisodeNavigation } from "@/components/episode-navigation";
 import { EpisodePlayerSourceSync } from "@/components/episode-player-provider";
 import {
   episodeLabel,
+  episodeRouteParams,
   episodeTitle,
   findEpisode,
   getAdjacentEpisodes,
   recapNote,
-  resolveEpisodes,
   type ResolvedEpisode,
 } from "@/lib/episodes";
 import {
@@ -25,15 +25,7 @@ import {
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
-  return ["en", "zh-CN"].flatMap((lang) =>
-    seriesCatalog.flatMap((series) =>
-      resolveEpisodes(series).map((item) => ({
-        lang,
-        slug: series.slug,
-        episode: item.slug,
-      })),
-    ),
-  );
+  return episodeRouteParams(seriesCatalog);
 }
 
 type EpisodeRouteProps = PageProps<"/[lang]/series/[slug]/episode/[episode]">;
@@ -66,6 +58,7 @@ export async function generateMetadata({
       description,
       type: "video.episode",
     },
+    twitter: { card: "summary_large_image" },
   };
 }
 
