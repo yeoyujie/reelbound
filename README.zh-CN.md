@@ -108,6 +108,9 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 - 目录卡片在鼠标悬停或键盘聚焦时展开显示详情，并支持减少动态效果
 - 支持多季、番外、分段剧集和合集，并自动编号
 - 支持分享、精确到集数的观看链接，例如 `/zh-CN/series/gui-xu/episode/2`
+- 每一集和首页都有链接预览卡片，以页面语言显示系列海报、标题和集数。适用于
+  Telegram、WhatsApp、Discord、Slack、iMessage、X、Facebook 和 LinkedIn。
+  微信、抖音和小红书不读取标准的链接预览标签，在这些平台分享时不会显示卡片
 - 使用抖音官方 iframe 播放器，并为竖屏视频响应式调整尺寸
 - 上一集 / 下一集按钮直接显示目标剧集
 - 分集列表始终清晰标识当前播放集数
@@ -147,6 +150,7 @@ Reelbound 目前是一个精选观看平台，而不是社交网络。当前没�
 - 在具备完善审核机制后，引入评论等社区功能
 - 使用轻量级编辑流程改进内容目录管理
 - 随着目录增长，加入更丰富的元数据、搜索和发现工具
+- 探索微信链接预览，这需要微信官方分享 SDK 和已备案的域名
 
 以上内容是探索中的想法，并不代表已实现的功能或确定承诺。任何账号或社区
 功能上线前，都需要明确的隐私、审核、安全和数据保留政策。
@@ -240,7 +244,8 @@ The Laid-Off Girl — Episode 4 | Reelbound
 app/[lang]/                  多语言 App Router 页面和布局
 app/globals.css              全局样式和设计变量
 components/                  Header、卡片、剧集列表、导航和播放器
-lib/                         集数编号和本地化工具
+lib/                         集数编号、本地化和分享卡片
+assets/fonts/                构建分享卡片时使用的中文字体
 data/series.ts               有序的视频目录清单
 data/series/                 每个系列一个 TypeScript 内容文件
 docs/screenshots/            README 截图
@@ -274,6 +279,10 @@ Reelbound 的原创源代码采用
 抖音官方嵌入播放器。MIT License 不会授予复制、分发、商业化或以其他方式使用
 这些第三方内容的权利。关于署名请求和第三方内容边界，请参阅
 [`NOTICE`](NOTICE)。
+
+`assets/fonts/` 中附带的 Noto Sans SC 字体属于第三方软件，采用
+[SIL Open Font License 1.1](assets/fonts/NotoSansSC-LICENSE.txt) 授权，
+不适用 MIT License。
 
 如果你是目录中内容的版权所有者或代理人，并希望移除相关内容，请提交 Issue，
 并提供足以定位系列或剧集的信息。

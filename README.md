@@ -116,6 +116,11 @@ translated UI chrome.
   with reduced-motion support
 - Seasons, specials, split episodes and compilations, numbered automatically
 - Shareable, episode-specific URLs such as `/en/series/gui-xu/episode/2`
+- Link preview cards for every episode and the homepage, showing the series
+  poster, title and episode in the page's language. They appear in Telegram,
+  WhatsApp, Discord, Slack, iMessage, X, Facebook and LinkedIn. WeChat, Douyin
+  and Xiaohongshu don't read standard link-preview tags, so links shared there
+  show no card
 - Official Douyin iframe playback, sized responsively for portrait video
 - Previous / next episode buttons that name their destination
 - An episode list that keeps the current episode visible and clear
@@ -157,6 +162,8 @@ Possible future work, in priority order:
 - Introduce comments and other carefully moderated community features
 - Improve catalogue management with a lightweight editorial workflow
 - Add richer metadata, search, and discovery tools as the catalogue grows
+- Explore WeChat link previews, which need WeChat's own sharing SDK and a
+  domain registered in mainland China
 
 These are exploratory ideas, not implemented features or guarantees. Any
 account or community functionality would need clear privacy, moderation,
@@ -256,7 +263,8 @@ details out of the rest of the UI.
 app/[lang]/                  Localized App Router pages and layout
 app/globals.css              Global styles and design tokens
 components/                  Header, cards, episode list, navigation, player
-lib/                         Episode numbering and localization helpers
+lib/                         Episode numbering, localization and share cards
+assets/fonts/                Build-time Chinese font for share cards
 data/series.ts               Ordered catalogue manifest
 data/series/                 One typed content file per series
 docs/screenshots/            README screenshots
@@ -295,6 +303,10 @@ and uses Douyin’s official embed rather than scraping video files. The MIT
 License does not grant permission to copy, redistribute, monetize, or otherwise
 reuse those third-party materials. See [`NOTICE`](NOTICE) for the attribution
 request and the third-party content boundary.
+
+The bundled Noto Sans SC font in `assets/fonts/` is third-party software under
+the [SIL Open Font License 1.1](assets/fonts/NotoSansSC-LICENSE.txt), not the
+MIT License.
 
 If you own or represent content shown in the catalogue and want it removed,
 please open an issue with enough information to identify the relevant series or
