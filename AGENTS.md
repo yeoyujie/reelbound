@@ -192,6 +192,10 @@ Load the official Douyin player
 
 If hover previews are introduced, follow the deferred, single-preview loading rules in the Homepage section.
 
+## Search
+
+The header search is a command palette that runs entirely in the browser. `lib/search.ts` holds the pure, bilingual matching logic and its tests; `lib/search-index.ts` builds the slim index served at `/search-index.json`; `components/site-search.tsx` is the UI. Load the index only on user intent, never on initial page load. Keep `SearchResult` as the contract between search logic and UI so a later agentic search can return the same shape. Read `docs/search.md` before changing search; it records the decisions, the accessibility requirements, and the agentic roadmap.
+
 ## Architecture Philosophy
 
 Prefer the simplest architecture that satisfies the product.
@@ -231,7 +235,7 @@ Avoid adding libraries unless they provide clear value.
 
 ## Simplicity
 
-Prefer the simplest implementation that delivers the intended experience. This is a curated, static catalogue, not a social platform. Do not add accounts, search, likes, comments, saved videos, recommendations, or other hypothetical features without a clear product requirement. Keep dependencies and infrastructure minimal.
+Prefer the simplest implementation that delivers the intended experience. This is a curated, static catalogue, not a social platform. Do not add accounts, likes, comments, saved videos, recommendations, or other hypothetical features without a clear product requirement. Keep dependencies and infrastructure minimal.
 
 <!-- BEGIN:nextjs-agent-feedback -->
 
