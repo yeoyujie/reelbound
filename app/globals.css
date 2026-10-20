@@ -296,6 +296,420 @@ a:focus-visible {
   color: var(--muted);
 }
 
+.search-trigger {
+  display: inline-flex;
+  height: 36px;
+  min-width: 36px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 7px 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.search-trigger:hover {
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+.search-trigger:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+
+.search-trigger:active {
+  transform: scale(0.97);
+}
+
+.search-trigger svg,
+.search-field svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.7;
+}
+
+.search-trigger-label {
+  min-width: 64px;
+  text-align: left;
+}
+
+.search-trigger-key,
+.search-footer kbd {
+  display: inline-grid;
+  min-width: 20px;
+  height: 20px;
+  place-items: center;
+  padding: 0 5px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* Small screens get an icon button; the label and shortcut need a keyboard and room. */
+@media (max-width: 700px), (hover: none) {
+  .search-trigger {
+    width: 36px;
+    padding: 0;
+    color: var(--foreground);
+  }
+
+  .search-trigger-label,
+  .search-trigger-key {
+    display: none;
+  }
+}
+
+.search-dialog {
+  width: min(640px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(620px, calc(100dvh - 24vh));
+  margin: 12vh auto auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 28px 80px var(--shadow-color);
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    overlay 260ms allow-discrete,
+    display 260ms allow-discrete;
+}
+
+.search-dialog[open] {
+  display: flex;
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .search-dialog[open] {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+.search-dialog::backdrop {
+  background: rgb(9 10 14 / 0%);
+  transition:
+    background-color 220ms ease,
+    overlay 260ms allow-discrete,
+    display 260ms allow-discrete;
+}
+
+.search-dialog[open]::backdrop {
+  background: rgb(9 10 14 / 55%);
+}
+
+@starting-style {
+  .search-dialog[open]::backdrop {
+    background: rgb(9 10 14 / 0%);
+  }
+}
+
+html:has(.search-dialog[open]) {
+  overflow: hidden;
+}
+
+.search-panel {
+  display: flex;
+  width: 100%;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.search-field {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.search-field input {
+  min-width: 0;
+  height: 60px;
+  flex: 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 17px;
+  outline: none;
+}
+
+.search-field input::placeholder {
+  color: var(--muted);
+}
+
+.search-field input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-cancel {
+  display: none;
+  padding: 8px 2px;
+  border: 0;
+  background: transparent;
+  color: var(--accent-primary);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.search-cancel:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--accent-primary);
+}
+
+.search-body {
+  min-height: 0;
+  flex: 1;
+  padding: 6px 8px 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 34px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.search-group-label {
+  margin: 0;
+  padding: 12px 10px 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.search-option > a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 12px 8px 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+.search-option > a::before {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 0;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--accent-primary);
+  content: "";
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition: opacity 140ms ease, transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.search-option[aria-selected="true"] > a {
+  background: var(--episode-current);
+}
+
+.search-option[aria-selected="true"] > a::before {
+  opacity: 1;
+  transform: none;
+}
+
+.search-artwork {
+  position: relative;
+  width: 80px;
+  flex: 0 0 auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 7px;
+  background: var(--artwork-background);
+}
+
+.search-artwork img {
+  object-fit: cover;
+}
+
+.search-artwork-fallback {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: var(--artwork-foreground);
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.search-option-text {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 3px;
+}
+
+.search-option-title,
+.search-option-meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-option-title {
+  font-size: 15px;
+  font-weight: 560;
+}
+
+.search-option-meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.search-option mark {
+  background: transparent;
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.search-option-enter {
+  color: var(--muted);
+  font-size: 15px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 140ms ease, transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.search-option[aria-selected="true"] .search-option-enter {
+  opacity: 1;
+  transform: none;
+}
+
+.search-message {
+  padding: 26px 12px 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.search-message p {
+  margin: 0 0 14px;
+}
+
+.search-message .search-group-label {
+  padding: 4px 0 10px;
+}
+
+.search-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-chip {
+  min-height: 32px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.search-chip:hover {
+  background: var(--surface);
+}
+
+.search-chip:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.search-chip:active {
+  transform: scale(0.97);
+}
+
+.search-footer {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 18px;
+  padding: 10px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.search-footer kbd + kbd {
+  margin-left: 3px;
+}
+
+@media (hover: none) {
+  .search-footer,
+  .search-option-enter {
+    display: none;
+  }
+}
+
+/* On phones the palette becomes a full-screen sheet that the keyboard can't cover. */
+@media (max-width: 600px) {
+  .search-dialog {
+    width: 100%;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    transform: translateY(16px);
+  }
+
+  @starting-style {
+    .search-dialog[open] {
+      transform: translateY(16px);
+    }
+  }
+
+  .search-field {
+    padding: 0 16px;
+  }
+
+  .search-cancel {
+    display: block;
+  }
+
+  .search-field input {
+    font-size: 16px;
+  }
+
+  .search-body {
+    padding-inline: 4px;
+  }
+
+  .search-artwork {
+    width: 72px;
+  }
+}
+
 .home-shell {
   width: 100%;
   margin-inline: auto;
@@ -2190,6 +2604,27 @@ a:focus-visible {
     width: calc(100% - 40px);
   }
 
+  /* Room for search, theme and language beside the wordmark on 375px phones. */
+  .site-header-inner {
+    gap: 12px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .search-trigger,
+  .theme-toggle {
+    width: 34px;
+    min-width: 34px;
+    height: 34px;
+  }
+
+  .language-toggle-option {
+    min-width: 34px;
+    padding: 0 7px;
+  }
+
   .site-header-inner {
     min-height: 66px;
   }
@@ -2582,6 +3017,18 @@ a:focus-visible {
   }
 }
 
+/* The narrowest phones keep the mark; the link keeps its accessible name. */
+@media (max-width: 374px) {
+  .wordmark span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -2628,6 +3075,15 @@ a:focus-visible {
   .share-target:active,
   .share-panel,
   .share-panel:popover-open {
+    transform: none;
+  }
+
+  .search-trigger:active,
+  .search-chip:active,
+  .search-dialog,
+  .search-dialog[open],
+  .search-option-enter,
+  .search-option > a::before {
     transform: none;
   }
 
