@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLayoutEffect, useSyncExternalStore } from "react";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { SiteSearch } from "@/components/site-search";
 
 function getThemeSnapshot() {
   const explicitTheme = document.documentElement.dataset.theme;
@@ -86,6 +87,7 @@ export function SiteHeader({
 
         <div className="header-actions">
           <p className="header-descriptor">{dictionary.headerDescriptor}</p>
+          <SiteSearch locale={locale} dictionary={dictionary} />
           <button
             className="theme-toggle"
             type="button"
