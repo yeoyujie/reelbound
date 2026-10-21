@@ -206,11 +206,15 @@ describe("highlight", () => {
 });
 
 describe("snippet", () => {
-  it("centres on the first match", () => {
+  it("starts just before the first match", () => {
     const text = `${"a".repeat(100)} revenge ${"b".repeat(100)}`;
-    const result = snippet(text, "revenge", 10);
+    const result = snippet(text, "revenge", 30);
     assert.ok(result.startsWith("…"));
     assert.ok(result.endsWith("…"));
-    assert.ok(result.includes("revenge"));
+    assert.ok(result.indexOf("revenge") <= 14);
+  });
+
+  it("always includes the whole match", () => {
+    assert.ok(snippet(`${"a".repeat(50)} revenge`, "revenge", 5).endsWith("revenge"));
   });
 });
