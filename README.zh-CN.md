@@ -53,6 +53,20 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
   <img src="docs/screenshots/episode-desktop-zh-CN.webp" alt="剧集页面，展示抖音播放器、剧集标题和简介、上一集和下一集按钮以及分集列表" width="900">
 </p>
 
+### 搜索
+
+在任意页面按 `/` 或 `⌘K`，或点击**搜索**按钮，即可查找系列或直接跳到某一集。
+无论页面是哪种语言，搜索都会同时匹配中英文的标题、类型和简介；它能识别
+`nova 12`、`第12集` 这样的集数写法，并高亮显示每条结果的匹配原因。在手机上，
+搜索以全屏面板打开。搜索索引很小，而且只在你准备搜索时才下载，不会拖慢首屏加载。
+
+<table>
+  <tr>
+    <td align="center" width="72%"><img src="docs/screenshots/search-desktop-zh-CN.webp" alt="首页上方打开的搜索面板，搜索“末日”时显示两个系列和两集剧集，简介摘录中的关键词被高亮"></td>
+    <td align="center" width="28%"><img src="docs/screenshots/search-mobile-zh-CN.webp" alt="移动端全屏搜索，显示“末日”的系列和剧集结果以及取消按钮" width="220"></td>
+  </tr>
+</table>
+
 ### 为手机而设计
 
 移动端经过专门设计，而不是把桌面版缩小：系列目录变为双列海报网格；观看页面中
@@ -95,9 +109,9 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 <summary>更多英文界面截图</summary>
 <br>
 
-| 首页 | 系列目录 | 移动端 |
-| --- | --- | --- |
-| ![英文首页](docs/screenshots/home-desktop-en.webp) | ![英文系列目录](docs/screenshots/catalogue-desktop-en.webp) | ![英文移动端首页](docs/screenshots/home-mobile-en.webp) |
+| 首页 | 系列目录 | 搜索 | 移动端 |
+| --- | --- | --- | --- |
+| ![英文首页](docs/screenshots/home-desktop-en.webp) | ![英文系列目录](docs/screenshots/catalogue-desktop-en.webp) | ![英文搜索“monster”](docs/screenshots/search-desktop-en.webp) | ![英文移动端首页](docs/screenshots/home-mobile-en.webp) |
 
 </details>
 
@@ -109,6 +123,8 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 - 目录卡片在鼠标悬停或键盘聚焦时展开显示详情，并支持减少动态效果
 - 支持多季、番外、分段剧集和合集，并自动编号
 - 支持分享、精确到集数的观看链接，例如 `/zh-CN/series/gui-xu/episode/2`
+- 支持键盘操作的搜索（`/` 或 `⌘K`），同时检索中英文的系列和剧集，可用
+  `nova 12` 这样的写法直达某一集，并高亮匹配内容
 - 每一集都有分享按钮，可复制链接或发送到 WhatsApp 和 Telegram
 - 每一集和首页都有链接预览卡片，以页面语言显示系列海报、标题和集数。适用于
   Telegram、WhatsApp、Discord、Slack、iMessage、X、Facebook 和 LinkedIn。
@@ -151,7 +167,7 @@ Reelbound 目前是一个精选观看平台，而不是社交网络。当前没�
 - 保存观看进度，并提供“继续观看”历史
 - 在具备完善审核机制后，引入评论等社区功能
 - 使用轻量级编辑流程改进内容目录管理
-- 随着目录增长，加入更丰富的元数据、搜索和发现工具
+- 随着目录增长，加入更丰富的元数据和自然语言搜索
 - 探索微信链接预览，这需要微信官方分享 SDK 和已备案的域名
 
 以上内容是探索中的想法，并不代表已实现的功能或确定承诺。任何账号或社区
@@ -246,7 +262,7 @@ The Laid-Off Girl — Episode 4 | Reelbound
 app/[lang]/                  多语言 App Router 页面和布局
 app/globals.css              全局样式和设计变量
 components/                  Header、卡片、剧集列表、导航和播放器
-lib/                         集数编号、本地化和分享卡片
+lib/                         集数编号、本地化、搜索和分享卡片
 assets/fonts/                构建分享卡片时使用的中文字体
 data/series.ts               有序的视频目录清单
 data/series/                 每个系列一个 TypeScript 内容文件
@@ -260,6 +276,7 @@ docs/screenshots/            README 截图
 
 ```bash
 pnpm lint
+pnpm test
 pnpm build
 ```
 
