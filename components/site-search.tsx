@@ -255,10 +255,14 @@ export function SiteSearch({ locale, dictionary }: SiteSearchProps) {
           <SearchArtwork series={result.series} language={language} />
           <span className="search-option-text">
             <span className="search-option-title">
+              {/* A snippet replaces the line that names the series, so name it here. */}
+              {result.kind === "episode" && context && (
+                <span className="search-option-series">{seriesTitle} · </span>
+              )}
               <Highlighted text={title} query={deferredQuery} />
             </span>
             <span className="search-option-meta">
-              {context ? <Highlighted text={context} query={deferredQuery} /> : meta.join(" · ")}
+              <Highlighted text={context ?? meta.join(" · ")} query={deferredQuery} />
             </span>
           </span>
           <span className="search-option-enter" aria-hidden="true">

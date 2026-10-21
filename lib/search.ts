@@ -478,12 +478,15 @@ export function highlight(text: string, query: string): HighlightPart[] {
   return parts;
 }
 
-/** A short excerpt centred on the first match, for results matched by description. */
-export function snippet(text: string, query: string, radius = 40) {
+/**
+ * A short excerpt for results matched by description. It starts just before
+ * the first match, so the match stays visible when the line is truncated.
+ */
+export function snippet(text: string, query: string, length = 80) {
   const first = matchRanges(text, query)[0];
-  if (!first) return text.length > radius * 2 ? `${text.slice(0, radius * 2).trimEnd()}…` : text;
+  if (!first) return text.length > length ? `${text.slice(0, length).trimEnd()}…` : text;
 
-  const start = Math.max(0, first[0] - radius);
-  const end = Math.min(text.length, first[1] + radius);
+  const start = Math.max(0, first[0] - 12);
+  const end = Math.min(text.length, Math.max(start + length, first[1]));
   return `${start > 0 ? "…" : ""}${text.slice(start, end).trim()}${end < text.length ? "…" : ""}`;
 }
