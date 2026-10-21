@@ -572,6 +572,11 @@ html:has(.search-dialog[open]) {
   font-size: 13px;
 }
 
+.search-option-series {
+  color: var(--muted);
+  font-weight: 450;
+}
+
 .search-option mark {
   background: transparent;
   color: var(--accent-primary);
