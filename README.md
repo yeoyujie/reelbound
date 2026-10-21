@@ -57,6 +57,22 @@ copies the episode link or sends it straight to WhatsApp or Telegram.
   <img src="docs/screenshots/episode-desktop-en.webp" alt="Episode page with the Douyin player, episode title and description, previous and next episode buttons, and the episode list sidebar" width="900">
 </p>
 
+### Search
+
+Press `/` or `⌘K` on any page, or use the **Search** button, to find a series
+or jump straight to an episode. Search covers titles, genres and descriptions
+in both English and Chinese, whatever language the page is in. It understands
+episode references such as `nova 12` or `第12集` and highlights why each result
+matched. On phones it opens as a full-screen sheet. Its small index downloads
+only when you reach for search, so it never slows the first page load.
+
+<table>
+  <tr>
+    <td align="center" width="72%"><img src="docs/screenshots/search-desktop-en.webp" alt="Search palette open over the homepage, showing two series and two episodes for the query monster, with the matching word highlighted in each description excerpt"></td>
+    <td align="center" width="28%"><img src="docs/screenshots/search-mobile-en.webp" alt="Full-screen mobile search with series and episode results for monster and a Cancel button" width="220"></td>
+  </tr>
+</table>
+
 ### Made for your phone
 
 Mobile is designed rather than shrunk: the catalogue becomes a two-column
@@ -101,9 +117,9 @@ translated UI chrome.
 <summary>More Chinese screenshots</summary>
 <br>
 
-| Homepage | Catalogue | Mobile |
-| --- | --- | --- |
-| ![Chinese homepage](docs/screenshots/home-desktop-zh-CN.webp) | ![Chinese catalogue](docs/screenshots/catalogue-desktop-zh-CN.webp) | ![Chinese mobile homepage](docs/screenshots/home-mobile-zh-CN.webp) |
+| Homepage | Catalogue | Search | Mobile |
+| --- | --- | --- | --- |
+| ![Chinese homepage](docs/screenshots/home-desktop-zh-CN.webp) | ![Chinese catalogue](docs/screenshots/catalogue-desktop-zh-CN.webp) | ![Chinese search for 末日](docs/screenshots/search-desktop-zh-CN.webp) | ![Chinese mobile homepage](docs/screenshots/home-mobile-zh-CN.webp) |
 
 </details>
 
@@ -117,6 +133,8 @@ translated UI chrome.
   with reduced-motion support
 - Seasons, specials, split episodes and compilations, numbered automatically
 - Shareable, episode-specific URLs such as `/en/series/gui-xu/episode/2`
+- Keyboard-friendly search (`/` or `⌘K`) across series and episodes in both
+  languages, with episode shortcuts like `nova 12` and highlighted matches
 - A share button on every episode that copies the link or sends it to
   WhatsApp or Telegram
 - Link preview cards for every episode and the homepage, showing the series
@@ -164,7 +182,7 @@ Possible future work, in priority order:
 - Add viewing progress and continue-watching history
 - Introduce comments and other carefully moderated community features
 - Improve catalogue management with a lightweight editorial workflow
-- Add richer metadata, search, and discovery tools as the catalogue grows
+- Add richer metadata and natural-language search as the catalogue grows
 - Explore WeChat link previews, which need WeChat's own sharing SDK and a
   domain registered in mainland China
 
@@ -266,7 +284,7 @@ details out of the rest of the UI.
 app/[lang]/                  Localized App Router pages and layout
 app/globals.css              Global styles and design tokens
 components/                  Header, cards, episode list, navigation, player
-lib/                         Episode numbering, localization and share cards
+lib/                         Episode numbering, localization, search and share cards
 assets/fonts/                Build-time Chinese font for share cards
 data/series.ts               Ordered catalogue manifest
 data/series/                 One typed content file per series
@@ -280,6 +298,7 @@ Run the main checks locally:
 
 ```bash
 pnpm lint
+pnpm test
 pnpm build
 ```
 
