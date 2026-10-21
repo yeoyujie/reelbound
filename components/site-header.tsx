@@ -86,7 +86,6 @@ export function SiteHeader({
         </Link>
 
         <div className="header-actions">
-          <p className="header-descriptor">{dictionary.headerDescriptor}</p>
           <SiteSearch locale={locale} dictionary={dictionary} />
           <button
             className="theme-toggle"

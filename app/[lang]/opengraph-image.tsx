@@ -18,7 +18,7 @@ export default async function Image({ params }: { params: Promise<{ lang: string
   const dictionary = getDictionary(lang);
 
   return renderSiteCard({
-    eyebrow: dictionary.headerDescriptor,
+    eyebrow: dictionary.tagline,
     tagline: dictionary.seriesHeading,
     // Follows the homepage order, so the card changes with the catalogue.
     posters: seriesCatalog.slice(0, 3).map((series) => series.thumbnail),

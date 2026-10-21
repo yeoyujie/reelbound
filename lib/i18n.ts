@@ -15,7 +15,7 @@ export const dictionaries = {
   en: {
     languageName: "English",
     switchLanguage: "中文",
-    headerDescriptor: "Curated short series",
+    tagline: "Curated short series",
     home: "Reelbound home",
     switchToLightMode: "Switch to light mode",
     switchToDarkMode: "Switch to dark mode",
@@ -84,7 +84,7 @@ export const dictionaries = {
   "zh-CN": {
     languageName: "中文",
     switchLanguage: "English",
-    headerDescriptor: "精选短剧系列",
+    tagline: "精选短剧系列",
     home: "Reelbound 首页",
     switchToLightMode: "切换为浅色模式",
     switchToDarkMode: "切换为深色模式",

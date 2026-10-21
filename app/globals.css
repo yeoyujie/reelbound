@@ -177,7 +177,6 @@ a:focus-visible {
   flex: 0 0 auto;
 }
 
-.header-descriptor,
 .eyebrow,
 .collection-index,
 .collection-caption {
@@ -187,18 +186,6 @@ a:focus-visible {
   font-weight: 550;
   letter-spacing: 0.11em;
   text-transform: uppercase;
-}
-
-.header-descriptor {
-  display: none;
-  max-width: 110px;
-  text-align: right;
-}
-
-@media (min-width: 701px) {
-  .header-descriptor {
-    display: block;
-  }
 }
 
 .header-actions {
