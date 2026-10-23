@@ -9,6 +9,7 @@ import type {
 } from "./series/types";
 
 import { ANameOfHerOwn } from "./series/wo-jiao-xu-ai-li";
+import { DoomsdayMountainLodge } from "./series/mo-ri-shan-su";
 import { BackAt100KilosIDebutAsTheCenter } from "./series/chong-hui-200-jin-wo-c-wei-chu-dao";
 import { HowToBeYourOwnLittleSister } from "./series/lin-man-bu-man";
 import { ArenaEarth } from "./series/kun-shou-zhi-zhan";
@@ -28,6 +29,7 @@ export const seriesCatalog: Series[] = [
   TheLaidOffGirl,
   TheAgeOfNewSpecies,
   Nova,
+  DoomsdayMountainLodge,
   SuddenlyRichFamily,
   ANameOfHerOwn,
   FileZero,

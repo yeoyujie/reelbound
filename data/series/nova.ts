@@ -26,5 +26,6 @@ export const Nova: Series = {
     { title: { en: "The Director", zh: "导演" }, videoId: "7692410507898473338" },
     { title: { en: "Pressure", zh: "施压" }, videoId: "7694621700990184625" },
     { title: { en: "Coming Home", zh: "回家" }, videoId: "7696818097949051258" },
+    { title: { en: "Youth", zh: "青春" }, videoId: "7698667385088211579" },
   ],
 };

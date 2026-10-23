@@ -135,5 +135,13 @@ export const ANameOfHerOwn: Series = {
       },
       videoId: "7693997918205807898",
     },
+    {
+      season: 2,
+      description: {
+        en: "I know exactly what I want!",
+        zh: "我很清楚我想要的东西是什么！",
+      },
+      videoId: "7697467147550739746",
+    },
   ],
 };
