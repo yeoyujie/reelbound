@@ -21,5 +21,6 @@ export const OvernightStar: Series = {
       title: { en: "Season 1, Part 1 (Remastered)", zh: "第一季上部（重制版）" },
       videoId: "7697136835117485331",
     },
+    { title: { en: "The Plunge", zh: "纵身" }, videoId: "7699011535721999721" },
   ],
 };

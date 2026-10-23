@@ -176,9 +176,15 @@ export const SuddenlyRichFamily: Series = {
       videoId: "7690892215102953829",
     },
     {
+      title: { en: "So I'm the Only Normal One in the Dorm?", zh: "搞半天寝室就我一个普通人啊" },
+      videoId: "7694967712594700194",
+    },
+    {
+      kind: "special",
       title: { en: "The Best Gift Is a Heart That Never Changes", zh: "最好的礼物，是岁月里不变的真心" },
       videoId: "7696034413024446309",
     },
     { title: { en: "98! Fill It Up!", zh: "98！！！加满！！！" }, videoId: "7696453398670237925" },
+    { title: { en: "Good English Pays Off — Gotta Study", zh: "英语好啊 得学啊" }, videoId: "7696837102269220209" },
   ],
 };
