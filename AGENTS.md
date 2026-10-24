@@ -160,6 +160,8 @@ For example:
 
 The URL should uniquely identify the series and currently selected episode.
 
+Absolute URLs come from `siteUrl` in `lib/site-url.ts` (`SITE_URL`, then Vercel's system variables, then localhost), never from request headers. The root layout sets it as `metadataBase`, so metadata uses relative paths; each page sets its canonical and hreflang links with `localeAlternates` from `lib/i18n.ts`.
+
 ## Content Model
 
 Content is stored as static TypeScript data.
