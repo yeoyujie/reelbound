@@ -10,6 +10,7 @@ import {
   type Locale,
 } from "@/lib/i18n";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]">): Promise<Metadata> {
@@ -76,6 +77,10 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <footer className="home-footer">
         <span>Reelbound</span>
         <span>{dictionary.footer}</span>
+        <Link className="home-footer-link" href={`/${locale}/connect`}>
+          {dictionary.connectLink}
+          <span aria-hidden="true">→</span>
+        </Link>
       </footer>
     </main>
   );

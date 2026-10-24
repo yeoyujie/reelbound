@@ -1386,6 +1386,373 @@ html:has(.search-dialog[open]) {
   letter-spacing: -0.03em;
 }
 
+.home-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--foreground);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 160ms ease, gap 160ms ease;
+}
+
+.home-footer-link:hover {
+  gap: 12px;
+  color: var(--accent-primary);
+}
+
+/* Connect page: setup guides for using the MCP server from AI assistants. */
+
+.connect-shell {
+  display: grid;
+  width: min(calc(100% - var(--content-gutter)), 880px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(36px, 5vw, 56px);
+  margin-inline: auto;
+  padding-block: clamp(40px, 7vw, 96px) 96px;
+}
+
+.connect-intro h1 {
+  max-width: 720px;
+  margin: 24px 0 18px;
+  font-size: clamp(40px, 5.4vw, 68px);
+  font-weight: 450;
+  letter-spacing: -0.07em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.connect-lede {
+  max-width: 600px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.connect-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.connect-facts li {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 560;
+}
+
+.connect-guide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+
+.copy-snippet {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+}
+
+.copy-snippet-caption {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.copy-snippet-body {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 6px 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.copy-snippet-value {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding-block: 8px;
+  color: var(--foreground);
+  font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Wrap rather than scroll, so the whole command is visible before it's pasted. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Config files depend on indentation, which wrapping would misrepresent. */
+.copy-snippet-value[data-multiline] {
+  overflow-x: auto;
+  white-space: pre;
+  scrollbar-width: thin;
+}
+
+.copy-snippet-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  min-height: 36px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 120ms ease;
+}
+
+.copy-snippet-button svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.copy-snippet-button:hover {
+  background: var(--episode-current);
+}
+
+.copy-snippet-button:active {
+  transform: scale(0.96);
+}
+
+.copy-snippet-button[data-copied] {
+  color: var(--accent-primary);
+}
+
+.copy-snippet-button:focus-visible,
+.connect-tab:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.connect-tabs {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.connect-tablist {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+
+.connect-tab {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.connect-tab:hover {
+  background: var(--episode-hover);
+  color: var(--foreground);
+}
+
+/* Inverted fill marks the selection by shape and contrast, not hue alone. */
+.connect-tab[aria-selected="true"] {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.connect-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 200px;
+  align-content: start;
+  gap: 18px;
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.connect-panel:focus-visible {
+  border-radius: 0 0 20px 20px;
+  outline: 2px solid var(--accent-primary);
+  outline-offset: -2px;
+}
+
+.connect-steps {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  counter-reset: connect-step;
+  list-style: none;
+}
+
+.connect-steps li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.55;
+  counter-increment: connect-step;
+}
+
+.connect-steps li::before {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  content: counter(connect-step);
+}
+
+.connect-note,
+.connect-panel-copy {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.connect-panel-copy {
+  color: var(--foreground);
+  font-size: 15px;
+}
+
+.connect-action {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, gap 160ms ease;
+}
+
+.connect-action:hover {
+  gap: 14px;
+  border-color: var(--foreground);
+}
+
+.connect-action.is-primary {
+  border-color: transparent;
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.connect-action.is-primary:hover {
+  background: var(--accent-primary);
+}
+
+.connect-action:active {
+  transform: scale(0.98);
+}
+
+.connect-prompts ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.connect-prompts li {
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  font-size: 14px;
+  line-height: 1.45;
+  quotes: "“" "”";
+}
+
+.connect-prompts li::before {
+  content: open-quote;
+}
+
+.connect-prompts li::after {
+  content: close-quote;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .connect-intro,
+  .connect-guide,
+  .connect-prompts {
+    animation: connect-rise 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .connect-guide {
+    animation-delay: 80ms;
+  }
+
+  .connect-prompts {
+    animation-delay: 160ms;
+  }
+
+  .connect-panel:not([hidden]) {
+    animation: connect-panel-in 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+
+@keyframes connect-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes connect-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (max-width: 600px) {
+  .connect-shell {
+    padding-top: 32px;
+  }
+
+  .connect-tablist {
+    padding: 5px;
+  }
+
+  .connect-prompts li {
+    width: 100%;
+  }
+}
+
 .not-found-shell {
   display: grid;
   width: min(calc(100% - var(--content-gutter)), 1180px);
