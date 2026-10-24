@@ -2,8 +2,21 @@ import { HomeHero } from "@/components/home-hero";
 import { SeriesCard } from "@/components/series-card";
 import { seriesCatalog } from "@/data/series";
 import { getEntryEpisode } from "@/lib/episodes";
-import { getDictionary, isLocale, localizedText, type Locale } from "@/lib/i18n";
+import {
+  getDictionary,
+  isLocale,
+  localeAlternates,
+  localizedText,
+  type Locale,
+} from "@/lib/i18n";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({ params }: PageProps<"/[lang]">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  return { alternates: localeAlternates(lang, "") };
+}
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
