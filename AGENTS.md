@@ -198,6 +198,10 @@ If hover previews are introduced, follow the deferred, single-preview loading ru
 
 The header search is a command palette that runs entirely in the browser. `lib/search.ts` holds the pure, bilingual matching logic and its tests; `lib/search-index.ts` builds the slim index served at `/search-index.json`; `components/site-search.tsx` is the UI. Load the index only on user intent, never on initial page load. Keep `SearchResult` as the contract between search logic and UI so a later agentic search can return the same shape. Read `docs/search.md` before changing search; it records the decisions, the accessibility requirements, and the agentic roadmap.
 
+## MCP
+
+`/mcp` serves a public, read-only, stateless MCP server (`lib/mcp.ts`, official `@modelcontextprotocol/server` SDK) so AI assistants can help viewers discover series and reach the right episode. Its tools are `list_series`, `search_catalog`, `get_series`, and `get_episode`. They reuse the search index and episode helpers and return bilingual structured data with watch-page URLs. Playback stays on the site: do not return players or iframes from tools. Recommendations are left to the host model; do not add a server-side LLM. An MCP Apps UI widget is a possible later addition on top of the data tools, not a replacement for them. `proxy.ts` excludes `/mcp` from locale redirects.
+
 ## Architecture Philosophy
 
 Prefer the simplest architecture that satisfies the product.
