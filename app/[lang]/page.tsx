@@ -1,8 +1,11 @@
+import { AssistantDemo } from "@/components/assistant-demo";
 import { HomeHero } from "@/components/home-hero";
 import { SeriesCard } from "@/components/series-card";
 import { seriesCatalog } from "@/data/series";
+import { getAssistantDemos } from "@/lib/assistant-demos";
 import { getEntryEpisode } from "@/lib/episodes";
 import {
+  firstSentence,
   getDictionary,
   isLocale,
   localeAlternates,
@@ -29,10 +32,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   if (!featuredSeries || !featuredEpisode) notFound();
 
-  const featuredDescription = localizedText(featuredSeries.description, locale).replace(
-    /([.!?。！？])[\s\S]*$/,
-    "$1",
-  );
+  const featuredDescription = firstSentence(localizedText(featuredSeries.description, locale));
 
   return (
     <main className="home-shell">
@@ -74,13 +74,35 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         )}
       </section>
 
+      <section className="assistant-section" id="assistant" aria-labelledby="assistant-heading">
+        <div className="assistant-intro">
+          <p className="eyebrow">{dictionary.connectEyebrow}</p>
+          <h2 id="assistant-heading">{dictionary.connectTitle}</h2>
+          <p className="assistant-copy">{dictionary.connectLede}</p>
+          <ul className="connect-facts">
+            {dictionary.connectFacts.map((fact) => (
+              <li key={fact}>{fact}</li>
+            ))}
+          </ul>
+          <Link className="assistant-action" href={`/${locale}/connect`}>
+            {dictionary.connectLink}
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+
+        <AssistantDemo
+          demos={getAssistantDemos(locale)}
+          labels={{
+            tryAsking: dictionary.connectAskLike,
+            youAsked: dictionary.assistantYouAsked,
+            watch: dictionary.assistantWatch,
+          }}
+        />
+      </section>
+
       <footer className="home-footer">
         <span>Reelbound</span>
         <span>{dictionary.footer}</span>
-        <Link className="home-footer-link" href={`/${locale}/connect`}>
-          {dictionary.connectLink}
-          <span aria-hidden="true">→</span>
-        </Link>
       </footer>
     </main>
   );

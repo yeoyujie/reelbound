@@ -67,6 +67,24 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
   </tr>
 </table>
 
+### 在 AI 助手中找剧
+
+首页片单下方有一段简短演示，展示 Reelbound 在 AI 助手里的样子：选一个问题，
+它会逐字打出来，随后答案以片单里的真实剧集出现，并附上可直接观看的链接。
+**连接**页面提供服务器地址和各个助手的设置步骤，命令可一键复制，Cursor 和
+VS Code 还支持一键安装。详见[在 AI 助手中使用](#在-ai-助手中使用)。
+
+<p align="center">
+  <img src="docs/screenshots/assistant-desktop-zh-CN.webp" alt="首页片单下方的 AI 助手区块：标题“问问你的 AI，今晚看什么。”、设置入口按钮，以及示例对话，问题“今晚在 Reelbound 上看什么好？”的答案是《一昭成名》和观看按钮" width="900">
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="72%"><img src="docs/screenshots/connect-desktop-zh-CN.webp" alt="连接页面，显示服务器地址、复制按钮、从 Kimi Code 到其他的助手标签，以及 Kimi Code 的设置步骤"></td>
+    <td align="center" width="28%"><img src="docs/screenshots/assistant-mobile-zh-CN.webp" alt="移动端的 AI 助手区块，示例对话上方是问题标签，下方是答案卡片" width="220"></td>
+  </tr>
+</table>
+
 ### 为手机而设计
 
 移动端经过专门设计，而不是把桌面版缩小：系列目录变为双列海报网格；观看页面中
@@ -147,7 +165,7 @@ Reelbound 在 `/mcp` 提供公开、只读的 [Model Context Protocol](https://m
 第 3 集之后发生了什么？”。助手会根据片单回答，并附上对应剧集的链接，播放仍在
 本站完成。
 
-无需账号或登录。网站的**连接**页面（`/zh-CN/connect`，入口在首页页脚）提供
+无需账号或登录。网站的**连接**页面（`/zh-CN/connect`，入口在首页片单下方）提供
 Kimi Code、DeepSeek Harness、Claude、ChatGPT、Claude Code、Codex、Cursor 和
 VS Code 的接入步骤，命令和配置都可一键复制。例如在 Claude Code 中：
 
