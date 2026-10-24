@@ -17,6 +17,11 @@ export function localizedText(text: LocalizedText, locale: Locale) {
  * `metadataBase`; "x-default" is the unprefixed URL, which the proxy
  * redirects by Accept-Language.
  */
+/** The first sentence of a description, for places that only have room for a line. */
+export function firstSentence(text: string) {
+  return text.replace(/([.!?。！？])[\s\S]*$/, "$1");
+}
+
 export function localeAlternates(locale: Locale, path: string) {
   return {
     canonical: `/${locale}${path}`,
@@ -139,9 +144,13 @@ export const dictionaries = {
       "DeepSeek's open-source agent, in developer preview. The DeepSeek chat app can't connect to MCP servers yet.",
     connectAddConfig: "Add it to {file}:",
     connectTryAsking: "Then try asking",
+    connectAskLike: "Try asking",
+    assistantDemoLabels: ["Tonight's pick", "By genre", "What's next"],
+    assistantYouAsked: "You asked",
+    assistantWatch: "Watch",
     connectPrompts: [
       "What should I watch tonight on Reelbound?",
-      "Find me a short revenge drama.",
+      "Something post-apocalyptic, with monsters.",
       "What happens after episode 3 of NOVA?",
     ],
   },
@@ -249,9 +258,13 @@ export const dictionaries = {
       "DeepSeek 的开源智能体，目前为开发者预览版。DeepSeek 聊天应用暂不支持连接 MCP 服务器。",
     connectAddConfig: "添加到 {file}：",
     connectTryAsking: "然后试着问",
+    connectAskLike: "试着问问",
+    assistantDemoLabels: ["今晚看什么", "按类型找", "接着看"],
+    assistantYouAsked: "你问",
+    assistantWatch: "观看",
     connectPrompts: [
       "今晚在 Reelbound 上看什么好？",
-      "给我找一部短一点的复仇剧。",
+      "来一部有怪兽的末日剧。",
       "《NOVA》第 3 集之后发生了什么？",
     ],
   },
