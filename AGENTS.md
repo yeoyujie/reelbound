@@ -202,6 +202,8 @@ The header search is a command palette that runs entirely in the browser. `lib/s
 
 `/mcp` serves a public, read-only, stateless MCP server (`lib/mcp.ts`, official `@modelcontextprotocol/server` SDK) so AI assistants can help viewers discover series and reach the right episode. Its tools are `list_series`, `search_catalog`, `get_series`, and `get_episode`. They reuse the search index and episode helpers and return bilingual structured data with watch-page URLs. Playback stays on the site: do not return players or iframes from tools. Recommendations are left to the host model; do not add a server-side LLM. An MCP Apps UI widget is a possible later addition on top of the data tools, not a replacement for them. `proxy.ts` excludes `/mcp` from locale redirects.
 
+`/[lang]/connect` (`components/connect-guide.tsx`) explains how to add the server to each assistant. Its only entry point is a homepage footer link: most viewers never use it, and the homepage's primary action stays Watch. Re-check the per-client setup steps, commands and install links against each vendor's docs when changing them, because they change often. Name the tool a tab sets up, not just the vendor: the Kimi and DeepSeek chat apps can't add MCP servers, so those tabs are Kimi Code and DeepSeek Harness, shown first to Chinese visitors. `lib/mcp-discovery.ts` publishes a Server Card at `/mcp/server-card` and an AI Catalog at `/.well-known/ai-catalog.json` (MCP Server Cards extension, SEP-2127).
+
 ## Architecture Philosophy
 
 Prefer the simplest architecture that satisfies the product.

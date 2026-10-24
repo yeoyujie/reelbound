@@ -146,9 +146,48 @@ translated UI chrome.
 - Previous / next episode buttons that name their destination
 - An episode list that keeps the current episode visible and clear
 - English and Simplified Chinese, plus dark and light themes
-- Static TypeScript content with no database, backend API, or account system
+- An MCP server, so AI assistants such as Claude, ChatGPT, Cursor, Kimi Code
+  and DeepSeek Harness can search the catalogue and link viewers straight to
+  an episode, plus a `/connect` page with setup steps for each assistant
+- Static TypeScript content with no database or account system; the only
+  server endpoint is the public, read-only MCP server
 - Automated linting, production builds, dependency auditing, and secret
   scanning in GitHub Actions
+
+## Use it from your AI assistant
+
+Reelbound runs a public, read-only [Model Context Protocol](https://modelcontextprotocol.io/)
+server at `/mcp`. Connect it to an AI assistant and ask things like *"find me
+a short revenge drama"* or *"what happens after episode 3 of NOVA?"*. The
+assistant answers from the catalogue and links to the right episode, and
+playback stays on the site.
+
+No account or sign-in is needed. The site's **Connect** page (`/en/connect`,
+linked from the homepage footer) has copyable setup steps for Claude, ChatGPT,
+Claude Code, Codex, Cursor, VS Code, Kimi Code and DeepSeek Harness. For
+example, in Claude Code:
+
+```bash
+claude mcp add --transport http reelbound https://<your-domain>/mcp
+```
+
+| Tool | What it does |
+| --- | --- |
+| `list_series` | Every series with its synopsis, tags and episode count, so the assistant can recommend by mood or genre |
+| `search_catalog` | Bilingual search across series and episodes, including references like `nova 12` or `第3集` |
+| `get_series` | A series with its full episode list in viewing order |
+| `get_episode` | One episode's details with the previous and next episodes |
+
+Every result is bilingual structured data with watch-page links. The server is
+stateless Streamable HTTP built on the official
+[MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk),
+and supports both 2025 and 2026 MCP protocol versions. For discovery before
+connecting, it publishes an
+[MCP Server Card](https://modelcontextprotocol.io/seps/2127-mcp-server-cards)
+at `/mcp/server-card` and an AI Catalog at `/.well-known/ai-catalog.json`.
+
+The Kimi and DeepSeek chat apps can't add MCP servers yet, so Chinese users
+connect through Kimi Code or DeepSeek Harness instead.
 
 ## Tech stack
 
@@ -158,6 +197,8 @@ translated UI chrome.
 - Tailwind CSS 4, alongside the project’s existing global CSS
 - pnpm
 - Vercel for deployment
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+  v2 and [Zod](https://zod.dev/) for the MCP server
 - [Douyin’s official embedded player](https://open.douyin.com/) for video
   playback, with metadata and player dimensions retrieved through the
   [Douyin Open Platform API](https://developer.open-douyin.com/docs/resource/zh-CN/developer/introduction/overview)
@@ -284,7 +325,9 @@ details out of the rest of the UI.
 app/[lang]/                  Localized App Router pages and layout
 app/globals.css              Global styles and design tokens
 components/                  Header, cards, episode list, navigation, player
-lib/                         Episode numbering, localization, search and share cards
+lib/                         Episode numbering, localization, search, share cards and MCP
+app/mcp/                     MCP endpoint and its Server Card
+app/[lang]/connect/          Setup guide for connecting AI assistants
 assets/fonts/                Build-time Chinese font for share cards
 data/series.ts               Ordered catalogue manifest
 data/series/                 One typed content file per series
@@ -310,6 +353,11 @@ security workflow runs weekly.
 Vercel is connected through Git integration: pull requests and feature branches
 receive Preview deployments, while `main` deploys to Production. GitHub Actions
 validates the app; it does not perform the deployment.
+
+Absolute URLs (canonical and `hreflang` links, link-preview images and MCP
+watch links) use `SITE_URL` when it's set. Set it to the custom domain for the
+Production environment only, so previews link to themselves. Without it, they
+fall back to Vercel's production or branch URL, then `http://localhost:3000`.
 
 ## Content, copyright, and licensing
 

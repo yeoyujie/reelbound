@@ -133,8 +133,44 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 - 上一集 / 下一集按钮直接显示目标剧集
 - 分集列表始终清晰标识当前播放集数
 - 支持简体中文和英文，以及深色和浅色主题
-- 使用静态 TypeScript 内容，无需数据库、后端 API 或用户账号系统
+- 提供 MCP 服务器，Claude、ChatGPT、Cursor、Kimi Code 和 DeepSeek Harness 等
+  AI 助手可以检索片单，并把观众直接带到对应剧集；`/connect` 页面提供各助手的
+  接入步骤
+- 使用静态 TypeScript 内容，无需数据库或用户账号系统；唯一的服务端接口是公开、
+  只读的 MCP 服务器
 - GitHub Actions 自动执行代码检查、生产构建、依赖审计和密钥扫描
+
+## 在 AI 助手中使用
+
+Reelbound 在 `/mcp` 提供公开、只读的 [Model Context Protocol](https://modelcontextprotocol.io/)
+服务器。把它连接到 AI 助手后，可以直接问“给我找一部短一点的复仇剧”或“《NOVA》
+第 3 集之后发生了什么？”。助手会根据片单回答，并附上对应剧集的链接，播放仍在
+本站完成。
+
+无需账号或登录。网站的**连接**页面（`/zh-CN/connect`，入口在首页页脚）提供
+Kimi Code、DeepSeek Harness、Claude、ChatGPT、Claude Code、Codex、Cursor 和
+VS Code 的接入步骤，命令和配置都可一键复制。例如在 Claude Code 中：
+
+```bash
+claude mcp add --transport http reelbound https://<你的域名>/mcp
+```
+
+| 工具 | 作用 |
+| --- | --- |
+| `list_series` | 列出所有系列的简介、标签和集数，方便助手按心情或类型推荐 |
+| `search_catalog` | 中英文检索系列和剧集，支持 `nova 12`、`第3集` 这样的写法 |
+| `get_series` | 获取某个系列，以及按观看顺序排列的完整剧集列表 |
+| `get_episode` | 获取某一集的详情，以及上一集和下一集 |
+
+所有结果都是中英双语的结构化数据，并附带观看页链接。服务器基于官方
+[MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)，
+采用无状态的 Streamable HTTP，同时支持 2025 和 2026 版 MCP 协议。为了在连接
+前就能被发现，它还在 `/mcp/server-card` 提供
+[MCP Server Card](https://modelcontextprotocol.io/seps/2127-mcp-server-cards)，
+并在 `/.well-known/ai-catalog.json` 提供 AI Catalog。
+
+Kimi 和 DeepSeek 的聊天应用暂不支持添加 MCP 服务器，因此国内用户可以通过
+Kimi Code 或 DeepSeek Harness 接入。
 
 ## 技术栈
 
@@ -144,6 +180,8 @@ Reelbound 把 Netflix 式的“系列优先”体验带到短视频中。这里�
 - Tailwind CSS 4，以及项目现有的全局 CSS
 - pnpm
 - 使用 Vercel 部署
+- 使用 [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+  v2 和 [Zod](https://zod.dev/) 构建 MCP 服务器
 - 使用[抖音官方嵌入式播放器](https://open.douyin.com/)播放视频，并通过
   [抖音开放平台 API](https://developer.open-douyin.com/docs/resource/zh-CN/developer/introduction/overview)
   获取元数据和播放器尺寸
@@ -262,7 +300,9 @@ The Laid-Off Girl — Episode 4 | Reelbound
 app/[lang]/                  多语言 App Router 页面和布局
 app/globals.css              全局样式和设计变量
 components/                  Header、卡片、剧集列表、导航和播放器
-lib/                         集数编号、本地化、搜索和分享卡片
+lib/                         集数编号、本地化、搜索、分享卡片和 MCP
+app/mcp/                     MCP 接口及其 Server Card
+app/[lang]/connect/          AI 助手接入指南
 assets/fonts/                构建分享卡片时使用的中文字体
 data/series.ts               有序的视频目录清单
 data/series/                 每个系列一个 TypeScript 内容文件
@@ -286,6 +326,11 @@ GitHub Actions 会针对以 `main` 为目标分支的 Pull Request，以及推�
 
 Vercel 通过 Git 集成处理部署：Pull Request 和功能分支会获得 Preview 部署，
 `main` 分支会部署到 Production。GitHub Actions 负责验证代码，不负责部署。
+
+绝对地址（canonical 和 `hreflang` 链接、链接预览图片，以及 MCP 返回的观看链接）
+在设置了 `SITE_URL` 时以它为准。请只在 Production 环境中把它设为自定义域名，
+这样 Preview 部署会链接到自己。未设置时，依次回退到 Vercel 的生产或分支地址，
+最后是 `http://localhost:3000`。
 
 ## 内容、版权与许可
 
