@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { InlineScript } from "@/components/inline-script";
 import type { Metadata } from "next";
 import { getDictionary, isLocale, locales } from "@/lib/i18n";
+import { siteUrl } from "@/lib/site-url";
 import { notFound } from "next/navigation";
 import "../globals.css";
 
@@ -29,12 +30,9 @@ export async function generateMetadata({
       },
     description: dictionary.introCopy,
     twitter: { card: "summary_large_image" },
-    alternates: {
-      languages: {
-        en: "/en",
-        "zh-CN": "/zh-CN",
-      },
-    },
+    // Relative metadata URLs (canonical, hreflang, Open Graph images) resolve
+    // against this. Each page sets its own alternates via localeAlternates.
+    metadataBase: siteUrl,
   };
 }
 

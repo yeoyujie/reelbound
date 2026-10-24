@@ -20,6 +20,7 @@ import {
 import {
   getDictionary,
   isLocale,
+  localeAlternates,
   localizedText,
   type Locale,
 } from "@/lib/i18n";
@@ -51,6 +52,7 @@ export async function generateMetadata({
   return {
     title: { absolute: title },
     description,
+    alternates: localeAlternates(lang, `/series/${series.slug}/episode/${current.slug}`),
     openGraph: {
       title,
       description,

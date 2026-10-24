@@ -11,6 +11,23 @@ export function localizedText(text: LocalizedText, locale: Locale) {
   return text[locale === "zh-CN" ? "zh" : "en"];
 }
 
+/**
+ * Canonical and hreflang links for a page that exists in every locale. `path`
+ * leaves out the locale ("" for the homepage). Paths resolve against
+ * `metadataBase`; "x-default" is the unprefixed URL, which the proxy
+ * redirects by Accept-Language.
+ */
+export function localeAlternates(locale: Locale, path: string) {
+  return {
+    canonical: `/${locale}${path}`,
+    languages: {
+      en: `/en${path}`,
+      "zh-CN": `/zh-CN${path}`,
+      "x-default": path || "/",
+    } satisfies Record<Locale | "x-default", string>,
+  };
+}
+
 export const dictionaries = {
   en: {
     languageName: "English",
