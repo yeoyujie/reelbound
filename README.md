@@ -73,6 +73,26 @@ only when you reach for search, so it never slows the first page load.
   </tr>
 </table>
 
+### Ask your AI assistant
+
+Below the catalogue, a short demo shows Reelbound inside an AI assistant: pick
+a question and it types itself out, then the answer arrives as a real series
+from the catalogue with a working watch link. The **Connect** page has the
+server URL and setup steps for each assistant, with copyable commands and
+one-click installs for Cursor and VS Code. See
+[Use it from your AI assistant](#use-it-from-your-ai-assistant).
+
+<p align="center">
+  <img src="docs/screenshots/assistant-desktop-en.webp" alt="Homepage section below the catalogue: the heading Ask your assistant what to watch, a button to set it up, and a sample chat where the question What should I watch tonight on Reelbound? is answered with the series Overnight Star and a Watch button" width="900">
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="72%"><img src="docs/screenshots/connect-desktop-en.webp" alt="Connect page with the server URL, a Copy button, a tab for each assistant from Claude to DeepSeek Harness, and numbered setup steps for Claude"></td>
+    <td align="center" width="28%"><img src="docs/screenshots/assistant-mobile-en.webp" alt="Mobile version of the AI assistant section, with question chips above the sample chat and its answer card" width="220"></td>
+  </tr>
+</table>
+
 ### Made for your phone
 
 Mobile is designed rather than shrunk: the catalogue becomes a two-column
@@ -163,8 +183,9 @@ assistant answers from the catalogue and links to the right episode, and
 playback stays on the site.
 
 No account or sign-in is needed. The site's **Connect** page (`/en/connect`,
-linked from the homepage footer) has copyable setup steps for Claude, ChatGPT,
-Claude Code, Codex, Cursor, VS Code, Kimi Code and DeepSeek Harness. For
+linked from a section below the homepage catalogue) has copyable setup steps
+for Claude, ChatGPT, Claude Code, Codex, Cursor, VS Code, Kimi Code and
+DeepSeek Harness. For
 example, in Claude Code:
 
 ```bash
