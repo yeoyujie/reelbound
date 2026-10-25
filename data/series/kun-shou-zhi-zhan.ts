@@ -74,5 +74,12 @@ export const ArenaEarth: Series = {
       },
       videoId: "7697599282216422074",
     },
+    {
+      description: {
+        en: "The secret of the World Tree is revealed. What should humanity do next?",
+        zh: "世界树的秘密被揭开，人类下一步应该如何应对！",
+      },
+      videoId: "7699842111206809000",
+    },
   ],
 };

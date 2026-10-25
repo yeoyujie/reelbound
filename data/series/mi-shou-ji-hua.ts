@@ -54,5 +54,13 @@ export const TheLongLifeInitiative: Series = {
     },
     { videoId: "7690188080757738792" },
     { videoId: "7692305941349305642" },
+    {
+      part: 1,
+      description: {
+        en: "Can the divine Yang Jian form pull off the rescue?",
+        zh: "神格杨戬形态能否营救成功？",
+      },
+      videoId: "7697925721221582120",
+    },
   ],
 };

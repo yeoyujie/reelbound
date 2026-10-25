@@ -35,5 +35,6 @@ export const TheAgeOfNewSpecies: Series = {
     { season: 2, title: { en: "Mutant Beasts", zh: "异兽" }, videoId: "7690377908375915839" },
     { season: 2, title: { en: "Roots", zh: "树根" }, videoId: "7693759887918058786" },
     { season: 2, title: { en: "Symbiosis", zh: "共生" }, videoId: "7696656382216424738" },
+    { season: 2, title: { en: "The Gathering Storm", zh: "风雨欲来" }, videoId: "7699514574873169193" },
   ],
 };
