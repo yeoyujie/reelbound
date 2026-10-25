@@ -39,6 +39,11 @@ export const BackAt100KilosIDebutAsTheCenter: Series = {
       videoId: "7691230455907244709",
     },
     {
+      kind: "compilation",
+      covers: { from: 1, to: 4 },
+      videoId: "7692668500473687909",
+    },
+    {
       description: {
         en: "My name is Jiang Yuxing. From now on I'll be my own sun, and borrow no one's light.",
         zh: "我叫江予星，往后余生，我会成为自己的太阳，无需借谁的光。",

@@ -186,5 +186,6 @@ export const SuddenlyRichFamily: Series = {
     },
     { title: { en: "98! Fill It Up!", zh: "98！！！加满！！！" }, videoId: "7696453398670237925" },
     { title: { en: "Good English Pays Off — Gotta Study", zh: "英语好啊 得学啊" }, videoId: "7696837102269220209" },
+    { title: { en: "Zhao Yiming Is Getting Better", zh: "赵一铭 好起来了" }, videoId: "7700134800174941887" },
   ],
 };

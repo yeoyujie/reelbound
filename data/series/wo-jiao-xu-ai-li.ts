@@ -143,5 +143,21 @@ export const ANameOfHerOwn: Series = {
       },
       videoId: "7697467147550739746",
     },
+    {
+      season: 2,
+      description: {
+        en: "The harder you work, the luckier you get.",
+        zh: "越努力，才会越幸运。",
+      },
+      videoId: "7699770137917934902",
+    },
+    {
+      season: 2,
+      description: {
+        en: "How could I be falling for someone who once hurt me?",
+        zh: "怎么会对一个曾经伤害过我的人有点心动？",
+      },
+      videoId: "7700077241002249513",
+    },
   ],
 };

@@ -51,5 +51,13 @@ export const DoomsdayMountainLodge: Series = {
       videoId: "7695403333460299017",
     },
     { season: 2, videoId: "7697634742128119050" },
+    {
+      season: 2,
+      title: {
+        en: "A Pile of Bones in the Cave — What Have They Been Feeding?",
+        zh: "山洞惊现白骨堆，他们喂的到底是什么？",
+      },
+      videoId: "7700209430255652130",
+    },
   ],
 };
