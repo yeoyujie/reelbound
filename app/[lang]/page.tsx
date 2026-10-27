@@ -103,6 +103,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <footer className="home-footer">
         <span>Reelbound</span>
         <span>{dictionary.footer}</span>
+        <Link className="home-footer-link" href={`/${locale}/feedback`}>
+          {dictionary.feedbackLink}
+        </Link>
       </footer>
     </main>
   );

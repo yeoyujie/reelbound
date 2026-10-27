@@ -204,6 +204,10 @@ The header search is a command palette that runs entirely in the browser. `lib/s
 
 `/[lang]/connect` (`components/connect-guide.tsx`) explains how to add the server to each assistant. Its entry point is a homepage section below the catalogue (`#assistant`, `components/assistant-demo.tsx`): example questions answered with real catalogue results from `lib/assistant-demos.ts`, and one link to the page. Keep those answers to what the MCP tools would actually return. Most viewers never use it, so it stays below the catalogue and the hero has no link to it; the homepage's primary action stays Watch. Re-check the per-client setup steps, commands and install links against each vendor's docs when changing them, because they change often. Name the tool a tab sets up, not just the vendor: the Kimi and DeepSeek chat apps can't add MCP servers, so those tabs are Kimi Code and DeepSeek Harness, shown first to Chinese visitors. `lib/mcp-discovery.ts` publishes a Server Card at `/mcp/server-card` and an AI Catalog at `/.well-known/ai-catalog.json` (MCP Server Cards extension, SEP-2127).
 
+## Feedback
+
+`/[lang]/feedback` (`components/feedback-form.tsx`) lets visitors report a bug, request a feature or suggest a series. A Server Action (`app/[lang]/feedback/actions.ts`) turns each submission into an issue on the public GitHub repo, labelled `feedback` plus `bug`, `enhancement` or `series-request`; `lib/feedback.ts` holds the pure validation and issue formatting, and its tests. It needs `GITHUB_FEEDBACK_TOKEN` (fine-grained, Issues read/write on this repo only) and optionally `GITHUB_FEEDBACK_REPO`; without a token, development logs the issue and production shows an error. Issues are public, so the form collects no contact details and fences visitor text so it can't mention people or load content. Spam protection is a honeypot and a minimum fill time; add more only if junk actually arrives. Entry points are the home footer and a "Report a problem" link on the watch page, which attaches the episode. The page is `noindex`.
+
 ## Architecture Philosophy
 
 Prefer the simplest architecture that satisfies the product.
@@ -258,10 +262,10 @@ During the current user request, retain anonymized facts as feedback candidates 
 - Missing, unclear, or conflicting documentation
 - Unexpected CLI, codemod, Skill, or upgrade behavior and non-obvious workarounds
 
-Continue the current user request without reporting immediately. Ignore routine debugging and unverified changes. Never retain code, logs, paths, URLs, secrets, personal information, or project-specific data.
+Continue the current user request without reporting immediately. Routine debugging is not feedback. Verify changes before retaining them as feedback candidates. Never retain code, logs, paths, URLs, secrets, personal information, or project-specific data.
 
 Keep a qualifying candidate through the reporting pass even if you resolve or work around it. A successful fix changes the report outcome; it does not erase the friction that qualified it.
 
-Before the final response, run one reporting pass. If candidates remain, from this file's directory run `node node_modules/next/dist/bin/next internal agent-feedback-instructions` once without piping or truncating its output. Follow its output or error guidance. If a network sandbox blocks it, retry with network access; if it still returns no output, continue normally.
+Before the final response, run one reporting pass. If candidates remain, from this file's directory run `npx --no-install next internal agent-feedback-instructions` once without piping or truncating its output. Follow its output or error guidance. If a network sandbox blocks it, retry with network access; if it still returns no output, continue normally.
 
 <!-- END:nextjs-agent-feedback -->
