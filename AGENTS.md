@@ -10,244 +10,59 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Reelbound
 
-## Project Overview
+Reelbound is a small, curated streaming site for AI-generated Chinese short series from Douyin: YouTube's watch experience, Netflix's series and episode model, Douyin-style short episodes. It is a static, content-driven personal project: static TypeScript data and Next.js server/static rendering, with no accounts, database, CMS, backend API or per-user state. Add a feature, dependency or piece of infrastructure only when the catalogue or a real viewer need calls for it; likes, comments, saved videos, preferences, recommendations and categories are out of scope.
 
-Reelbound is a small, curated streaming site for AI-generated video series.
-
-The product combines:
-
-* YouTube's familiar watch experience
-* Netflix's series/episode model
-* Douyin-style short-form video content
-
-The goal is a polished, cinematic browsing and watching experience for a curated catalogue of AI-generated video series.
-
-This is a **static, content-driven personal project**. Keep the architecture intentionally simple.
-
-## Core Product Model
-
-The primary content hierarchy is:
-
-```text
-Series
-  └── Episodes
-       └── Video
-```
-
-The homepage displays **series**, not individual episodes.
-
-Users:
-
-1. Browse the series catalogue.
-2. Open a series at its first episode.
-3. Watch episodes sequentially.
-4. Navigate between episodes.
-
-Hover previews are a possible future enhancement, not part of the current PoC.
-
-There are no user accounts or per-user state.
-
-## Experience and Visual Direction
-
-Design Reelbound as a modern, polished video product: cinematic and distinctive, but restrained. Let the catalogue, artwork, and playback carry the experience. Use strong typography, deliberate spacing, and a limited palette to create hierarchy; avoid generic “AI” decoration such as glowing gradients, glass effects, animated blobs, and oversized ornamental type.
-
-Every visible element should help users discover a series, understand what they are watching, or continue to another episode. Keep screens focused, with one clear primary action. Do not add controls, navigation, or feature placeholders without a real product need.
-
-Use the existing CSS variables, spacing, typography, and radius patterns. The current UI is primarily authored in `app/globals.css`; do not add a second styling system just because Tailwind is installed. Keep content within a sensible maximum width. Prefer readable contrast and subtle, short transitions. Respect `prefers-reduced-motion`; motion should communicate feedback or state, not decorate the page.
-
-Use familiar, accessible interactions: semantic links for navigation, buttons for actions, clear hover and pressed feedback, and visible keyboard focus. Make content cards easy to activate across their full area. Prefer native browser behavior unless there is a clear UX reason to replace it.
-
-Reserve space for images and video to prevent layout shifts. Keep series and episode artwork at a consistent video aspect ratio. Use configured artwork when available and a deliberate fallback when it is not; the current catalogue has no thumbnail assets. Avoid overloading catalogue cards; show the artwork, title, and only useful supporting metadata. Put fuller episode information on the watch page.
-
-Design mobile intentionally rather than shrinking desktop layouts. In particular, the watch page should place the player first, followed by episode information and the episode list. Keep the current episode obvious through more than color alone, and retain the series context while navigating.
-
-Use reusable components where they represent genuinely repeated UI, such as `SeriesCard`, `EpisodeCard`, `VideoPlayer`, `EpisodeList`, and `Header`. Keep their responsibilities clear; do not build a large generic component for unrelated patterns.
-
-The current core experience is:
+Judge every change against the core loop:
 
 ```text
 Discover a series → Open it → Watch → Continue to the next episode
 ```
 
-Evaluate design changes against this loop: they should make discovery or viewing clearer, more comfortable, or more engaging. Do not describe or imply a feature is implemented unless it exists in the code.
+## Product rules
 
+- The homepage shows series, never individual episodes. Cards show artwork, title and only useful metadata; fuller episode information belongs on the watch page.
+- Episode URLs are shareable and unique: `/[lang]/series/[slug]/episode/[episode]`.
+- Watch page: on desktop the player sits beside the episode list, with title, description and previous/next below. Mobile stacks player → episode details → episode list. The current episode is marked by more than colour, and the series context stays visible.
+- There are no hover previews. If added, they need a dedicated muted preview source, loaded only on interaction, one at a time, unloaded when interaction ends; if Douyin can't do that reliably, cards stay thumbnail-only.
+- Copy and docs describe only what the code actually does.
 
-## Engineering Standards
+## Design
 
-Approach implementation with the judgment of a senior/principal engineer experienced in Next.js, React, TypeScript, frontend architecture, web performance, and production systems.
+Design Reelbound as a modern, visually rich video product with a real wow factor: immersive, dynamic, and cinematic, closer to Apple TV+ or Netflix than to a document. Artwork should dominate, often full-bleed; pages should feel alive, responding to hover, scroll, and navigation with expressive, choreographed motion; transitions between screens should feel continuous rather than like hard cuts. Use strong typography, deliberate spacing, and a cohesive palette to create hierarchy. Expressive is not the same as generic: avoid stock “AI” decoration such as neon glows, glass panels, animated gradient blobs, floating particles, and cursor-following light effects. See `docs/design-direction.md` for the full direction.
 
-* **Understand before changing:** Inspect the existing codebase, relevant components, package versions, and established conventions before implementing changes.
-* **Follow the actual framework version:** Before writing or modifying Next.js code, consult the relevant documentation in `node_modules/next/dist/docs/`. Do not assume APIs or conventions from previous Next.js versions still apply.
-* **Prefer simple, maintainable solutions:** Make the smallest coherent change that solves the problem. Avoid unnecessary abstractions, dependencies, configuration, and infrastructure.
-* **Respect existing architecture:** Reuse established patterns where appropriate. Refactor only when it materially improves correctness, clarity, maintainability, or performance.
-* **Think through failure cases:** Consider loading, empty, error, invalid-input, and boundary states where relevant. Avoid introducing regressions to existing functionality.
-* **Validate your work:** Run the relevant lint, type-check, tests, and production build when appropriate and feasible. Fix issues introduced by your changes. Never claim a check passed unless it actually ran successfully.
-* **Explain trade-offs:** For meaningful architectural decisions, briefly explain why the chosen approach fits this project's requirements and why additional complexity is unnecessary.
+Each screen has one clear primary action, and every visible element helps viewers discover a series, understand what they're watching or continue to the next episode. Design mobile and desktop layouts deliberately rather than shrinking one into the other. Motion uses well-tuned easing, transforms and opacity, stays interruptible and never blocks interaction; under `prefers-reduced-motion`, remove the movement but keep the same layout and information. Use links for navigation and buttons for actions, each with hover, pressed and visible focus states, and make whole cards clickable. Reserve space for images and video so nothing shifts, keep artwork at a consistent video aspect ratio, and show a deliberate fallback when a series or episode has no `thumbnail`.
 
+Style in `app/globals.css` with its existing CSS variables, spacing, type and radius patterns; Tailwind is installed but isn't the styling system.
 
-## UI/UX and Visual Design Standards
+### Skills for UI and React work
 
-Approach interface design with the judgment of an experienced product designer and frontend engineer specializing in polished, content-driven streaming experiences.
+Three Vercel skills carry the detailed rules. Invoke each one when its trigger fires, and apply it inside this file's limits: the Next.js docs in `node_modules/next/dist/docs/` decide framework APIs, and this file decides dependencies and visual direction.
 
-* **Design for the product, not a template:** Every screen should feel purpose-built for discovering and watching curated video series. Avoid generic SaaS dashboards, boilerplate landing pages, and cookie-cutter AI-generated interfaces.
-* **Prioritize visual hierarchy:** Use deliberate typography, spacing, alignment, composition, and imagery. Establish a clear focal point and primary action on each screen.
-* **Make the experience feel cinematic:** Let video, artwork, and content define the experience. Use restrained colors, cohesive visual styling, subtle transitions, and consistent component treatments.
-* **Design complete interactions:** Consider default, hover, focus, pressed, loading, error, and selected states wherever applicable. Ensure interactions work with both mouse and keyboard.
-* **Design responsively:** Make intentional layout decisions for mobile, tablet, and desktop rather than simply shrinking desktop layouts.
-* **Respect accessibility:** Maintain readable contrast, visible focus indicators, semantic HTML, accessible names, reduced-motion preferences, and appropriate keyboard behavior.
-* **Maintain visual consistency:** Reuse established spacing, typography, sizing, and radius conventions. Introduce new patterns only when they solve a real design problem.
-* **Avoid unnecessary UI:** Every visible element must support discovery, playback, navigation, or understanding. Do not add decorative elements or controls without a clear purpose.
-* **Evaluate the finished result:** When possible, inspect the rendered interface at relevant viewport sizes. Look for awkward spacing, inconsistent alignment, overflow, poor contrast, broken interactions, and visual regressions. Fix issues rather than stopping when the code compiles.
+- **`web-design-guidelines`** audits UI code for accessibility, focus, forms, motion and typography. Run it as part of [Before you finish](#before-you-finish).
+- **`vercel-react-best-practices`**: before writing or restructuring components, data fetching, or anything in the homepage's first load. Skip rules that would add a library (SWR, LRU caches, `better-all`).
+- **`vercel-composition-patterns`**: when a shared component (`SeriesCard`, `EpisodeList`, `VideoPlayer`, `SiteHeader`) would gain a boolean or mode prop, or a new component is meant for reuse. Compose rather than add modes, and keep each component specific to the UI it serves.
 
+## Conventions
 
-## Homepage
+- **Content:** `data/series/types.ts` is the schema; each series is a file in `data/series/`, collected in `data/series.ts`. Add fields only when the UI uses them; `previewUrl` is reserved and unused.
+- **URLs and locales:** absolute URLs come from `siteUrl` (`lib/site-url.ts`), never from request headers. The root layout sets it as `metadataBase`, and each page sets canonical and hreflang links with `localeAlternates`. UI strings for both locales live in `lib/i18n.ts`.
+- **Video:** Douyin's official iframe player (`https://open.douyin.com/player/video?...`) with a public video ID is the only playback path. Player URL and iframe behaviour stay in `components/video-player.tsx`; Douyin API calls stay in small named helpers, like the episode route's `addDouyinDimensions`. Never embed a Douyin watch page or scrape or download video files. Add another provider behind the same component only when the catalogue needs one.
+- **Loading:** the homepage's first load is series metadata and artwork. The Douyin player loads when the viewer opens an episode, and anything else (search index, previews) waits for user intent.
 
-The homepage should feel closer to YouTube/Netflix than Pinterest.
+## Areas
 
-* Display curated series cards.
-* Show configured thumbnails immediately; use the card's fallback artwork when none is configured.
-* Series are the primary unit of discovery.
+Read the named files before changing an area; each line holds the rule the code can't tell you.
 
-The current PoC has no hover video previews. If they are added later, require a dedicated preview source that can play muted and independently of the official Douyin watch player. Delay loading until interaction, allow at most one preview at a time, and stop/unload it when interaction ends. Do not load previews on initial page load. If Douyin's embed cannot provide that behavior reliably, keep cards thumbnail-only.
+- **Search** (`lib/search.ts`, `lib/search-index.ts`, `components/site-search.tsx`): read `docs/search.md` first. The index loads only on user intent, and `SearchResult` is the contract a future agentic search returns too.
+- **MCP server** (`/mcp`, `lib/mcp.ts`, `lib/mcp-discovery.ts`): public, read-only and stateless. Tools return bilingual data and watch-page URLs, never players or iframes, and recommendations are left to the host model, with no server-side LLM. `proxy.ts` keeps `/mcp` out of locale redirects.
+- **Connect page and homepage assistant demo** (`components/connect-guide.tsx`, `components/assistant-demo.tsx`, `lib/assistant-demos.ts`): the demo sits below the catalogue, and the hero's only action is Watch. Demo answers match what the MCP tools would return. Re-check per-client setup steps against each vendor's docs whenever you change them. Tabs name the tool being set up: Kimi Code and DeepSeek Harness, since those chat apps can't add MCP servers; Chinese visitors see them first.
+- **Feedback** (`/[lang]/feedback`, `lib/feedback.ts`): submissions become public GitHub issues, so the form collects no contact details and fences visitor text. It needs `GITHUB_FEEDBACK_TOKEN`; without it, development logs the issue and production shows an error.
 
-A featured series section may be used if it improves the visual presentation.
+## Before you finish
 
-### Watch Page
+Run `pnpm lint` and `pnpm test`, plus `pnpm build` for route or rendering changes, and report only checks that actually ran.
 
-The watch experience is the primary product experience.
-
-Desktop layout:
-
-```text
-┌──────────────────────────────┬────────────────────┐
-│                              │ Episode list       │
-│                              │                    │
-│          Video player        │ Episode 1          │
-│                              │ Episode 2          │
-│                              │ Episode 3          │
-│                              │ Episode 4 ← current│
-└──────────────────────────────┴────────────────────┘
-
-Series title / episode title
-Episode description
-
-Previous Episode                 Next Episode
-```
-
-The current episode should be visually highlighted.
-
-Mobile should stack:
-
-1. Video player
-2. Episode metadata
-3. Episode list
-
-Do not force the desktop sidebar layout onto small screens.
-
-## Routing
-
-Use shareable, episode-specific URLs:
-
-```text
-/series/[slug]/episode/[episode]
-```
-
-For example:
-
-```text
-/series/the-last-human/episode/4
-```
-
-The URL should uniquely identify the series and currently selected episode.
-
-Absolute URLs come from `siteUrl` in `lib/site-url.ts` (`SITE_URL`, then Vercel's system variables, then localhost), never from request headers. The root layout sets it as `metadataBase`, so metadata uses relative paths; each page sets its canonical and hreflang links with `localeAlternates` from `lib/i18n.ts`.
-
-## Content Model
-
-Content is stored as static TypeScript data.
-
-Treat `data/series.ts` as the canonical schema. Episodes currently store a public Douyin video ID and optional player dimensions directly on the episode; series and episode artwork are optional. `previewUrl` is reserved but currently unused. Keep the model small and add fields when a real UI feature needs them.
-
-Avoid introducing a database, CMS, or backend unless there is a clear future requirement.
-
-## Video Architecture
-
-Douyin is the only supported video provider for this PoC. Keep player URL construction and iframe behavior in `VideoPlayer`; keep any Douyin API lookup in a small, named helper rather than spreading it through the UI. The episode route currently looks up optional player dimensions this way. Do not build a generic multi-provider or CDN player path for hypothetical future sources; add one only when the catalogue actually needs it.
-
-For Douyin episodes, use the official iframe player at `https://open.douyin.com/player/video?...` with a public video ID. The documented `get_iframe_by_video` API returns `iframe_code`, title, and dimensions without requiring permission application. The current code calls it for dimensions and constructs the equivalent player URL itself; it does not currently consume `iframe_code`. Do not embed a regular Douyin watch page as an iframe or scrape/download Douyin video files. If another provider becomes a real requirement, add its playback path behind the same component boundary.
-
-## Performance
-
-Performance is important, particularly on the homepage.
-
-Initial page load should prioritize:
-
-```text
-Series metadata
-      ↓
-Configured thumbnails or fallback artwork
-      ↓
-User opens an episode
-      ↓
-Load the official Douyin player
-```
-
-If hover previews are introduced, follow the deferred, single-preview loading rules in the Homepage section.
-
-## Search
-
-The header search is a command palette that runs entirely in the browser. `lib/search.ts` holds the pure, bilingual matching logic and its tests; `lib/search-index.ts` builds the slim index served at `/search-index.json`; `components/site-search.tsx` is the UI. Load the index only on user intent, never on initial page load. Keep `SearchResult` as the contract between search logic and UI so a later agentic search can return the same shape. Read `docs/search.md` before changing search; it records the decisions, the accessibility requirements, and the agentic roadmap.
-
-## MCP
-
-`/mcp` serves a public, read-only, stateless MCP server (`lib/mcp.ts`, official `@modelcontextprotocol/server` SDK) so AI assistants can help viewers discover series and reach the right episode. Its tools are `list_series`, `search_catalog`, `get_series`, and `get_episode`. They reuse the search index and episode helpers and return bilingual structured data with watch-page URLs. Playback stays on the site: do not return players or iframes from tools. Recommendations are left to the host model; do not add a server-side LLM. An MCP Apps UI widget is a possible later addition on top of the data tools, not a replacement for them. `proxy.ts` excludes `/mcp` from locale redirects.
-
-`/[lang]/connect` (`components/connect-guide.tsx`) explains how to add the server to each assistant. Its entry point is a homepage section below the catalogue (`#assistant`, `components/assistant-demo.tsx`): example questions answered with real catalogue results from `lib/assistant-demos.ts`, and one link to the page. Keep those answers to what the MCP tools would actually return. Most viewers never use it, so it stays below the catalogue and the hero has no link to it; the homepage's primary action stays Watch. Re-check the per-client setup steps, commands and install links against each vendor's docs when changing them, because they change often. Name the tool a tab sets up, not just the vendor: the Kimi and DeepSeek chat apps can't add MCP servers, so those tabs are Kimi Code and DeepSeek Harness, shown first to Chinese visitors. `lib/mcp-discovery.ts` publishes a Server Card at `/mcp/server-card` and an AI Catalog at `/.well-known/ai-catalog.json` (MCP Server Cards extension, SEP-2127).
-
-## Feedback
-
-`/[lang]/feedback` (`components/feedback-form.tsx`) lets visitors report a bug, request a feature or suggest a series. A Server Action (`app/[lang]/feedback/actions.ts`) turns each submission into an issue on the public GitHub repo, labelled `feedback` plus `bug`, `enhancement` or `series-request`; `lib/feedback.ts` holds the pure validation and issue formatting, and its tests. It needs `GITHUB_FEEDBACK_TOKEN` (fine-grained, Issues read/write on this repo only) and optionally `GITHUB_FEEDBACK_REPO`; without a token, development logs the issue and production shows an error. Issues are public, so the form collects no contact details and fences visitor text so it can't mention people or load content. Spam protection is a honeypot and a minimum fill time; add more only if junk actually arrives. Entry points are the home footer and a "Report a problem" link on the watch page, which attaches the episode. The page is `noindex`.
-
-## Architecture Philosophy
-
-Prefer the simplest architecture that satisfies the product.
-
-This project intentionally does **not** need:
-
-* User accounts
-* Authentication
-* Database
-* Backend API
-* Likes
-* Comments
-* Saved videos
-* User preferences
-* Recommendation algorithms
-* Categories unless they become genuinely useful
-* Complex state management
-
-Prefer static TypeScript data and Next.js server/static rendering where appropriate.
-
-Do not introduce infrastructure merely because it is technically possible.
-
-## Technology
-
-Current stack:
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* ESLint
-* pnpm
-
-Use the existing Next.js App Router structure.
-
-Avoid adding libraries unless they provide clear value.
-
-## Simplicity
-
-Prefer the simplest implementation that delivers the intended experience. This is a curated, static catalogue, not a social platform. Do not add accounts, likes, comments, saved videos, recommendations, or other hypothetical features without a clear product requirement. Keep dependencies and infrastructure minimal.
+For UI changes, run `web-design-guidelines` on the changed components and `app/globals.css` rules, then look at the rendered page at desktop and mobile widths. You're done when every finding is fixed or reported with the reason it doesn't apply here.
 
 <!-- BEGIN:nextjs-agent-feedback -->
 
@@ -264,7 +79,7 @@ During the current user request, retain anonymized facts as feedback candidates 
 
 Continue the current user request without reporting immediately. Routine debugging is not feedback. Verify changes before retaining them as feedback candidates. Never retain code, logs, paths, URLs, secrets, personal information, or project-specific data.
 
-Keep a qualifying candidate through the reporting pass even if you resolve or work around it. A successful fix changes the report outcome; it does not erase the friction that qualified it.
+Retain qualifying friction even if it is later fixed or worked around; record the final outcome during the reporting pass.
 
 Before the final response, run one reporting pass. If candidates remain, from this file's directory run `npx --no-install next internal agent-feedback-instructions` once without piping or truncating its output. Follow its output or error guidance. If a network sandbox blocks it, retry with network access; if it still returns no output, continue normally.
 
