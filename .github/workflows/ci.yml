@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Lint and production build
+    name: Lint, tests and production build
     if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -37,6 +37,9 @@ jobs:
 
       - name: Run ESLint
         run: pnpm lint
+
+      - name: Run unit tests
+        run: pnpm test
 
       - name: Build production app
         run: pnpm build
