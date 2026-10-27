@@ -2124,6 +2124,515 @@ html:has(.search-dialog[open]) {
   }
 }
 
+/* Feedback page: a short form that becomes a GitHub issue. */
+
+.feedback-shell {
+  display: grid;
+  width: min(calc(100% - var(--content-gutter)), 720px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 4.5vw, 48px);
+  margin-inline: auto;
+  padding-block: clamp(40px, 7vw, 96px) 96px;
+}
+
+.feedback-intro h1 {
+  max-width: 640px;
+  margin: 24px 0 18px;
+  font-size: clamp(40px, 5.4vw, 64px);
+  font-weight: 450;
+  letter-spacing: -0.07em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.feedback-lede {
+  max-width: 560px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.feedback-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+
+.feedback-types {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.feedback-label {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 0;
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.feedback-optional {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.feedback-type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.feedback-type {
+  --type-accent: var(--accent-primary);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 18px 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--background);
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.feedback-type[data-type="feature"] {
+  --type-accent: var(--accent-secondary);
+}
+
+.feedback-type[data-type="series"] {
+  --type-accent: var(--accent-tertiary);
+}
+
+/* The radio stays in the accessibility tree and keyboard order; the card is its face. */
+.feedback-type input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.feedback-type:hover {
+  border-color: var(--control-border);
+  background: var(--surface);
+}
+
+.feedback-type:active {
+  transform: scale(0.98);
+}
+
+.feedback-type:has(input:focus-visible) {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Selected: accent border, tinted fill and a check, not colour alone. */
+.feedback-type:has(input:checked) {
+  border-color: var(--type-accent);
+  background: color-mix(in srgb, var(--type-accent) 9%, var(--background));
+}
+
+.feedback-type-icon {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 10px;
+  fill: none;
+  stroke: var(--type-accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.feedback-type-name {
+  font-size: 15px;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+}
+
+.feedback-type-description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.feedback-type-check {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.feedback-type-check svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--background);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 160ms ease,
+    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1.4);
+}
+
+.feedback-type:has(input:checked) .feedback-type-check {
+  border-color: var(--type-accent);
+  background: var(--type-accent);
+}
+
+.feedback-type:has(input:checked) .feedback-type-check svg {
+  opacity: 1;
+  transform: none;
+}
+
+.feedback-context {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 4px 4px 4px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.feedback-context-label {
+  color: var(--muted);
+  font-weight: 560;
+}
+
+.feedback-context-value {
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feedback-context-remove {
+  display: grid;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.feedback-context-remove:hover {
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+.feedback-context-remove svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+.feedback-field {
+  display: grid;
+}
+
+.feedback-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+textarea.feedback-input {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.feedback-input::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+.feedback-input:hover {
+  border-color: var(--control-border);
+}
+
+.feedback-input:focus-visible {
+  border-color: var(--accent-primary);
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
+  background: var(--background);
+}
+
+.feedback-hint {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.feedback-count {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.feedback-error {
+  margin: 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--accent-secondary);
+  border-radius: 4px 12px 12px 4px;
+  background: var(--surface);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.feedback-submit {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color 160ms ease, gap 160ms ease, transform 120ms ease;
+}
+
+.feedback-submit:hover {
+  gap: 14px;
+  background: color-mix(in srgb, var(--foreground) 84%, var(--background));
+}
+
+.feedback-submit:active {
+  transform: scale(0.98);
+}
+
+.feedback-submit:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.feedback-submit:focus-visible,
+.feedback-sent-actions .connect-action:focus-visible,
+.home-footer-link:focus-visible,
+.episode-report:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+
+.feedback-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.feedback-sent {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding: clamp(28px, 4vw, 40px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
+.feedback-sent-mark {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+.feedback-sent-mark svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--background);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
+.feedback-sent h2 {
+  margin: 6px 0 0;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.feedback-sent h2:focus {
+  outline: none;
+}
+
+.feedback-sent p {
+  max-width: 460px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.feedback-sent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.feedback-sent-actions button.connect-action {
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.home-footer-link,
+.episode-report {
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.home-footer-link:hover,
+.episode-report:hover {
+  color: var(--foreground);
+  text-decoration-color: currentColor;
+}
+
+.episode-report {
+  justify-self: start;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 560;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .feedback-intro,
+  .feedback-form,
+  .feedback-sent {
+    animation: connect-rise 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .feedback-form {
+    animation-delay: 80ms;
+  }
+
+  .feedback-sent-mark {
+    animation: feedback-mark-in 520ms 120ms cubic-bezier(0.2, 0.8, 0.2, 1.3) both;
+  }
+
+  .feedback-context,
+  .feedback-field:has(#feedback-suggestion) {
+    animation: connect-panel-in 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+
+@keyframes feedback-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4) rotate(-20deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feedback-type:active,
+  .feedback-submit:active {
+    transform: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .feedback-type-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Stacked cards read as a list: icon beside the text, check on the right. */
+  .feedback-type {
+    grid-template-columns: 26px minmax(0, 1fr);
+    column-gap: 14px;
+    row-gap: 2px;
+    padding: 16px 52px 16px 16px;
+  }
+
+  .feedback-type-icon {
+    grid-row: span 2;
+    margin: 0;
+  }
+
+  .feedback-type-check {
+    top: 50%;
+    translate: 0 -50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .feedback-shell {
+    padding-top: 32px;
+  }
+
+  .feedback-hint {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .feedback-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .not-found-shell {
   display: grid;
   width: min(calc(100% - var(--content-gutter)), 1180px);
@@ -3513,6 +4022,7 @@ html:has(.search-dialog[open]) {
     flex-direction: column;
     justify-content: center;
     gap: 7px;
+    padding-block: 16px;
   }
 }
 

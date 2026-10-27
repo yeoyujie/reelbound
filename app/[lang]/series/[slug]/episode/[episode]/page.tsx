@@ -1,4 +1,5 @@
 import { cacheLife } from "next/cache";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   seriesCatalog,
@@ -127,6 +128,13 @@ export default async function EpisodePage({ params }: EpisodeRouteProps) {
         <p className="episode-description">
           {localizedText(episode.description ?? series.description, locale)}
         </p>
+        <Link
+          className="episode-report"
+          href={`/${locale}/feedback?type=bug&series=${series.slug}&episode=${current.slug}`}
+          prefetch={false}
+        >
+          {dictionary.reportProblem}
+        </Link>
       </div>
 
       <EpisodeNavigation
