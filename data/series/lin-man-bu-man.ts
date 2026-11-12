@@ -17,6 +17,9 @@ export const HowToBeYourOwnLittleSister: Series = {
     { title: { en: "This House Is Bound to Fall Apart", zh: "这个家早晚得乱套。" }, videoId: "7688718228440304905" },
     { title: { en: "\"I Finally Found You.\"", zh: "“终于找到你了。”" }, videoId: "7691382376093519138" },
     { title: { en: "The Meeting", zh: "见面" }, videoId: "7695089785269996809" },
-    { title: { en: "Reunited", zh: "重逢" }, videoId: "7696818692729916723" },
+    { title: { en: "Going Home", zh: "回家" }, videoId: "7701287611789905202" },
+    { title: { en: "Something Beautiful", zh: "美好" }, videoId: "7703522155195108646" },
+    { title: { en: "Conflict", zh: "矛盾" }, videoId: "7704620794789268774" },
+    { title: { en: "The Scheme", zh: "阴谋" }, videoId: "7706938246525160731" },
   ],
 };

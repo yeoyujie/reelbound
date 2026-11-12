@@ -22,5 +22,7 @@ export const OvernightStar: Series = {
       videoId: "7697136835117485331",
     },
     { title: { en: "The Plunge", zh: "纵身" }, videoId: "7699011535721999721" },
+    { title: { en: "Weightless", zh: "失重" }, videoId: "7702109893759237242" },
+    { title: { en: "Carnage", zh: "修罗" }, videoId: "7705743672080646729" },
   ],
 };

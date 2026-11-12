@@ -27,5 +27,9 @@ export const Nova: Series = {
     { title: { en: "Pressure", zh: "施压" }, videoId: "7694621700990184625" },
     { title: { en: "Coming Home", zh: "回家" }, videoId: "7696818097949051258" },
     { title: { en: "Youth", zh: "青春" }, videoId: "7698667385088211579" },
+    { title: { en: "Rising Star", zh: "新星" }, videoId: "7700955565397161145" },
+    { title: { en: "Up the Mountain", zh: "上山" }, videoId: "7703401383600765819" },
+    { title: { en: "Confession", zh: "坦白" }, videoId: "7704942772398610249" },
+    { title: { en: "Breaking Out", zh: "破圈" }, videoId: "7706842602713496561" },
   ],
 };

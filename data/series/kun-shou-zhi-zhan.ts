@@ -81,5 +81,10 @@ export const ArenaEarth: Series = {
       },
       videoId: "7699842111206809000",
     },
+    {
+      episode: 16,
+      description: { en: "A new mythic species joins the battle!", zh: "新的神话种加入战场！" },
+      videoId: "7705002230093376889",
+    },
   ],
 };

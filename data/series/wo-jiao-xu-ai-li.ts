@@ -159,5 +159,51 @@ export const ANameOfHerOwn: Series = {
       },
       videoId: "7700077241002249513",
     },
+    {
+      season: 2,
+      description: {
+        en: "What showbiz fears most isn't scandal — it's being forgotten!",
+        zh: "娱乐圈最怕不是绯闻，是被遗忘！",
+      },
+      videoId: "7702178213451042089",
+    },
+    {
+      season: 2,
+      description: {
+        en: "You! Why do you always seem to turn up right next to me?",
+        zh: "你！怎么好像随时会出现在我的身边！",
+      },
+      videoId: "7702181598908681506",
+    },
+    {
+      season: 2,
+      kind: "special",
+      title: { en: "Extras: Vlog, Hidden Line & What-If", zh: "番外：Vlog｜隐藏线｜if线" },
+      videoId: "7703875963452542259",
+    },
+    {
+      season: 2,
+      description: {
+        en: "Want to watch me make a fool of myself? I'm going to take showbiz by storm!",
+        zh: "想看我笑话是吧！我要杀翻娱乐圈！",
+      },
+      videoId: "7704988035963735336",
+    },
+    {
+      season: 2,
+      description: {
+        en: "From a small county town in Guizhou to a ten-thousand-seat stage in Qingchuan! Every girl who works hard deserves her own applause!",
+        zh: "从贵州的小县城到晴川的万人舞台！每个努力的女孩都能得到属于自己的掌声！",
+      },
+      videoId: "7706119444254199078",
+    },
+    {
+      season: 2,
+      description: {
+        en: "Where you're born is only the starting point; it can't decide where you end up. The Season 2 finale.",
+        zh: "出生只是起点，却不能划定我的终点！（第二季·剧终）",
+      },
+      videoId: "7706124692704316722",
+    },
   ],
 };

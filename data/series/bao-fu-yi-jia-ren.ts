@@ -187,5 +187,16 @@ export const SuddenlyRichFamily: Series = {
     { title: { en: "98! Fill It Up!", zh: "98！！！加满！！！" }, videoId: "7696453398670237925" },
     { title: { en: "Good English Pays Off — Gotta Study", zh: "英语好啊 得学啊" }, videoId: "7696837102269220209" },
     { title: { en: "Zhao Yiming Is Getting Better", zh: "赵一铭 好起来了" }, videoId: "7700134800174941887" },
+    {
+      title: { en: "Brother Zhao, You're Our Dorm's Chairman!", zh: "赵哥！你就是我们寝室的董事长！" },
+      videoId: "7701643723214166449",
+    },
+    {
+      title: {
+        en: "Friends Are the Best Audience — However You Sing, We're Always in the Front Row",
+        zh: "朋友是最好的观众，不管你唱的怎么样，我们永远坐在第一排",
+      },
+      videoId: "7704984154647520421",
+    },
   ],
 };

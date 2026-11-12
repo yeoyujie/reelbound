@@ -59,5 +59,18 @@ export const DoomsdayMountainLodge: Series = {
       },
       videoId: "7700209430255652130",
     },
+    {
+      season: 2,
+      title: {
+        en: "On the Mountain Road, the First Infected Black Bear",
+        zh: "末日山路上，出现了第一只感染黑熊",
+      },
+      videoId: "7702481670070439195",
+    },
+    {
+      season: 2,
+      title: { en: "Dud Detonators Dug Out of the Mudslide!", zh: "泥石流里刨出哑火雷管！" },
+      videoId: "7705087484836842793",
+    },
   ],
 };

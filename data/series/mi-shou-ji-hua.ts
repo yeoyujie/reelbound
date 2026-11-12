@@ -62,5 +62,22 @@ export const TheLongLifeInitiative: Series = {
       },
       videoId: "7697925721221582120",
     },
+    {
+      part: 2,
+      description: {
+        en: "Five's Yang Jian god-mask is only 10% developed, yet it can pull nearby enemies into the \"Manifest Realm\", where 30 seconds inside pass as 10 in the real world. The episode also holds clues about Number Two and the Mishou essence.",
+        zh: "五号的神格开发能力仅仅只有10%：金色杨戬面具可将周围敌人拖入外界无法察觉的“显圣真境”，领域内30秒仅相当于现实10秒。这集还有二号与弥寿质的线索。",
+      },
+      videoId: "7701269832574045466",
+    },
+    {
+      kind: "compilation",
+      covers: { from: 9, to: 9 },
+      description: {
+        en: "Episode 9 in full: to save the woman he loves, Five burns his own lifeblood to force open the Yang Jian god-form.",
+        zh: "第九集完整版：五号为了救他心爱的女人，燃烧精血强行开启杨戬神格。",
+      },
+      videoId: "7702648178377608482",
+    },
   ],
 };
